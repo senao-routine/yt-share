@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-07-15 | [複数のAIを“オフィス”で可視化する｜Routine Labo](https://senao-routine.github.io/yt-share/20260715AIoffice.html) | https://senao-routine.github.io/yt-share/20260715AIoffice.html |
 | 2026-07-11 | [Grok 4.5 徹底検証 ｜ Routine Labo](https://senao-routine.github.io/yt-share/20260711grok45.html) | https://senao-routine.github.io/yt-share/20260711grok45.html |
 | 2026-07-11 | [GPT-5.6できること7選｜Codexでゲーム・3D・物理演算まで作って検証【Routine Labo】](https://senao-routine.github.io/yt-share/20260711GPT5.6.html) | https://senao-routine.github.io/yt-share/20260711GPT5.6.html |
 | 2026-07-08 | [Claude Codeを"見える化"する — HTMLプレビュー化プロンプト](https://senao-routine.github.io/yt-share/20260708-claude-code-html-preview.html) | https://senao-routine.github.io/yt-share/20260708-claude-code-html-preview.html |
