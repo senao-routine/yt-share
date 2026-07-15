@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>「AIオフィス」を自分で作る コピペ・プロンプト集｜Routine Labo</title>
+<style>
+  :root{
+    --bg:#f6f2e9; --surface:#fffdf8; --surface-2:#f0ead9;
+    --ink:#241f18; --ink-soft:#5c5346; --ink-faint:#8a7f6d;
+    --line:#e2d9c6; --accent:#b9791a; --accent-ink:#8a5a10; --accent-bg:#f6e7cd;
+    --teal:#2f6f68; --code-bg:#26221b; --code-ink:#ece3d2; --code-line:#3a352b;
+    --shadow:0 1px 2px rgba(40,32,18,.05),0 8px 30px rgba(40,32,18,.06);
+    --radius:14px; --maxw:780px;
+    --font-jp:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+    --font-mono:"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono",monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-jp);line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:38px 20px 80px}
+  .kicker{font-size:.78rem;letter-spacing:.08em;color:var(--accent-ink);font-weight:700}
+  h1{font-size:1.7rem;line-height:1.35;margin:.15em 0 .4em}
+  .lead{font-size:1rem;color:var(--ink-soft)}
+  h2{font-size:1.15rem;margin:2em 0 .5em;padding:.3em 0 .3em .7em;border-left:0;background:var(--surface-2);border-radius:8px}
+  .step-no{display:inline-block;background:var(--accent);color:#fff;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px;margin-right:.5em;vertical-align:middle}
+  p{margin:.6em 0}
+  .howto{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin:1.2em 0;box-shadow:var(--shadow)}
+  .howto ol{margin:.4em 0;padding-left:1.3em}
+  .howto li{margin:.3em 0}
+  .note{background:var(--accent-bg);border-radius:10px;padding:10px 14px;font-size:.9rem;color:var(--accent-ink);margin:1em 0}
+  .promptbox{position:relative;margin:.8em 0 1.4em}
+  pre{background:var(--code-bg);color:var(--code-ink);border:1px solid var(--code-line);border-radius:10px;padding:16px 16px 16px;overflow-x:auto;font-family:var(--font-mono);font-size:.84rem;line-height:1.65;white-space:pre-wrap;word-break:break-word}
+  .copybtn{position:absolute;top:8px;right:8px;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:5px 12px;font-size:.74rem;cursor:pointer;font-family:var(--font-jp);font-weight:700}
+  .copybtn:active{transform:translateY(1px)}
+  .divider{height:1px;background:var(--line);margin:2.2em 0}
+  .tips{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow)}
+  .tips ul{padding-left:1.2em;margin:.4em 0}
+  .foot{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--ink-faint)}
+  strong{color:var(--accent-ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">ROUTINE LABO ／ 配布プロンプト集</div>
+  <h1>「AIオフィス」を自分で作る<br>コピペ・プロンプト集</h1>
+  <p class="lead">今このMacで動いている複数のAI（Claude Codeのセッション）を、ドット絵オフィスに“社員”として表示するツールの<strong>プロトタイプ</strong>を、AIへの指示だけで作るためのプロンプト集です。上から順に貼るだけ。</p>
+
+  <div class="howto">
+    <b>使い方（3つだけ）</b>
+    <ol>
+      <li><strong>Claude Code など、コードを書けるAI</strong>を、適当な空フォルダで開く。</li>
+      <li>下のプロンプトを<strong>上から順に1つずつ</strong>貼る。各ステップは「動いたら見せて」で止まるので、確認してから次へ。</li>
+      <li>うまくいかないときは、一番下の「困ったときの追い足しプロンプト」を使う。</li>
+    </ol>
+  </div>
+  <div class="note">⚠️ このツールは<strong>ログを読み取るだけ・すべてローカルで完結</strong>します（外部にデータを送りません）。プロンプトにもその指示を入れています。</div>
+
+  <h2><span class="step-no">STEP 0</span>まず設計だけ相談する（いきなり作らせない）</h2>
+  <div class="promptbox"><button class="copybtn" onclick="cp(this)">コピー</button><pre>これから「今このMacで動いている複数のAI（Claude Codeのセッション）を、
+1枚のドット絵オフィスに“社員”として表示するローカルツール」のプロトタイプを
+一緒に作りたい。いきなり作り込まず、まず設計だけ相談させて。
+次の3点を、私の環境を踏まえて整理して提案して：
+
+1. 何を画面に出すか（例：セッションごとに1人の社員・名前・今の作業状態）
+2. どこからデータを取るか
+   （Claude Codeの会話ログ = ~/.claude/projects/&lt;プロジェクト&gt;/&lt;セッションID&gt;.jsonl。
+    末尾だけ読めば十分）
+3. どう表示するか（1枚のHTML画面・ローカルサーバーで開く・数秒ごとに自動更新）
+
+まずは一番小さく動く構成（MVP）を、使う技術（なるべく標準ライブラリ中心）と
+ファイル構成込みで提案して。私がOKを出すまでコードは書かないで。</pre></div>
+
+  <h2><span class="step-no">STEP 1</span>最小の動くもの（ダミーで1人だけ）</h2>
+  <div class="promptbox"><button class="copybtn" onclick="cp(this)">コピー</button><pre>さっきの設計でOK。まずはダミーデータで「1人だけ」社員が画面に立つ最小版を作って。
+
+- Pythonの標準ライブラリだけでローカルサーバーを立て、ブラウザで開くと
+  1枚のHTML画面が出る
+- 画面には机と、その前にいる簡単な人（ドット絵、なければ丸＋名前でよい）を1人ぶん表示
+- データはまだ固定のダミーでいい（名前＝"テスト社員"、状態＝"作業中"）
+
+起動コマンドと、開くURLも教えて。まず“動くところ”まで。動いたら私が確認する。</pre></div>
+
+  <h2><span class="step-no">STEP 2</span>本物のデータにつなぐ（ログの末尾を読む）</h2>
+  <div class="promptbox"><button class="copybtn" onclick="cp(this)">コピー</button><pre>動いた。次は本物のデータにつなぐ。
+~/.claude/projects/ の中の各プロジェクトフォルダにある
+一番新しい &lt;セッションID&gt;.jsonl を探して、それぞれの「末尾だけ」
+（例：最後の80KBぶん）を読み取り、1セッション＝1社員として画面に出して。
+
+- ファイルは読み取り専用。書き換え・外部送信は絶対にしない
+- 直近数時間以内に動いたセッションだけ表示する
+- 各社員の名前はプロジェクト名（または、セッションIDから毎回同じになる名前）にする
+
+まだ状態は「いる」だけでいい。1機能ずつ足したいので、これができたら見せて。</pre></div>
+
+  <h2><span class="step-no">STEP 3</span>状態を色と吹き出しで表す</h2>
+  <div class="promptbox"><button class="copybtn" onclick="cp(this)">コピー</button><pre>次は状態を分かりやすくして。各セッションのログの「最後のイベント」を見て、
+ざっくり次の3つに分類して表示して：
+
+- 🟢作業中：最近ツールを実行している
+- 🟡指示待ち：最後がこちらへの返答・質問で止まっている
+- 💤休憩中：しばらく動いていない
+
+色（緑／黄／グレー）と、頭上の小さな吹き出し（「実行中」「指示待ち」など）で表現して。
+判定条件は後で調整したいので、どういう基準で分けたかをコメントで残して。動いたら見せて。</pre></div>
+
+  <h2><span class="step-no">STEP 4</span>クリックで詳細を出す</h2>
+  <div class="promptbox"><button class="copybtn" onclick="cp(this)">コピー</button><pre>社員をクリックしたら、その社員（セッション）の詳細が出るようにして。
+
+- 今どのプロジェクトか／直近の動き数件／最後の状態や発言
+- 閉じるボタン、または枠の外をクリックで閉じる
+- 他の社員は見えたままにする
+
+まず「出す→閉じる」が気持ちよく動くところまで。動いたら見せて。</pre></div>
+
+  <h2><span class="step-no">STEP 5</span>オフィスらしく整える（部署でまとめる）</h2>
+  <div class="promptbox"><button class="copybtn" onclick="cp(this)">コピー</button><pre>最後に見た目を“オフィスらしく”整えて。
+
+- 同じプロジェクトのセッションは近くにまとめる（＝部署の島）
+- 背景を簡単なオフィス風にする（床・壁・観葉植物などの雰囲気）
+- 人数が増えてもレイアウトが崩れないようにする
+
+凝りすぎず、一目で「誰が働いていて・誰が待っていて・誰が休んでいるか」が
+分かることを最優先で。動いたら見せて。</pre></div>
+
+  <h2><span class="step-no">STEP 6</span>（発展・任意）画面から指示を送る</h2>
+  <div class="promptbox"><button class="copybtn" onclick="cp(this)">コピー</button><pre>（発展）画面の下に入力欄を付けて、選んだ社員（セッション）に
+一言メッセージを送れるようにしたい。
+まずは仕組みの案（どうやってそのセッションに届けるか）を、
+安全面（ローカルだけで完結・外部に開かない）込みで提案して。
+実装はそのあと一緒に決めよう。</pre></div>
+
+  <div class="divider"></div>
+
+  <h2>🛟 困ったときの追い足しプロンプト</h2>
+  <p><b>エラーが出た</b></p>
+  <div class="promptbox"><button class="copybtn" onclick="cp(this)">コピー</button><pre>エラーが出た。全文を貼るので、原因と直し方を1つずつ教えて。
+直したら、動作確認の手順も教えて。
+（↓ここにエラー全文を貼る）</pre></div>
+  <p><b>動くけどイマイチ</b></p>
+  <div class="promptbox"><button class="copybtn" onclick="cp(this)">コピー</button><pre>動いたけど ◯◯ がイマイチ。△△ な感じに調整して。他の部分は変えないで。</pre></div>
+  <p><b>一度整理したい</b></p>
+  <div class="promptbox"><button class="copybtn" onclick="cp(this)">コピー</button><pre>ここまでを一度整理して。ファイル構成と、各ファイルが何をしているかを
+短くまとめて。次に足すとよさそうな改善も3つ挙げて。</pre></div>
+
+  <div class="divider"></div>
+
+  <div class="tips">
+    <b>コツ（うまく作らせる考え方）</b>
+    <ul>
+      <li><strong>一気に完成を頼まない</strong>。最小から1機能ずつ、「動いたら見せて」で確認しながら育てる。</li>
+      <li><strong>「いい感じに」で丸投げしない</strong>。何を・どこから読んで・どう出すか、を具体的に。</li>
+      <li>迷ったら STEP 0 に戻って<strong>設計から相談</strong>する。</li>
+    </ul>
+  </div>
+
+  <div class="foot">Routine Labo ／ このプロンプト集は自由に使ってください。作った画面はぜひ見せてください。</div>
+</div>
+
+<script>
+function cp(btn){
+  var pre=btn.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(function(){
+    var t=btn.textContent; btn.textContent='コピー済 ✓'; setTimeout(function(){btn.textContent=t;},1300);
+  });
+}
+</script>
+</body>
+</html>
