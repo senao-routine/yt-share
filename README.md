@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-07-18 | [Kimi K3 徹底検証｜UIはFable 5超え？使い方・料金と5本勝負 — Routine Labo](https://senao-routine.github.io/yt-share/20260718KimiK3.html) | https://senao-routine.github.io/yt-share/20260718KimiK3.html |
 | 2026-07-17 | [ルーティンラボ 公式マイページ｜AIとITを、毎日を変える武器に](https://senao-routine.github.io/yt-share/routinelabo-mypage.html) | https://senao-routine.github.io/yt-share/routinelabo-mypage.html |
 | 2026-07-17 | [モデルとエフォートの違い｜同じプログラムを作らせて検証｜Routine Labo](https://senao-routine.github.io/yt-share/20260717model-effort.html) | https://senao-routine.github.io/yt-share/20260717model-effort.html |
 | 2026-07-15 | [Geminiで資料作成｜話しかけるだけで職員会議の資料が完成 — AIの教科書](https://senao-routine.github.io/yt-share/20260715Gemini.html) | https://senao-routine.github.io/yt-share/20260715Gemini.html |
