@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-07-23 | [Gemini 3.6 Flash 実機検証｜台本プレビュー](https://senao-routine.github.io/yt-share/20260723Gemini3.6Flash.html) | https://senao-routine.github.io/yt-share/20260723Gemini3.6Flash.html |
 | 2026-07-21 | [mini test](https://senao-routine.github.io/yt-share/20260721-mini-test.html) | https://senao-routine.github.io/yt-share/20260721-mini-test.html |
 | 2026-07-20 | [AIで作ったキャラを“色付き・可動フィギュア”に｜Hi3Dの作り方まとめ](https://senao-routine.github.io/yt-share/hi3d-figure-guide.html) | https://senao-routine.github.io/yt-share/hi3d-figure-guide.html |
 | 2026-07-18 | [Kimi K3 徹底検証｜UIはFable 5超え？使い方・料金と5本勝負 — Routine Labo](https://senao-routine.github.io/yt-share/20260718KimiK3.html) | https://senao-routine.github.io/yt-share/20260718KimiK3.html |
