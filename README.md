@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-07-29 | [Kimi K3 オープンウェイト公開 — 1.56TB は誰の手に届いたのか](https://senao-routine.github.io/yt-share/20260730KimiK3%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%A6%E3%82%A7%E3%82%A4%E3%83%88.html) | https://senao-routine.github.io/yt-share/20260730KimiK3%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%A6%E3%82%A7%E3%82%A4%E3%83%88.html |
 | 2026-07-26 | [Claude Opus 5 実機検証｜指示を8割消したら、逆に速く正確になった — Routine Labo](https://senao-routine.github.io/yt-share/20260726ClaudeOpus5.html) | https://senao-routine.github.io/yt-share/20260726ClaudeOpus5.html |
 | 2026-07-24 | [ChatGPTボイス × Codex ｜ 声だけでアプリが作れる時代（Routine Labo）](https://senao-routine.github.io/yt-share/20260724ChatGPT%E3%83%9C%E3%82%A4%E3%82%B9Codex.html) | https://senao-routine.github.io/yt-share/20260724ChatGPT%E3%83%9C%E3%82%A4%E3%82%B9Codex.html |
 | 2026-07-23 | [Gemini 3.6 Flash 実機検証｜台本プレビュー](https://senao-routine.github.io/yt-share/20260723Gemini3.6Flash.html) | https://senao-routine.github.io/yt-share/20260723Gemini3.6Flash.html |
