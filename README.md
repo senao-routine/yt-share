@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-07-31 | [GPT-Transcribeを実機検証｜Whisperから乗り換えるべきか](https://senao-routine.github.io/yt-share/20260731GPTTranscribe.html) | https://senao-routine.github.io/yt-share/20260731GPTTranscribe.html |
 | 2026-07-29 | [Kimi K3 オープンウェイト公開 — 1.56TB は誰の手に届いたのか](https://senao-routine.github.io/yt-share/20260730KimiK3%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%A6%E3%82%A7%E3%82%A4%E3%83%88.html) | https://senao-routine.github.io/yt-share/20260730KimiK3%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%A6%E3%82%A7%E3%82%A4%E3%83%88.html |
 | 2026-07-29 | [3Dゲームの素材を全部AIで作る｜主人公・敵・ステージからUnityで動くまで](https://senao-routine.github.io/yt-share/20260729TriverseAI.html) | https://senao-routine.github.io/yt-share/20260729TriverseAI.html |
 | 2026-07-26 | [Claude Opus 5 実機検証｜指示を8割消したら、逆に速く正確になった — Routine Labo](https://senao-routine.github.io/yt-share/20260726ClaudeOpus5.html) | https://senao-routine.github.io/yt-share/20260726ClaudeOpus5.html |
