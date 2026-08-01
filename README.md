@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-08-01 | [DeepSeek V4 Flash を実機検証する — Routine Labo](https://senao-routine.github.io/yt-share/20260801DeepSeekV4Flash.html) | https://senao-routine.github.io/yt-share/20260801DeepSeekV4Flash.html |
 | 2026-07-31 | [文字起こしAIはどれを使えばいいか｜13社を実測して用途別に決めた — Routine Labo](https://senao-routine.github.io/yt-share/20260731GPTTranscribe.html) | https://senao-routine.github.io/yt-share/20260731GPTTranscribe.html |
 | 2026-07-29 | [Kimi K3 オープンウェイト公開 — 1.56TB は誰の手に届いたのか](https://senao-routine.github.io/yt-share/20260730KimiK3%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%A6%E3%82%A7%E3%82%A4%E3%83%88.html) | https://senao-routine.github.io/yt-share/20260730KimiK3%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%A6%E3%82%A7%E3%82%A4%E3%83%88.html |
 | 2026-07-29 | [3Dゲームの素材を全部AIで作る｜主人公・敵・ステージからUnityで動くまで](https://senao-routine.github.io/yt-share/20260729TriverseAI.html) | https://senao-routine.github.io/yt-share/20260729TriverseAI.html |
