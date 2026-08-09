@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-08-09 | [Claude Codeの音声入力は手が離れない｜声で動く開発エージェントを自作した](https://senao-routine.github.io/yt-share/20260809ClaudeCodeVoice.html) | https://senao-routine.github.io/yt-share/20260809ClaudeCodeVoice.html |
 | 2026-08-05 | [リアルタイム音声AIを同じマイクで比べる｜Routine Labo](https://senao-routine.github.io/yt-share/20260805RealtimeVoice.html) | https://senao-routine.github.io/yt-share/20260805RealtimeVoice.html |
 | 2026-08-03 | [GPT-5.6 Luna料金とTerraの違い｜Routine Labo](https://senao-routine.github.io/yt-share/20260803GPT56TerraLuna.html) | https://senao-routine.github.io/yt-share/20260803GPT56TerraLuna.html |
 | 2026-08-03 | [声で自分の作業が動くAIを作る｜Routine Labo](https://senao-routine.github.io/yt-share/20260801RealtimeVoice.html) | https://senao-routine.github.io/yt-share/20260801RealtimeVoice.html |
