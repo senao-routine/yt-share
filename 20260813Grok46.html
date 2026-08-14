@@ -383,10 +383,10 @@
 - 採点用API: window.__RE__ = { test(p,t), results:[{no,pass}], pathologicalMs } をグローバル公開。</code></pre>
   </div>
 
-  <h2>7. 全8課題の結果</h2>
+  <h2>7. 全9課題の結果</h2>
 
   <p>
-    上の2つを含めて、全部で8つの課題を同じ条件で投げました。結果を速い順に並べます。
+    上の2つを含めて、全部で9つの課題を同じ条件で投げました。結果を速い順に並べます。
   </p>
 
   <table>
@@ -403,24 +403,25 @@
       <tr><td>課題6</td><td>ボクセル世界</td><td class="num win">470秒</td><td class="num">892秒</td><td class="num">1.90x</td></tr>
       <tr><td>課題5</td><td>3Dアスレチック</td><td class="num win">346秒</td><td class="num">546秒</td><td class="num">1.58x</td></tr>
       <tr><td>課題4</td><td>3D玉転がし</td><td class="num win">322秒</td><td class="num">412秒</td><td class="num">1.28x</td></tr>
+      <tr><td>課題9</td><td>2Dアクション</td><td class="num win">304秒</td><td class="num">318秒</td><td class="num">1.05x</td></tr>
       <tr><td>課題3</td><td>JRPG</td><td class="num">493秒</td><td class="num win">403秒</td><td class="num">0.82x</td></tr>
       <tr><td>課題7</td><td>ミニ表計算</td><td class="num">385秒</td><td class="num win">314秒</td><td class="num">0.82x</td></tr>
-      <tr><td></td><td><strong>合計</strong></td><td class="num"><strong>2,710秒</strong></td><td class="num">4,134秒</td><td class="num"><strong>1.53x</strong></td></tr>
+      <tr><td></td><td><strong>合計</strong></td><td class="num"><strong>3,013秒</strong></td><td class="num">4,452秒</td><td class="num"><strong>1.48x</strong></td></tr>
     </tbody>
   </table>
 
   <p>
-    <strong>8戦して6勝2敗</strong>。完走率はどちらも8/8で互角でした。
-    最も差が開いた課題1では2.41倍ですが、<strong>合計では1.53倍</strong>です。
+    <strong>9戦して7勝2敗</strong>。生成の完走率はどちらも9/9で互角でした。
+    最も差が開いた課題1では2.41倍ですが、<strong>合計では1.48倍</strong>です。
     JRPGとミニ表計算では Sol の方が速く、<strong>全勝ではありません</strong>。
+    2Dアクションはほぼ互角の1.05倍で、<strong>生成物が小さくなるほど差は縮みます</strong>。
   </p>
 
   <p>
-    品質の方は逆の傾向が出ました。起動時のコンソールエラーはどちらも1件ずつ。
-    ただし <strong>Grok 4.6 は課題5と課題6で、要求されている仕様チェックリストを出しませんでした</strong>。
-    一方 Sol は課題5で全項目に ✅ を付けながら実際にはエラーが出ており、
-    こちらは申告と実態が食い違っています。
-    <strong>速さは Grok 4.6、指示の細部を守る律儀さは Sol</strong> という結果です。
+    品質の方は逆の傾向が出ました。起動時のコンソールエラーは Grok 4.6 が2件、Sol が1件。
+    <strong>Grok 4.6 は課題5と課題6で、要求されている仕様チェックリストを出していません</strong>。
+    申告と実態の食い違いは<strong>両者に1件ずつ</strong>ありました。
+    <strong>速さは Grok 4.6、そのまま動く率と指示の細部を守る律儀さは Sol</strong> という結果です。
   </p>
 
   <div class="note">
@@ -431,6 +432,33 @@
       <strong>この1回でこうだった、という観測</strong>であり、モデルの性質として断定できるものではありません。
     </p>
   </div>
+
+  <h3>1文字で全部が止まった話</h3>
+
+  <p>
+    今回いちばん印象に残ったのは、課題9の2Dアクションです。
+    <strong>Grok 4.6 が出したファイルは、開いても何も動きませんでした</strong>。
+    原因はスクリプト1042行目にあった、余分な閉じ括弧が1つ。
+  </p>
+
+  <div class="promptbox">
+    <div class="head"><strong>問題の1行</strong><span>末尾に余分な閉じ括弧が1つ</span>
+      <button class="copy">コピー</button></div>
+<pre><code>if (game.stageIndex === 2) shade = ((x + y) &amp; 1) ? "#4e342e" : "#3e2723");</code></pre>
+  </div>
+
+  <p>
+    たった1文字ですが、これで約4万字のスクリプト全体が解析できなくなり、
+    ゲームは起動すらしません。それにもかかわらず、モデルが最後に出した自己申告の表は
+    <strong>19項目すべてに ✅</strong> がついていました。
+    起動時のエラーは0件、という項目にもです。
+  </p>
+  <p>
+    そして<strong>この1文字を消すだけで、完全に動きます</strong>。
+    設計の中身はむしろ厚く、実装量も相手より多い。
+    <strong>設計では勝っていたのに、タイポ1つで出荷できない状態になっていた</strong>わけです。
+    生成されたコードをそのまま信じない、という原則がよく分かる例でした。
+  </p>
 
   <h2>8. 50万トークンの裏にある関門</h2>
 
