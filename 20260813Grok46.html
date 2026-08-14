@@ -418,7 +418,7 @@
   </p>
 
   <p>
-    品質の方は逆の傾向が出ました。起動時のコンソールエラーは Grok 4.6 が2件、Sol が1件。
+    品質の方は逆の傾向が出ました。そのまま動いたのは Grok 4.6 が7つ、Sol が8つ。
     <strong>Grok 4.6 は課題5と課題6で、要求されている仕様チェックリストを出していません</strong>。
     申告と実態の食い違いは<strong>両者に1件ずつ</strong>ありました。
     <strong>速さは Grok 4.6、そのまま動く率と指示の細部を守る律儀さは Sol</strong> という結果です。
@@ -432,6 +432,48 @@
       <strong>この1回でこうだった、という観測</strong>であり、モデルの性質として断定できるものではありません。
     </p>
   </div>
+
+  <h3>そのまま動いたのは、9つ中いくつか</h3>
+
+  <p>
+    生成が最後まで終わることと、開いて実際に動くことは別です。
+    全9課題を実際にブラウザで開き、画面のピクセルを数えて判定しました。
+  </p>
+
+  <table>
+    <thead><tr><th>#</th><th>プログラム</th><th>Grok 4.6</th><th>GPT-5.6 Sol</th></tr></thead>
+    <tbody>
+      <tr><td>課題1</td><td>動画共有サイトUI</td><td>動く</td><td>動く</td></tr>
+      <tr><td>課題2</td><td>正規表現エンジン</td><td>動く</td><td>動く</td></tr>
+      <tr><td>課題3</td><td>JRPG</td><td>動く</td><td>動く</td></tr>
+      <tr><td>課題4</td><td>3D玉転がし</td><td>動く</td><td>動く</td></tr>
+      <tr><td>課題5</td><td>3Dアスレチック</td><td>動く</td><td class="lose">エラー</td></tr>
+      <tr><td>課題6</td><td>ボクセル世界</td><td>動く</td><td>動く</td></tr>
+      <tr><td>課題7</td><td>ミニ表計算</td><td class="lose">エラー</td><td>動く</td></tr>
+      <tr><td>課題8</td><td>アニメ付きスライド</td><td>動く</td><td>動く</td></tr>
+      <tr><td>課題9</td><td>2Dアクション</td><td class="lose">画面が出ない</td><td>動く</td></tr>
+      <tr><td></td><td><strong>そのまま動いた</strong></td><td><strong>7/9</strong></td><td><strong>8/9</strong></td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    差は1つだけで、しかも<strong>どちらも落ちています</strong>。
+    そして落ちた原因を調べると、3件とも設計の失敗ではなく<strong>単純なタイプミス</strong>でした。
+  </p>
+
+  <table>
+    <thead><tr><th>課題</th><th>モデル</th><th>原因</th><th>直し方</th></tr></thead>
+    <tbody>
+      <tr><td>課題9</td><td>Grok 4.6</td><td>行末に余分な閉じ括弧が1つ</td><td>1文字消す</td></tr>
+      <tr><td>課題7</td><td>Grok 4.6</td><td>変数を宣言せずに使っている</td><td>var を足す</td></tr>
+      <tr><td>課題5</td><td>GPT-5.6 Sol</td><td>変数を宣言せずに代入している</td><td>const を足す</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    <strong>3件とも、直したら全部動きました。</strong>
+    設計はできているのに、1〜2文字で全体が止まる。これが今回いちばんはっきり出た事実です。
+  </p>
 
   <h3>1文字で全部が止まった話</h3>
 
