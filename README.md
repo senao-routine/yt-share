@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-08-16 | [AI動画を「1本ずつ生成する」のをやめる — Topview Canvas × Seedance 2.5](https://senao-routine.github.io/yt-share/20260818TopviewCanvas.html) | https://senao-routine.github.io/yt-share/20260818TopviewCanvas.html |
 | 2026-08-13 | [Qwen3.8のオープンウェイトが公開｜2.4兆を落とせる時代に、まだ足りないもの](https://senao-routine.github.io/yt-share/20260813Qwen38openweights.html) | https://senao-routine.github.io/yt-share/20260813Qwen38openweights.html |
 | 2026-08-13 | [Grok 4.6 を実機で検証する｜Routine Labo](https://senao-routine.github.io/yt-share/20260813Grok46.html) | https://senao-routine.github.io/yt-share/20260813Grok46.html |
 | 2026-08-10 | [Claude Code 並列運用 — セッション同士が伝言できるようになった](https://senao-routine.github.io/yt-share/20260810CrossSession.html) | https://senao-routine.github.io/yt-share/20260810CrossSession.html |
