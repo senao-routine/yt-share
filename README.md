@@ -11,7 +11,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 | 2026-08-16 | [その映像の主役を、自分にする — AKOOL × Seedance 2.5](https://senao-routine.github.io/yt-share/20260820AKOOL.html) | https://senao-routine.github.io/yt-share/20260820AKOOL.html |
 | 2026-08-16 | [同じ1文を、複数のモデルに投げてみた — Pollo AI × Seedance 2.5](https://senao-routine.github.io/yt-share/20260819PolloAI.html) | https://senao-routine.github.io/yt-share/20260819PolloAI.html |
 | 2026-08-16 | [AI動画を「1本ずつ生成する」のをやめる — Topview Canvas × Seedance 2.5](https://senao-routine.github.io/yt-share/20260818TopviewCanvas.html) | https://senao-routine.github.io/yt-share/20260818TopviewCanvas.html |
-| 2026-08-13 | [Qwen3.8のオープンウェイトが公開｜2.4兆を落とせる時代に、まだ足りないもの](https://senao-routine.github.io/yt-share/20260813Qwen38openweights.html) | https://senao-routine.github.io/yt-share/20260813Qwen38openweights.html |
+| 2026-08-13 | [Qwen3.8-27Bをローカルで動かす｜17GBで動く2.4兆の弟分と、Claude Codeを無料で回す方法](https://senao-routine.github.io/yt-share/20260813Qwen38openweights.html) | https://senao-routine.github.io/yt-share/20260813Qwen38openweights.html |
 | 2026-08-13 | [Grok 4.6 を実機で検証する｜Routine Labo](https://senao-routine.github.io/yt-share/20260813Grok46.html) | https://senao-routine.github.io/yt-share/20260813Grok46.html |
 | 2026-08-10 | [Claude Code 並列運用 — セッション同士が伝言できるようになった](https://senao-routine.github.io/yt-share/20260810CrossSession.html) | https://senao-routine.github.io/yt-share/20260810CrossSession.html |
 | 2026-08-10 | [Claude Code使い方大全｜Routine Labo](https://senao-routine.github.io/yt-share/20260810ClaudeCode.html) | https://senao-routine.github.io/yt-share/20260810ClaudeCode.html |
