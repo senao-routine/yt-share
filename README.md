@@ -10,7 +10,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 |---|---|---|
 | 2026-08-19 | [DeepSeek V4 Pro 0813｜落とせるのに、動かせない](https://senao-routine.github.io/yt-share/20260821DeepSeekV4Pro.html) | https://senao-routine.github.io/yt-share/20260821DeepSeekV4Pro.html |
 | 2026-08-17 | [Gemini 3.7 Flash を実機で検証する｜Routine Labo](https://senao-routine.github.io/yt-share/20260817Gemini37Flash.html) | https://senao-routine.github.io/yt-share/20260817Gemini37Flash.html |
-| 2026-08-16 | [その映像の主役を、自分にする — AKOOL × Seedance 2.5](https://senao-routine.github.io/yt-share/20260820AKOOL.html) | https://senao-routine.github.io/yt-share/20260820AKOOL.html |
+| 2026-08-16 | [主役を固定して、シリーズを作る — AKOOL × Seedance 2.5](https://senao-routine.github.io/yt-share/20260820AKOOL.html) | https://senao-routine.github.io/yt-share/20260820AKOOL.html |
 | 2026-08-16 | [同じ1文を、複数のモデルに投げてみた — Pollo AI × Seedance 2.5](https://senao-routine.github.io/yt-share/20260819PolloAI.html) | https://senao-routine.github.io/yt-share/20260819PolloAI.html |
 | 2026-08-16 | [AI動画を「1本ずつ生成する」のをやめる — Topview Canvas × Seedance 2.5](https://senao-routine.github.io/yt-share/20260818TopviewCanvas.html) | https://senao-routine.github.io/yt-share/20260818TopviewCanvas.html |
 | 2026-08-13 | [Qwen3.8-27Bをローカルで動かす｜17GBで動く2.4兆の弟分と、Claude Codeを無料で回す方法](https://senao-routine.github.io/yt-share/20260813Qwen38openweights.html) | https://senao-routine.github.io/yt-share/20260813Qwen38openweights.html |
