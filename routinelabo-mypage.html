@@ -8,7 +8,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="ルーティンラボ 公式マイページ">
 <meta property="og:description" content="AIとITを、毎日を変える武器に。YouTube・ブログ・道具カタログ・コミュニティの全コンテンツ入り口です。">
-<meta property="og:url" content="https://senao-routine.github.io/yt-share/routinelabo-mypage.html">
+<meta property="og:url" content="https://tools.routinelabo.com/mypage/">
+<link rel="canonical" href="https://tools.routinelabo.com/mypage/">
 <meta property="og:image" content="https://senao-routine.github.io/yt-share/routinelabo-mypage-ogp.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="color-scheme" content="light">
@@ -233,6 +234,16 @@ section,div[id]{scroll-margin-top:70px}
 .cl-card em{font-style:normal;font-weight:600;font-size:13px;margin-top:8px;color:var(--ink)}
 .cl-card:hover em{color:var(--accent)}
 
+/* 運営者ブロック（誰がやっているかの根拠。盛らない・実リンク） */
+.opband{background:var(--bg);padding:0 0 72px}
+.opbox{display:flex;gap:18px;align-items:flex-start;background:var(--surface);
+  border:1px solid var(--line-h);border-radius:var(--radius);padding:22px 24px;max-width:760px;margin:0 auto}
+.opavatar{width:56px;height:56px;border-radius:50%;border:1px solid var(--line-h);flex:none;background:#fff}
+.opname{margin:0;font-weight:700;font-size:14.5px}
+.optext{margin:6px 0 0;font-size:13px;color:var(--ink-soft);line-height:1.9}
+.oplink{display:inline-block;margin-top:8px;font-size:13px;font-weight:600;color:var(--ink);padding:6px 0}
+.oplink:hover{color:var(--accent)}
+
 /* footer */
 footer{background:var(--bg);border-top:1px solid var(--line-h);padding:44px 24px 48px}
 .f-in{max-width:var(--maxw);margin:0 auto;text-align:center}
@@ -371,6 +382,7 @@ footer{background:var(--bg);border-top:1px solid var(--line-h);padding:44px 24px
     <p>本編で解説した内容をブラウザで読める資料版にまとめました。あとで見返したいときに。</p></div>
   </div>
   <div class="doclist">
+      <a class="doc rv" href="https://senao-routine.github.io/yt-share/20260821DeepSeekV4Pro.html"><span class="dd">2026.08.21</span><b>DeepSeek V4 Proは個人で動くのか｜4bitでも832GBの現実とFlashとの違い</b><em>資料を読む →</em></a>
       <a class="doc rv" href="https://senao-routine.github.io/yt-share/20260817Gemini37Flash.html"><span class="dd">2026.08.20</span><b>Gemini 3.7 Flashを実機検証｜3週間で何が伸びたのかベンチと実物で確かめた</b><em>資料を読む →</em></a>
       <a class="doc rv" href="https://senao-routine.github.io/yt-share/20260813Qwen38openweights.html"><span class="dd">2026.08.18</span><b>Qwen3.8 27Bをローカルで動かす｜LM Studioの選び方と3Dゲームが作れた実力</b><em>資料を読む →</em></a>
       <a class="doc rv" href="https://senao-routine.github.io/yt-share/20260813Grok46.html"><span class="dd">2026.08.15</span><b>Grok 4.6を実機検証｜9つの課題でGPT-5.6と比較した速度と料金の落とし穴</b><em>資料を読む →</em></a>
@@ -579,6 +591,17 @@ footer{background:var(--bg);border-top:1px solid var(--line-h);padding:44px 24px
     </div>
   </div>
 </section>
+
+<section class="opband"><div class="wrap">
+  <div class="opbox rv">
+    <img class="opavatar" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD//gAQTGF2YzYyLjExLjEwMAD/2wBDAAgGBgcGBwgICAgICAkJCQoKCgkJCQkKCgoKCgoMDAwKCgoKCgoKDAwMDA0ODQ0NDA0ODg8PDxISEREVFRUZGR//xACbAAEAAwEBAQEAAAAAAAAAAAAABQEEAwIHBgEBAQEBAQAAAAAAAAAAAAAAAAMCAQQQAAIBAwIDBQUFBgcBAAAAAAECAwAEEQUSIRMxQSJhURQjcTJCgVIzYpEkcpKCBhVDNBahsZOyY1MRAAIBAgQDBgQGAwEAAAAAAAECABEDEiExQVFxYYEioZEy0UITsrGC0nPwQ1JiI3Iz/8AAEQgAeAB4AwEiAAIRAAMRAP/aAAwDAQACEQMRAD8A+70pVV5pWXVUq6RFKVVIl0pilIilMUpEUpVUiKulKRFKUpEUqqUiKUrHqOoLYRphDPPM3Lt7dThppcZxn5UUd6RzwVeNcZggLE0AnVUuQqipM931/badGJLiTYCdqKAWkkc9EijXLux8lBrCH1rUeMax6TAehlVbi8YefLzyIfcxkYdorrYaWYZPWXji5vnGDLj2cCn+zaqfgQdrfG/VjUlU8L3M2JRdkU0b8TDPsXzlMSWslAdt3YVX8CnLtbykNJoVnt3X11f3eWVcz3UyoWdgqgRW5ijGWIHw1yn0P+W7eWGGW2gSSdisQMkoZiqljg8zPQfnUrcTCwt7q5dpJVQPLs6kBVHs02Lnbkdu4gkknFZtP1Br6WSOa3SOW3EcqlJBMm2dW24kUBQ+zgy5zxyO7g1hrdkMEwW8TaYlxc6nPUA0zlFuXypfHcwrrhbDntRctCRXKcv8vQQ/4S71Cybs5V1JIn1iuOchHhgVRn1jTeNxGmqQDrLapyrtB5tbEmOXHbymDfhqUQvJypDvhG0loXCZywGA5BbBQ/YbBJrrW/kqM7eK2f8AE5dqHu+AMn89jlcw3RviGfY473iRM9ne22oQia2lWWMnGRkFWHVHU4ZGHarAEV3qLvtMkExvtOKw3uO+p4Q3ij+1cAfN9iUd5T1yK1affx6jBzUVo2VjHLDJwkhlX4opB5jsPRhgjga6jnFgcANsR6XHEcCNxtOOgw40JK6EH1IeB4g7NvNVKVdUk4pSlIlVdVSkSmZY1Z2IVVBZmPQKBkk+AHGorSY2vZH1aZSGnXZaI3WCzzleHY8/3knbjavZV67meK3sFJBv7hYXx1FugMs/5xoU/iqVwAAAMADAA6ADoB7qn67nS3Q/jP5R95X/AM7VfiuVHJB+Y/aK5qd0khWXdgKhj7hEbjLZOBu3MGGQxxgDFda4h4/1AjKo6/eNsOA5jBDN8O/C46HpwzWzt+9pMb/veZrS3e1juEurjnpLcPs5ixqoSduEe0Djl2K4JPZXqC3t7JlSGOKzV5ZBy1SMeoO0uCCpyMd5gOuARgCs6Xel60OT3bnlbZgGiYB+W/CWHcMOpZeBQsCK1RS3E0kUioFtXhDbZFZLhXPRSh+HhjgfGpLhyw0YD0kHEdc6nYDnKtjzxVUn1A90ad2g3J5TJcpfT6taiJ4/RwIzzqyN943BMMHAd8ZKrjag7xyStSTOkbrufaZCI0VjwLAMcKPtEZJ8BUZYan/WBcQhWt/ZgiSGUNIgcsoDnZiKcbSShzgEVKq6tuAO4odreDbQcHxwQfrXbWFsTKS2Nq1NeVANaACcu4lorKFKLSgpprUnSpJnqobUV/pl0mqJwifZDqCjoYidsV1+1Axwx7YyfKpivE0UdxFJDIoaORGR1ParDBH5GtXExrlkwzU8GGnsekzbfA2eanJhxU6+46zpVVG6FLI9iIZTumtJJLSQnqxgbarn9uPY31qTrqNjVW4itOHTsnHTA7LrQ0rx69sUpStTMqlKUiRcvtdetgelvp88g/anmjjz+6jD61KVFju/zA2fn0tcfwXTZ/7CpSp2v5P1G8KD7Sl3+P8ATXxqfvFeJ/umBjeUEbSiEBiGO04JZMYByeIOOnGvdKoc5MZGRNppcemycx7m4uORatHBzIwVggXaWVeWmWbKjHHeVGONXb3zXdpHqVvFPK8kap6cs6JwckuqMvb8r44oR2VulBhjZlmSP2quz3BLIqlhvUZddmV4JxwpOcVmlZEjg701oiTu4CSQBHCFisTksV5c+dyIpB6Du1DD8vJe6ACab4iRRqknQcZfEbmbd5iQK7YQDVcIA1PCbMMXxtjCMhLgEiTeSPs8MYzls5z0rJpWmjTUlHNmkM08szCSQyAF3OApbLcE2qSSc4rUsERl9Ty9srRKhY/EEzu2HBI4E9ldapgBIYjMVwnofKTxkAqDk1MQ6jzilKVuYkXY+z1bVoux/SXA98kLRsfqYRUpUXbcdb1E/ZtLFT791w3+xqUqdn0n/u59ZlL3qHW3b+gS6UpVJOVSrpSJE6h+n1TS7j5ZDPZOfGZBJFn+OLA8TUtWLVrJr+ylhjIWUbZIH+zPEweJv3wAfAmvWnXq6jaRXCjaXGHjPWOVTtkjbxRwVqS9266/2o48grDwB7ZVu9aRv6VQ+ZZT4kdk1UpSqyUjdegWfTbhiSGt0e5jOFYCWGNiu5XVkZfNWU/nWTU0DWrofTKbiXTx3I0M3LleOB3dZFdM4LJGwXujhWvVP1bw6auf1GZLkj5bSMjevgZ2xEPAseyvdzEt3E9pIxfnmURzQR9y35JBjDuGYCSNwCvTLDGBXnuLja5QfCE5tnl5ECei22BbdT8RfkuWfmCZsiiWCOOJM7I0VFySTtQADJPEnA617rJp1093bhpQFnjZobhB0WaPg+PwtwdPNWFa6upDKCNKZe0gwKsQdQc/ftirpWHVrxrK0dohuuJCIbZPt3EvdjHuB77eSqTRmCKWOgFYVS7BRqTScNH9tNqd32TXhjQ+cdoiw5HhzBJUpWewtFsLSC2Q5EMaru7WbqznxZssffWis2lKooOup5k1PiZq6wZ2I00HICg8BLpSlbmIqqUpEuoW5zol3JegH0N0wN4oGfTzcFF2B/8ANxhZ/LAfzqZoQGBBAIIIIIyCD1BB6g1i4mMChowNVbgfY6EcJu2+AmoqpFGXiPcag8YBDAEEEEZBByCD0IPaDVO6RI0jsFRFLMx6KqjJJ9wqHEFzoefSxvd6fnJtV4z2nn6bJ9rD/wCJO5fkyOFedUul1TTC1g/qIzKgnWNS0gjGSyPFjmDDheYm3fs3AA1g36K1VpcUE4OPVT8Q5abzYsYmWjVtsQMfDow+E88jtOWlQvqkt1fztNGkzBY0SWSE7U+BSY2VvZqemcc1pPIVttormTnJHc3UCRysnt4IXdvxxyFRkHzdXPmTUYb+3e3t4JNMu5Et3jkTMd4DzYzkSErajJ3ZY54EniK0S67z43jk068KOpVhy7sZB68Ragj6VFHtKBVs9SRjBZjrWgyFZe4l1iaJlkADgIVVyFATmacojL6Tq+ySSSSG+CjmSHLc0cEZmwMnPsifJoR2VPV+W1G9GoWyW62F4hTGxhFdFgAMYUm3XvEY2lmADhWJ4VOSahHp9pA9/IsczRoGRe88k20bkhjXLSEtnAUGt2Liqbgr3B3gxqAMWq1NN8xJ37bMLZp/sPdKihLYdGoK7ZGbHdIkZ3ZURFLMzHCqoGSSTwAAqJsVfVLoalIrLBGrLYRMMEq/B7x1PENKO7EDxWPj1aqFrc6yyyX0Zt7NSGjsGILzEHKyXpBK4HVYASM8XJ6VMVQVukEghAagHVjsxGwGwOpzkzSyCAQXIoSMwo3UHcncjIDKKUpVZKXSlKRFKUpEqlXVUiKw3ekWl3Jz8PBcYwLm2cwze5mXg48JAwrdSuMiuKMAR1mldkNVJB6SL9NrVvwiv7a6XsF5bFX+stsyA+/l1fM1/pydK9/PuiP3eQD/AK1J0rHyqaPdHTGT9VTNfN4paPXAB9NBIv0usXHCfUIbZe1bK27/APzXLS494jFd7PSbSycyojSTsMNczu007eHMfJA/Cm1fCttK6LSA1NWI3YliOVch2ThuuRQUUHUIAoPOmZ7Yq6VVbmIpSrpEUpSkRSlKRFKUpEUpSkRSlKRFKUpEUpSkSqulKRFKUpE//9k=" alt="セナオのアイコン" width="56" height="56" loading="lazy">
+    <div>
+      <p class="opname">運営: セナオ / ルーティンラボ</p>
+      <p class="optext">最新AIツールの実機検証をYouTubeで毎週配信し、手順は420本以上の記事に整理しています。配布している資料や道具は、すべて実際の制作現場で使っているものです。</p>
+      <a class="oplink" href="https://www.youtube.com/@it-skill_routinelabo">チャンネルで実際の検証を見る →</a>
+    </div>
+  </div>
+</div></section>
 
 <footer>
   <div class="f-in">
