@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-08-27 | [オープンウェイトとは何か｜手元で動くAIの選び方](https://senao-routine.github.io/yt-share/20260827OpenWeight.html) | https://senao-routine.github.io/yt-share/20260827OpenWeight.html |
 | 2026-08-27 | [GLM-5.3-Flash（ox-alphaの正体）｜Routine Labo](https://senao-routine.github.io/yt-share/20260827GLM53Flash.html) | https://senao-routine.github.io/yt-share/20260827GLM53Flash.html |
 | 2026-08-23 | [AI動画編集ソフトの単価を数える — HitPaw Edimakor](https://senao-routine.github.io/yt-share/20260823Edimakor.html) | https://senao-routine.github.io/yt-share/20260823Edimakor.html |
 | 2026-08-19 | [DeepSeek V4 Pro 0813｜落とせるのに、動かせない](https://senao-routine.github.io/yt-share/20260821DeepSeekV4Pro.html) | https://senao-routine.github.io/yt-share/20260821DeepSeekV4Pro.html |
