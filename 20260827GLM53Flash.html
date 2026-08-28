@@ -139,7 +139,7 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
 
 <p>8月14日の公式ブログには、<strong>「2週間後に重みを公開する」</strong>と書かれています。Hugging Face へのリンクまで貼られています。</p>
 
-<p>そのリンクは、<strong>2026年8月27日の時点でまだ開けません</strong>。<code>zai-org</code> の下に GLM-5.3 のリポジトリは存在せず、公開されているのは Flash だけです。独立評価機関の Artificial Analysis も、GLM-5.3 を <em>proprietary</em>（重み非公開）として扱っており、「重みが公開されれば、公開モデルの首位に並ぶ」という書き方をしています。</p>
+<p>このリンクは <strong>2026年8月27日の時点では開けませんでした</strong>。そして<strong>公約の期限だった8月28日をまたいだ、日本時間の8月29日0時22分に公開されました</strong>。容量は <strong>755.6GB</strong>（141分割・fp8）です。</p><p>ひとつ注意があります。<strong>MITライセンスなのは Flash だけ</strong>で、本体は独自の「GLM-5.3 License」です。利用・改変・再配布・商用のいずれも自由ですが、言語モデルを他社へ提供する事業をしていて12か月の合計売上が100億ドルを超える場合にだけ、Z.AI の審査が必要という条項が付いています。個人と多くの企業にとっては実質的に制限はありません。</p>
 
 <div class="promptbox">
   <div class="promptbar"><span class="nm">本体の重みが存在するか、その場で確かめる</span>
@@ -148,7 +148,7 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
 </div>
 
 <div class="promptbox">
-  <div class="promptbar"><span class="nm">zai-org の最新5件を一覧で出す</span>
+  <div class="promptbar"><span class="nm">本体の容量をその場で出す</span>
     <button class="copybtn" data-t="curl -sL &quot;https://huggingface.co/api/models?author=zai-org&amp;sort=lastModified&amp;direction=-1&amp;limit=5&quot; \
   | python3 -c &quot;import json,sys; [print(m['modelId'],'|',m.get('lastModified')) for m in json.load(sys.stdin)]&quot;">コピー</button></div>
 <pre>curl -sL "https://huggingface.co/api/models?author=zai-org&amp;sort=lastModified&amp;direction=-1&amp;limit=5" \
@@ -312,8 +312,8 @@ claude</pre>
 <tbody>
 <tr><td>Claude Code を毎日回していて、従量課金が痛い人（$18から・3倍枠）</td><td>最高精度が要る本番のコード（端末操作で上位に届いていない）</td></tr>
 <tr><td>画面を見て直させたい作業（画面設計・スライド・帳票）</td><td>動画理解が主目的（Gemini 3.7 Flash に負けている）</td></tr>
-<tr><td>事務仕事の自動化（実務評価1位・書類読み取り1位）</td><td>今すぐ本体 5.3 の重みが欲しい（まだ無い）</td></tr>
-<tr><td>重みを自社に置きたい組織（MIT・商用可）</td><td>手元の普通のPCで動かしたい（4bitでも177.6GB）</td></tr>
+<tr><td>事務仕事の自動化（実務評価1位・書類読み取り1位）</td><td>重い3D級の生成を一発で任せたい（実測で完走しなかった）</td></tr>
+<tr><td>重みを自社に置きたい組織（Flash は MIT・商用可）</td><td>手元の普通のPCで動かしたい（4bitでも177.6GB）</td></tr>
 </tbody>
 </table>
 </div>
@@ -326,7 +326,7 @@ claude</pre>
     <li>GLM-5.3-Flash 公式ブログ（2026-08-26）— <a href="https://z.ai/blog/glm-5.3-flash">z.ai</a></li>
     <li>GLM-5.3 公式ブログ（2026-08-14）— <a href="https://z.ai/blog/glm-5.3">z.ai</a></li>
     <li>価格表・GLM Coding Plan・Claude Code設定 — <a href="https://docs.z.ai/guides/overview/pricing">docs.z.ai</a></li>
-    <li>モデル本体（MIT・328.4GB）— <a href="https://huggingface.co/zai-org/GLM-5.3-Flash">huggingface.co</a></li>
+    <li>GLM-5.3-Flash の重み（MIT・328.3GB）— <a href="https://huggingface.co/zai-org/GLM-5.3-Flash">huggingface.co</a></li>
     <li>独立評価 — <a href="https://artificialanalysis.ai/models/glm-5-3-flash">artificialanalysis.ai</a></li>
     <li>脆弱性開示台帳 — <a href="https://cvd.z.ai/">cvd.z.ai</a></li>
   </ul>
