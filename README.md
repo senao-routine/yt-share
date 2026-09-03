@@ -8,7 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
-| 2026-09-04 | [Gemini 3.8 Flash は実質値上げだったのか](https://senao-routine.github.io/yt-share/20260903Gemini38Flash.html) | https://senao-routine.github.io/yt-share/20260903Gemini38Flash.html |
+| 2026-09-04 | [コンソールエラー0件でも動かない — Gemini 3.8 Flash 実機検証](https://senao-routine.github.io/yt-share/20260903Gemini38Flash.html) | https://senao-routine.github.io/yt-share/20260903Gemini38Flash.html |
 | 2026-09-04 | [編集ゼロの画面収録｜FocuSee の使い方と2026年に変わったこと](https://senao-routine.github.io/yt-share/20260903FocuSee.html) | https://senao-routine.github.io/yt-share/20260903FocuSee.html |
 | 2026-09-02 | [Claude Fable 5.1 を前世代と比べる — 台本プレビュー](https://senao-routine.github.io/yt-share/20260902ClaudeFable51.html) | https://senao-routine.github.io/yt-share/20260902ClaudeFable51.html |
 | 2026-09-01 | [潰れた文字はAIで読めるのか — 画像高画質化の実力を測る](https://senao-routine.github.io/yt-share/20260815FotorPea.html) | https://senao-routine.github.io/yt-share/20260815FotorPea.html |
