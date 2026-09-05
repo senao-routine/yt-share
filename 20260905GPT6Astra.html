@@ -268,9 +268,19 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);
 
 <p>
   ベンチマークの数字は他人が測ったものです。自分の手で確かめるために、
-  毎回この基準線の課題を投げています。<strong>ワンショット厳守・追加指示なし・プロンプトは一字一句変えない</strong>のがルールです。
-  今回は <strong>GPT-6 Astra</strong> と <strong>Claude Fable 5.1</strong> に、まったく同じ文字列を投げます。
+  固定の検証コースを毎回投げています。<strong>ワンショット厳守・追加指示なし・プロンプトは一字一句変えない</strong>のがルールです。
+  今回は <strong>GPT-6 Astra</strong> と <strong>Claude Fable 5.1</strong> に、まったく同じ文字列を
+  <strong>11課題ぶん</strong>投げました。
 </p>
+
+<ul>
+  <li>課題1 マリオ風2Dアクション（基準線）／課題3 3Dアスレチック／課題8 ドラクエ風RPG</li>
+  <li>課題13 3Dレーシング／課題16 初代ポケモン風GB／課題17 スマブラ風3D対戦</li>
+  <li>課題20 3D超クールWebサイト／課題21 3Dシューティング／課題22 X風SNSアプリ</li>
+  <li>課題27 ハーネスエンジニアリング図解／課題29 3D鬼ごっこ</li>
+</ul>
+
+<p>下は代表として、毎回必ず出題している<strong>課題1（基準線）</strong>の全文です。</p>
 
 <h3>投げるプロンプト（全文）</h3>
 
@@ -308,13 +318,15 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);
 
 <div class="promptbox">
 <button class="copybtn">コピー</button>
-<pre>python3 tools/run.py --label GPT6Astra初回 --prompts kadai1 --lanes gpt6-astra,fable51-cli-write --runs 1</pre>
+<pre>python3 tools/run.py --label GPT6Astra初回 \
+  --prompts kadai1,obby3d,odaiB,racing3d,gb_monster,smash3d,web3d,shooter3d,sns_app,infographic,tag3d \
+  --lanes gpt6-astra,fable51-cli-write --runs 1</pre>
 </div>
 
 <p>見るのはこの3点です。</p>
 <ol>
   <li><strong>起動時のコンソールエラーが0件か</strong>（F12 を開いて実物で確認する）</li>
-  <li><strong>可変ジャンプとコヨーテタイムが体感で分かるか</strong>（ボタンを短く押す／崖の先で押す）</li>
+  <li><strong>実際に遊べるか</strong>（見た目はできているのに操作すると動かない、が一番多い落とし穴）</li>
   <li><strong>自己申告の仕様チェックリストに嘘の ✅ が無いか</strong></li>
 </ol>
 
