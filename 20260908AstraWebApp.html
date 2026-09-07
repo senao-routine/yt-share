@@ -373,8 +373,16 @@ test('4MiB級の画像でも保存でき、開き直しても読める', async (
 
 <p>
   超えると <code>QuotaExceededError</code> が出て、保存が失敗します。
-  3本目のテストはこれを捕まえています。だから AI は、縮小するなり別の保存先を使うなり、
-  <strong>自分で正しい実装に行き着くしかなくなります。</strong>
+  3本目のテストはこれを捕まえています。だから AI は<strong>画像を縮めてから入れる</strong>という
+  正しい実装に行き着くしかなくなります。
+</p>
+<p>
+  ちなみに「IndexedDB に置けばいい」と思うかもしれませんが、<strong>今回の受入ゲートはそれを通しません</strong>。
+  ゲートは保存内容を <code>storageState</code> で次のブラウザへ運んでいて、
+  <strong>確実に運べるのは localStorage までだから</strong>です（実測）。
+  だから依頼文の側に「<strong>保存先は localStorage を使う</strong>」と1行書いてあります。
+  <strong>ゲートが暗黙に前提していることは、依頼文にも書かないとフェアじゃない</strong> ——
+  AIは聞き返せないので、書かなければそのまま外します。
 </p>
 
 <div class="note">
@@ -511,9 +519,13 @@ network_access = true</pre>
   <p style="font-size:19px;font-weight:700;margin-bottom:8px">
     この2つが書いたコードの「出来」は、誰が採点するのか？
   </p>
+  <p>
+    答えは、<strong>別のモデルに採点させる</strong>ことです。
+    <strong>作った本人に、合否を出させない。</strong>
+  </p>
   <p style="margin-bottom:0">
-    少なくとも、<strong>作った本人に採点させるわけにはいかない</strong>。
-    その話は次回やります。
+    ——ただ、それを「仕組み」にするには、<strong>設定ファイルに何をどう書くか</strong>が要ります。
+    その中身は、次回。
   </p>
 </div>
 
