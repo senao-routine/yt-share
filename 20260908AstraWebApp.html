@@ -204,10 +204,15 @@ async function expectImageDecoded(img: Locator) {
 //   同じタブの reload では blob: URL が生き残る（実測）。別タブでも、元のタブが開いたままなら生き残る。
 //   ユーザーが実際にやるのは「閉じて、あとで開き直す」。
 //   → 保存された内容だけを引き継いだ“まっさらなブラウザ”で開き直して確かめる。
-async function reopenInFreshBrowser(page: Page, browser: Browser) {
+async function reopenInFreshBrowser(page: Page, browser: Browser, errors?: string[]) {
+  // ⚠ storageState が確実に運べるのは localStorage まで。
+  //   IndexedDB に Blob で置く実装は、ここで復元できず“正しいのに落ちる”（実測）。
+  //   だから依頼文の側で「保存先は localStorage」と決めてある＝ゲートの前提は依頼文にも書く。
   const state = await page.context().storageState();
   const ctx = await browser.newContext({ storageState: state, baseURL: 'http://localhost:5173' });
   const fresh = await ctx.newPage();
+  // ★開き直した側の例外も拾う（復元中の QuotaExceededError はこちらで出る）
+  if (errors) fresh.on('pageerror', (e) =&gt; errors.push(`${e.name}: ${e.message}`));
   await fresh.goto('/');
   return fresh;
 }
@@ -246,11 +251,12 @@ test('4MiB級の画像でも保存でき、開き直しても読める', async (
   await page.getByTestId('memo-save').click();
   await expect(page.getByTestId('memo-item')).toHaveCount(1);
 
-  const fresh = await reopenInFreshBrowser(page, browser);
+  const fresh = await reopenInFreshBrowser(page, browser, errors);
   await expect(fresh.getByTestId('memo-item')).toHaveCount(1);
   await expectImageDecoded(fresh.getByTestId('memo-item').first().getByRole('img'));
 
-  // ★localStorage は 1オリジン 5 MiB。素の base64 で入れると QuotaExceededError で落ちる
+  // ★保存できる量には上限がある（localStorage なら 1オリジン 5 MiB）。
+  //   素の base64 を入れると QuotaExceededError で落ちる。開き直した側の例外も見る
   expect(errors.join('\n')).not.toMatch(/QuotaExceeded/i);
 });</pre>
 </div>
@@ -392,6 +398,7 @@ test('4MiB級の画像でも保存でき、開き直しても読める', async (
 - 保存したメモは一覧に新しい順で並ぶ。画像があればサムネイルを表示する
 - ページをリロードしても、メモも画像も残っている
 - 依存パッケージは追加しない。app/index.html だけで完結させる（素の HTML / CSS / JS）
+- 保存先は localStorage を使う（受入テストがそれを前提にしている）
 
 完了条件:
 - `npx playwright test` が全部緑になること
