@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-09-09 | [GPT Image 2.5 を実測する｜「API料金2倍」は誤報だった](https://senao-routine.github.io/yt-share/20260910GPTImage25.html) | https://senao-routine.github.io/yt-share/20260910GPTImage25.html |
 | 2026-09-09 | [ChatGPTのサブスクだけでゲームを作り、その値段を数えた — Routine Labo](https://senao-routine.github.io/yt-share/20260908AstraCost.html) | https://senao-routine.github.io/yt-share/20260908AstraCost.html |
 | 2026-09-08 | [GPT-6 Astraの使い方｜同じ1文でLPを4本作らせたら、全部おなじ顔になった](https://senao-routine.github.io/yt-share/20260908GPT6AstraLP.html) | https://senao-routine.github.io/yt-share/20260908GPT6AstraLP.html |
 | 2026-09-08 | [作らせる前に、これを置く — Routine Labo](https://senao-routine.github.io/yt-share/20260908AstraWebApp.html) | https://senao-routine.github.io/yt-share/20260908AstraWebApp.html |
