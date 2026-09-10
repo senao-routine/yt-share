@@ -90,7 +90,8 @@ font-size:12.5px;color:var(--ink-faint)}
 <p><b>速度は V4 Pro の 2.41倍。</b>ここは宣伝どおりでした。ところが<b>同じお題の実費は $0.003428 対 $0.003415 で、差は1.004倍</b>。ほとんど同じです。</p>
 <p>理由は出力の内訳にあります。V4.1 Flash は出力2,833トークンのうち<b>1,723トークン（61%）が推論トークン</b>で、V4 Pro の25%を大きく上回ります。<b>単価が3分の1でも、吐くトークンが2.4倍なら請求は戻る</b>ということです。</p>
 <div class="note"><b>この表は1回だけの計測です。</b>検証コースの運用ルール（同一課題3回・中央値）は適用していません。乗り換えを判断するなら、下のスクリプトで<b>自分のお題で測り直してください。</b></div>
-<div class="pbox"><div class="ttl">実行スクリプト（そのまま貼って動きます）</div><button class="copy">コピー</button><pre>cd &quot;~/works&quot; &amp;&amp; set -a &amp;&amp; source .env &amp;&amp; set +a
+<div class="pbox"><div class="ttl">実行スクリプト（そのまま貼って動きます）</div><button class="copy">コピー</button><pre># 事前に OpenRouter の APIキーを環境変数へ入れておきます
+# export OPENROUTER_API_KEY=&quot;sk-or-...&quot;
 python3 - &lt;&lt;&#x27;PY&#x27;
 import json,os,time,urllib.request
 KEY=os.environ[&quot;OPENROUTER_API_KEY&quot;]
