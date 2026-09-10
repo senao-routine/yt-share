@@ -531,9 +531,27 @@ test('4MiB級の画像でも保存でき、開き直しても読める', async (
 </table>
 
 <p>
-  これを毎回書くわけではありません。呼び出し側のラッパーが<strong>必ず先頭に付ける</strong>ようにしてあるので、
-  忘れようがない形になっています。
+  やり方は簡単で、<strong>依頼文の先頭にこの4つを書いておくだけ</strong>です。ただのテキストなので、
+  コピーして使えます。毎回書くのが面倒になったら、自分でスクリプトにまとめればいい ——
+  私はそうしていますが、<strong>最初は手で書いて十分</strong>です。
 </p>
+
+<p>そのうえで、2つ目のAIに同じ依頼文を渡します。</p>
+
+<div class="promptbox">
+  <button class="copybtn">コピー</button>
+<pre># ① まず既定のまま渡す（ネットワークの指定をしない）
+cd ~/project/develop/"20260908 memo-harness-codex"
+codex exec --skip-git-repo-check -m gpt-6-astra \
+  --sandbox workspace-write \
+  "$(cat 依頼文.md)"</pre>
+</div>
+
+<div class="note">
+  <code>--skip-git-repo-check</code> を忘れると、git 管理外のフォルダでは
+  <code>Not inside a trusted directory…</code> と出て<strong>依頼を読む前に止まります</strong>。
+  デモ用のフォルダは git 管理外なので、これが要ります。
+</div>
 
 <h3>そして、実際にぶつかる壁</h3>
 
@@ -557,8 +575,11 @@ test('4MiB級の画像でも保存でき、開き直しても読める', async (
 
 <div class="promptbox">
   <button class="copybtn">コピー</button>
-<pre>[sandbox_workspace_write]
-network_access = true</pre>
+<pre># ② ネットワークを開けて、同じ依頼をもう一度（足すのはこの1行だけ）
+codex exec --skip-git-repo-check -m gpt-6-astra \
+  --sandbox workspace-write \
+  -c sandbox_workspace_write.network_access=true \
+  "$(cat 依頼文.md)"</pre>
 </div>
 
 <p>
