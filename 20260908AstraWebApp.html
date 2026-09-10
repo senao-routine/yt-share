@@ -536,7 +536,47 @@ test('4MiB級の画像でも保存でき、開き直しても読める', async (
   私はそうしていますが、<strong>最初は手で書いて十分</strong>です。
 </p>
 
-<p>そのうえで、2つ目のAIに同じ依頼文を渡します。</p>
+<p>
+  そのうえで、2つ目のAIに同じ依頼文を渡します。まず<strong>受入ゲートだけをコピーした別フォルダ</strong>を作ります
+  （<code>node_modules</code> は持っていきません。あとで出てくる「ネットワークの壁」を再現するためです）。
+</p>
+
+<div class="promptbox">
+  <button class="copybtn">コピー</button>
+<pre>rsync -a --exclude node_modules --exclude 'app/index.html' \
+  ~/project/develop/"20260908 memo-harness"/ \
+  ~/project/develop/"20260908 memo-harness-codex"/
+cd ~/project/develop/"20260908 memo-harness-codex"
+echo '&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;title&gt;memo&lt;/title&gt;' &gt; app/index.html</pre>
+</div>
+
+<p>次に、渡す依頼文をファイルにしておきます（先頭に、さっきの4項目を書き足しておきます）。</p>
+
+<div class="promptbox">
+  <button class="copybtn">コピー</button>
+<pre>cat &gt; 依頼文.md &lt;&lt;'EOF'
+書ける場所: このフォルダの中だけ。それ以外には書かない
+触らないもの: 保存や履歴の操作／設定ファイルを開いて読む／頼んでいない変更や削除
+迷ったとき: 止まらずに進めて、置いた前提を最後に書き残す
+報告の形式: 何をしたか・変更したファイル・実行した検証コマンドと結果
+
+app/ に、画像を1枚つけられるメモアプリを作ってください。
+
+要件:
+- メモの本文を書いて保存できる
+- 画像ファイルを1枚だけ添付できる（任意）
+- 保存したメモは一覧に新しい順で並ぶ。画像があればサムネイルを表示する
+- ページをリロードしても、メモも画像も残っている
+- 依存パッケージは追加しない。app/index.html だけで完結させる（素の HTML / CSS / JS）
+- 保存先は localStorage を使う（受入テストがそれを前提にしている）
+
+完了条件:
+- `npx playwright test` が全部緑になること
+- テストは tests/memo.spec.ts に既にある。テストは修正しないこと。テストに合わせて実装すること
+EOF</pre>
+</div>
+
+<p>準備ができたら、実行します。</p>
 
 <div class="promptbox">
   <button class="copybtn">コピー</button>
