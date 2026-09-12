@@ -276,7 +276,12 @@ export default defineConfig({
   </tbody>
 </table>
 
-<p>これが受入条件の本体です。<code>tests/pixel.spec.ts</code> に置きます。</p>
+<p>
+  これが受入条件の本体です。<code>tests/pixel.spec.ts</code> に置きます。
+  <strong>5本あります</strong>——「閉じて開き直しても残るか」の3本に加えて、
+  <strong>16個ごとに行が折り返しているか・8色とも違う色か・ドラッグでなぞって塗れるか</strong>も見ています
+  （数を数えるだけだと、256個を1列に並べた実装でも通ってしまいます）。
+</p>
 
 <div class="promptbox">
   <button class="copybtn">コピー</button>
@@ -342,6 +347,46 @@ test('塗っていないマスは、白のままになっている', async ({ co
 
   const fresh = await closeAndReopen(context, page);
   await expect(fresh.locator('[data-testid="pixel-cell"][data-i="255"]')).toHaveCSS('background-color', WHITE);
+});
+
+test('マス目と色パレットが、仕様どおり並んでいる', async ({ page }) =&gt; {
+  await page.goto('/');
+  await expect(page.getByTestId('pixel-grid')).toBeVisible();
+  await expect(page.getByTestId('pixel-cell')).toHaveCount(256);   // 16×16
+  await expect(page.getByTestId('color-swatch')).toHaveCount(8);
+  await expect(page.getByTestId('pixel-save')).toBeVisible();
+
+  // ★数だけ数えても足りない。「16個で1行」に並んでいるかまで見る
+  //   （256個を1列に並べた実装でも、数えるだけなら通ってしまう）
+  const box = async (i: number) =&gt;
+    (await page.locator(`[data-testid="pixel-cell"][data-i="${i}"]`).boundingBox())!;
+  const [c0, c15, c16] = [await box(0), await box(15), await box(16)];
+  expect(c15.y).toBeCloseTo(c0.y, 0);        // 0 と 15 は同じ行
+  expect(c16.y).toBeGreaterThan(c0.y);       // 16 は次の行
+  expect(c16.x).toBeCloseTo(c0.x, 0);        // 16 は行の先頭に戻る
+
+  // ★色も「8個あるか」ではなく「8色とも違うか」を見る（赤・青・白×6 でも数は合う）
+  const colors = await page.getByTestId('color-swatch').evaluateAll(
+    els =&gt; els.map(e =&gt; (e as HTMLElement).dataset.color));
+  expect(new Set(colors).size).toBe(8);
+});
+
+test('ドラッグでなぞると、通った道が続けて塗れる', async ({ page }) =&gt; {
+  await page.goto('/');
+  await page.locator('[data-testid="color-swatch"][data-color="#3498db"]').click();
+
+  // 横に3マスなぞる（押したまま動かして離す）
+  const cells = [100, 101, 102].map(i =&gt; page.locator(`[data-testid="pixel-cell"][data-i="${i}"]`));
+  const first = await cells[0].boundingBox();
+  await page.mouse.move(first!.x + first!.width / 2, first!.y + first!.height / 2);
+  await page.mouse.down();
+  for (const c of cells.slice(1)) {
+    const b = await c.boundingBox();
+    await page.mouse.move(b!.x + b!.width / 2, b!.y + b!.height / 2);
+  }
+  await page.mouse.up();
+
+  for (const c of cells) await expect(c).toHaveCSS('background-color', BLUE);
 });</pre>
 </div>
 
@@ -509,7 +554,17 @@ app/ に、ドット絵エディタを作ってください。
   ~/project/develop/"20260908 pixel-harness"/ \
   ~/project/develop/"20260908 pixel-harness-codex"/
 cd ~/project/develop/"20260908 pixel-harness-codex"
-echo '&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;title&gt;pixel&lt;/title&gt;' &gt; app/index.html</pre>
+echo '&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;title&gt;pixel&lt;/title&gt;' &gt; app/index.html
+
+# ★配信ポートを 5175 へ変える（これを忘れると、さっきのフォルダを検証してしまう）
+sed -i '' 's/5174/5175/g' playwright.config.ts</pre>
+</div>
+
+<div class="note">
+  <strong>ポートを変えるのを忘れると、こうなります。</strong>
+  さっきのフォルダのサーバー（5174）がまだ動いていると、
+  設定の <code>reuseExistingServer</code> がそれを再利用してしまい、
+  <strong>こちらのフォルダが空でもテストが通ってしまいます</strong>。私はここで一度ひっかかりました。
 </div>
 
 <p>次に、渡す依頼文をファイルにしておきます（先頭に、さっきの4項目を書き足しておきます）。</p>
