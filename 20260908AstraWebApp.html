@@ -226,6 +226,17 @@ npm init playwright@latest -- --quiet --browser=chromium --lang=ts</pre>
 </div>
 
 <p>
+  つづけて、アプリを置く <code>app/</code> を作って、空のページだけ置いておきます
+  （<strong>これが無いとサーバーが404を返して、テストが始まりません</strong>）。
+</p>
+
+<div class="promptbox">
+  <button class="copybtn">コピー</button>
+<pre>mkdir -p app
+echo '&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;title&gt;pixel&lt;/title&gt;' &gt; app/index.html</pre>
+</div>
+
+<p>
   そして配信の設定。依存パッケージを足したくないので、Python の標準モジュールで <code>app/</code> を配ります。
   設定側にも <code>testMatch</code> を入れて、消し忘れても3本だけが走るようにしておきます。
 </p>
