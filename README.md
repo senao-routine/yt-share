@@ -8,7 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
-| 2026-09-15 | [Google Antigravity 完全ガイド｜台本プレビュー（2026年9月版）](https://senao-routine.github.io/yt-share/20260915GoogleAntigravity.html) | https://senao-routine.github.io/yt-share/20260915GoogleAntigravity.html |
+| 2026-09-15 | [Google Antigravity 完全ガイド｜Gemini CLI 終了後の入門（2026年9月版）](https://senao-routine.github.io/yt-share/20260915GoogleAntigravity.html) | https://senao-routine.github.io/yt-share/20260915GoogleAntigravity.html |
 | 2026-09-10 | [DeepSeek V4.1 Flash は本当に安いのか](https://senao-routine.github.io/yt-share/20260912DeepSeekV41Flash.html) | https://senao-routine.github.io/yt-share/20260912DeepSeekV41Flash.html |
 | 2026-09-09 | [GPT Image 2.5 を実測する｜「API料金2倍」は誤報だった](https://senao-routine.github.io/yt-share/20260910GPTImage25.html) | https://senao-routine.github.io/yt-share/20260910GPTImage25.html |
 | 2026-09-09 | [ChatGPTのサブスクだけでゲームを作り、その値段を数えた — Routine Labo](https://senao-routine.github.io/yt-share/20260908AstraCost.html) | https://senao-routine.github.io/yt-share/20260908AstraCost.html |
