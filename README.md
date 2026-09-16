@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-09-16 | [GPT-6 Astraで3Dを作らせる｜HTML1枚で京都に353棟が建った](https://senao-routine.github.io/yt-share/20260916GPT6Astra3D.html) | https://senao-routine.github.io/yt-share/20260916GPT6Astra3D.html |
 | 2026-09-16 | [GPT-6 Astraで作る、動くWebサイト｜Routine Labo](https://senao-routine.github.io/yt-share/20260915GPT6AstraWeb.html) | https://senao-routine.github.io/yt-share/20260915GPT6AstraWeb.html |
 | 2026-09-15 | [Google Antigravity 完全ガイド｜Gemini CLI 終了後の入門（2026年9月版）](https://senao-routine.github.io/yt-share/20260915GoogleAntigravity.html) | https://senao-routine.github.io/yt-share/20260915GoogleAntigravity.html |
 | 2026-09-10 | [DeepSeek V4.1 Flash は本当に安いのか](https://senao-routine.github.io/yt-share/20260912DeepSeekV41Flash.html) | https://senao-routine.github.io/yt-share/20260912DeepSeekV41Flash.html |
