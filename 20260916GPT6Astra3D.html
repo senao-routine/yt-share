@@ -358,7 +358,7 @@ print(''.join(re.findall(r'&lt;script(?![^&gt;]*src=)[^&gt;]*&gt;(.*?)&lt;/scrip
 <button class="copy" onclick="cp(this)">コピー</button>
 </div>
 
-<h2>8. 嘘の ✅ を書かない（8本連続で再現）</h2>
+<h2>8.「エラー0件」は「動いている」ではない</h2>
 
 <p>お題の最後に、毎回この一行を入れています。</p>
 
@@ -373,17 +373,25 @@ print(''.join(re.findall(r'&lt;script(?![^&gt;]*src=)[^&gt;]*&gt;(.*?)&lt;/scrip
   <tr><td>起動時コンソールエラー0件</td><td><strong>❌</strong></td><td>未検証。実行確認は禁止されているため、<strong>0件だったとの申告はしていません</strong>。</td></tr>
 </table>
 
-<p><strong>そして実際、そこが落ちていました。</strong></p>
+<p>森・太陽系・新幹線・分子・ダンジョン・京都・桶狭間で <strong>8本連続</strong>、自分が確かめていない項目には必ず ❌ を付けています。<strong>申告の姿勢は一貫しています。</strong></p>
 
-<table>
-  <tr><th>生成物</th><th>❌ を付けた項目</th><th>実際はどうだったか</th></tr>
-  <tr><td><strong>京都</strong></td><td>起動時コンソールエラー0件（未検証）</td><td>実測したら <strong>0件だった</strong> ― <strong>自分に厳しすぎた</strong></td></tr>
-  <tr><td><strong>桶狭間</strong></td><td>同上</td><td><strong>実際に落ちていた</strong> ― <strong>正しく警告していた</strong></td></tr>
-</table>
+<h3>★そして、実際に測ったらこうでした</h3>
 
-<p>片方だけなら偶然ですが、<strong>両方そろうと「この自己申告は読む価値がある」</strong>ということになります。森・太陽系・新幹線・分子・ダンジョン・京都・桶狭間で <strong>8本連続</strong>です。</p>
+<div class="stats">
+  <div class="stat"><div class="v">0</div><div class="k">コンソールエラー</div></div>
+  <div class="stat"><div class="v">0</div><div class="k">警告</div></div>
+  <div class="stat"><div class="v">300×150</div><div class="k">canvas（描けていない）</div></div>
+</div>
 
-<p><strong>数を作る力と、自己申告の誠実さは別の能力です。</strong> 実務で任せる判断は、ここで決まります。</p>
+<p><strong>「起動時コンソールエラー0件」は、ちゃんと満たされていました。</strong> 例外はコード側の <code>try/catch</code> が捕まえて画面に案内を出すので、<strong>コンソールは静かなまま</strong>です。</p>
+
+<div class="box">
+  <p style="margin:0;font-size:17px"><strong>エラーが0件でも、動いているとは限らない。</strong></p>
+</div>
+
+<p>しかも<strong>この条件を書いたのはこちら</strong>です。「起動時のコンソールエラーは0件」という<strong>完成の定義が、こちらの側で緩かった</strong>とも言えます。</p>
+
+<p>次に投げるなら、<strong>「起動後に canvas が実サイズで描画されていること」</strong>まで書きます。これが今日いちばんの持ち帰りです ― <strong>AIを疑う話ではなく、自分の完成条件を疑う話</strong>でした。</p>
 
 <h2>9. 指示の書き方で、実際に効いたこと</h2>
 
