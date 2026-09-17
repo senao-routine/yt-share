@@ -78,13 +78,13 @@ footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);
 
 <header class="hd">
   <div class="kicker">Routine Labo ／ GPT-6 Astra 週間シリーズ</div>
-  <h1>AIは、ゼロから3D空間を建てられるのか<br>HTML1枚で京都に353棟が建った</h1>
-  <p class="lede">ライブラリも画像も3Dモデルも使わせずに、京都の街と、桶狭間の戦いのシミュレーションを作らせました。生成の実測・機械検査・実ブラウザでの動作確認まで、全部出します。</p>
+  <h1>縛ると353棟、外すと兵が歩き出した<br>同じモデルに、2つの質問をした</h1>
+  <p class="lede">前半は<strong>ライブラリも素材も全部禁止</strong>して作らせました。後半は<strong>その縛りを外して</strong>、同じお題をもう一度投げています。出てくるものがどう変わるか、実測と一緒に全部出します。</p>
   <div class="meta">
     <span class="chip on">GPT-6 Astra</span>
     <span class="chip">Codex CLI（サブスク枠）</span>
     <span class="chip">生WebGL2</span>
-    <span class="chip">ライブラリ禁止</span>
+    <span class="chip on">縛る → 外す</span>
     <span class="chip">単一HTML</span>
   </div>
 </header>
@@ -451,6 +451,90 @@ print(''.join(re.findall(r'&lt;script(?![^&gt;]*src=)[^&gt;]*&gt;(.*?)&lt;/scrip
   **数字や経緯には諸説があるので、断定せず「通説では」と明記する**</code></pre>
 <button class="copy" onclick="cp(this)">コピー</button>
 </div>
+
+<hr class="rule">
+
+<h2 style="font-size:25px">■ ここから後半 ― 縛りを外す</h2>
+
+<p>ここまでが「<strong>ライブラリも素材も禁止</strong>」で作らせた話でした。当然、次の疑問が出ます。</p>
+
+<div class="box">
+  <p style="margin:0;font-size:17px"><strong>じゃあ、外したらどこまで行くんですか。</strong></p>
+</div>
+
+<p><strong>同じお題を、条件だけ変えてもう一度投げました。</strong></p>
+
+<h3>外したのは、この2つだけ</h3>
+
+<table>
+  <tr><th></th><th>前半（縛り版）</th><th>後半（解禁版）</th></tr>
+  <tr><td>ライブラリ</td><td><strong>禁止</strong>（生WebGL2）</td><td><strong>three.js 可</strong>（バージョン固定）</td></tr>
+  <tr><td>外部素材</td><td><strong>禁止</strong>（全部コードで生成）</td><td><strong>3D生成AIの素材 可</strong></td></tr>
+  <tr><td>単一HTML</td><td>必須</td><td>維持</td></tr>
+  <tr><td>コードの省略</td><td>禁止</td><td>禁止（そのまま）</td></tr>
+  <tr><td>自己申告</td><td>必須</td><td>必須（そのまま）</td></tr>
+  <tr><td><strong>完成の定義</strong></td><td>「コンソールエラー0件」</td><td>★<strong>「かつ canvas が実サイズで描画されていること」を追加</strong></td></tr>
+</table>
+
+<div class="box warn">
+  <h4>■ 最後の1行は、前半の反省です</h4>
+  <p style="margin:0">「エラー0件」だけを完成の定義にしたら、<strong>エラー0件のまま真っ黒</strong>なものが通ってしまいました。だから後半の条件には<strong>その1行を書き足しています</strong>。これ自体が「指示の設計」です。</p>
+</div>
+
+<h2>11. 素材はどう作ったか</h2>
+
+<p>兵・町人・通行人は <strong>Tripo</strong> で作りました。<strong>文章 → 3Dモデル → リギング → 歩行アニメーション</strong>まで、1本のコマンドで通ります。</p>
+
+<table>
+  <tr><th>段階</th><th class="num">クレジット</th><th>所要</th><th>出てくるもの</th></tr>
+  <tr><td>モデル生成</td><td class="num">20</td><td>3〜4分</td><td>陣笠・胴丸・草摺・槍まで作り込まれた足軽</td></tr>
+  <tr><td><strong>リギング</strong></td><td class="num">25</td><td>1〜2分</td><td><strong>19ボーンのスケルトン</strong></td></tr>
+  <tr><td><strong>歩行アニメ</strong></td><td class="num">15前後</td><td>1〜2分</td><td>クリップ <code>preset:walk</code></td></tr>
+  <tr><td><strong>1体あたり</strong></td><td class="num"><strong>約60</strong></td><td><strong>6〜8分</strong></td><td>—</td></tr>
+</table>
+
+<h3>プロンプトで効いた言い回し</h3>
+
+<table>
+  <tr><th>語</th><th>なぜ入れるか</th></tr>
+  <tr><td><code>standing in T-pose</code></td><td><strong>リギングが安定する</strong>。ポーズを付けると骨が入りにくい</td></tr>
+  <tr><td><code>full body</code></td><td>半身で切れるのを防ぐ</td></tr>
+  <tr><td><code>game-ready character</code></td><td>ポリゴンと構造が実用的になる</td></tr>
+</table>
+
+<div class="box warn">
+  <h4>■ 出力は1体56MB。そのままでは載りません</h4>
+  <div class="codewrap" style="margin-top:10px">
+<pre><code>npx @gltf-transform/cli optimize model.glb out.glb --texture-size 512 --compress draco</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+  </div>
+  <p style="margin:10px 0 0"><strong>実測 56.45MB → 2.76MB（95%減）。アニメーションと19本のボーンは無傷</strong>でした（機械で確認済み）。</p>
+</div>
+
+<!--V2_RESULT-->
+
+<h2>12. ★結論 ― 縛りは制限ではなく、測定装置だった</h2>
+
+<p><strong>縛ったのは、意地悪をするためではありませんでした。</strong></p>
+
+<ul>
+  <li>ライブラリも素材も禁じると、<strong>モデルが自分で書いた部分しか残らない</strong> ― だから<strong>実力が測れる</strong></li>
+  <li>縛りを外すと、こんどは<strong>どこまで積み上げられるか</strong>が見える</li>
+</ul>
+
+<table>
+  <tr><th></th><th>投げた質問</th><th>見えるもの</th></tr>
+  <tr><td>前半</td><td>「何もなしで、何ができる？」</td><td><strong>実力</strong></td></tr>
+  <tr><td>後半</td><td>「全部使っていい。どこまで行ける？」</td><td><strong>到達点</strong></td></tr>
+</table>
+
+<div class="box">
+  <p style="margin:0;font-size:17px"><strong>指示の設計とは、「何を禁じて、何を許すか」を決めることでした。</strong></p>
+</div>
+
+<p>お題を凝るより、<strong>その1行を決めるほうが結果が変わる</strong> ― 前半の結論と、ここでつながります。</p>
+
+<hr class="rule">
 
 <div class="box warn">
   <h4>■ 何も映らないときは、ほぼ WebGL2 です</h4>
