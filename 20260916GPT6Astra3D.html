@@ -513,6 +513,378 @@ print(''.join(re.findall(r'&lt;script(?![^&gt;]*src=)[^&gt;]*&gt;(.*?)&lt;/scrip
 
 <!--V2_RESULT-->
 
+<hr class="rule">
+
+<h2 style="font-size:25px">■ 使ったツールと、投げたプロンプト（全文）</h2>
+
+<p>この回で作った3本は、<strong>2つのツールの組み合わせ</strong>だけで出来ています。下のプロンプトをそのまま投げれば、同じものが作れます。</p>
+
+<table>
+  <tr><th>役割</th><th>ツール</th><th>費用</th><th>所要</th></tr>
+  <tr><td><strong>実装（HTMLを書く）</strong></td><td><strong>GPT-6 Astra</strong>（Codex CLI）</td><td><strong>$0</strong>（ChatGPTサブスクの枠内）</td><td>1本 22〜36分</td></tr>
+  <tr><td><strong>3Dキャラクター</strong></td><td><strong>Tripo</strong>（<code>tripo-cli</code>）</td><td><strong>1体 約60クレジット</strong></td><td>1体 6〜8分</td></tr>
+  <tr><td>glb の圧縮</td><td><code>@gltf-transform/cli</code></td><td>無料</td><td>1体 3秒</td></tr>
+  <tr><td>3D描画</td><td><strong>three.js 0.170.0</strong>（CDN・バージョン固定）</td><td>無料</td><td>—</td></tr>
+  <tr><td>ナレーション</td><td>Fish Audio</td><td>—</td><td>1本 10〜12秒</td></tr>
+</table>
+
+<div class="box warn">
+  <h4>■ 順番が大事です</h4>
+  <p style="margin:0"><strong>先に素材（3Dキャラクター）を作り、それを渡してから実装させます。</strong> 逆にすると、Astra は「素材が無い前提」のコードを書くので作り直しになります。</p>
+</div>
+
+<h3>① Tripo — 文章から「歩く3Dキャラクター」を作る</h3>
+
+<p><strong>文章 → 3Dモデル → リギング → 歩行アニメーション</strong>まで、1本のコマンドで通ります。</p>
+
+<div class="codewrap">
+<pre><code>npm install -g tripo-cli          # 初回のみ（Node 20以上）
+tripo login                       # ブラウザで認証
+tripo balance                     # 残高確認
+
+# ① モデル生成 → ② リギング を一気に
+tripo make "&lt;プロンプト&gt;" --for anim --then "rig" -o ./out --yes
+
+# ③ 歩行アニメーションを付ける
+tripo make @last --then "retarget:preset:walk" -o ./walk --yes
+
+# ④ ★必ず圧縮する（1体56MBのままでは web に載りません）
+npx @gltf-transform/cli optimize model.glb out.glb --texture-size 512 --compress draco</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+
+<table>
+  <tr><th>段階</th><th class="num">クレジット</th><th>所要</th><th>出てくるもの</th></tr>
+  <tr><td><code>text_to_model</code></td><td class="num">20</td><td>3〜4分</td><td>陣笠・胴丸・草摺・槍まで作り込まれた足軽</td></tr>
+  <tr><td><code>animate_rig</code></td><td class="num">25</td><td>1〜2分</td><td><strong>19ボーンのスケルトン</strong></td></tr>
+  <tr><td><code>retarget:preset:walk</code></td><td class="num">15前後</td><td>1〜2分</td><td>歩行クリップ <code>preset:walk</code></td></tr>
+  <tr><td><strong>1体あたり</strong></td><td class="num"><strong>約60</strong></td><td><strong>6〜8分</strong></td><td>—</td></tr>
+</table>
+
+<div class="box">
+  <h4>■ ★プロンプトで効いた言い回し（これが一番の持ち帰りです）</h4>
+  <table style="margin:8px 0 0">
+    <tr><th>語</th><th>なぜ入れるか</th></tr>
+    <tr><td><code>standing in T-pose</code></td><td><strong>リギングが安定する</strong>。ポーズを付けると骨が入りにくい</td></tr>
+    <tr><td><code>full body</code></td><td>半身で切れるのを防ぐ</td></tr>
+    <tr><td><code>game-ready character</code></td><td>ポリゴンと構造が実用的になる</td></tr>
+  </table>
+  <p style="margin:10px 0 0"><strong>実測 56.45MB → 2.76MB（95%減）。19本のボーンと歩行アニメは無傷</strong>でした。</p>
+</div>
+
+<h3>★作った12体のプロンプト（全文・そのまま使えます）</h3>
+<p style="margin:18px 0 6px"><strong>A-1. 足軽（槍）</strong></p>
+<div class="codewrap">
+<pre><code>a Japanese Sengoku period ashigaru foot soldier, simple lamellar armor, jingasa conical helmet, holding a yari spear, standing in T-pose, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<p style="margin:18px 0 6px"><strong>A-2. 旗持ち足軽（指物）</strong></p>
+<div class="codewrap">
+<pre><code>a Japanese Sengoku period ashigaru banner bearer, simple armor, carrying a tall sashimono war banner on his back, jingasa helmet, standing in T-pose, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<p style="margin:18px 0 6px"><strong>A-3. 鉄砲足軽</strong></p>
+<div class="codewrap">
+<pre><code>a Japanese Sengoku period ashigaru matchlock gunner, holding a tanegashima arquebus, simple armor, jingasa helmet, standing in T-pose, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<p style="margin:18px 0 6px"><strong>A-4. 武将（騎乗しない徒歩の侍大将）</strong></p>
+<div class="codewrap">
+<pre><code>a Japanese Sengoku period samurai commander, ornate o-yoroi armor, kabuto helmet with maedate crest, jinbaori surcoat, katana at the hip, standing in T-pose, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<p style="margin:18px 0 6px"><strong>A-5. 騎馬武者</strong></p>
+<div class="codewrap">
+<pre><code>a Japanese Sengoku period mounted samurai on a horse, armored warhorse with tack, rider in o-yoroi armor and kabuto helmet, holding a naginata, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<p style="margin:18px 0 6px"><strong>B-1. 町人（男）</strong></p>
+<div class="codewrap">
+<pre><code>a Japanese Edo period townsman, plain indigo kimono with a narrow obi, straw sandals, short hair, standing in T-pose, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<p style="margin:18px 0 6px"><strong>B-2. 町人（女）</strong></p>
+<div class="codewrap">
+<pre><code>a Japanese Edo period townswoman, simple patterned kimono with an obi, hair tied up with a simple ornament, standing in T-pose, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<p style="margin:18px 0 6px"><strong>B-3. 僧侶</strong></p>
+<div class="codewrap">
+<pre><code>a Japanese Buddhist monk, dark grey kesa robe over a white kimono, shaved head, holding a walking staff, standing in T-pose, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<p style="margin:18px 0 6px"><strong>B-4. 子供</strong></p>
+<div class="codewrap">
+<pre><code>a Japanese Edo period child, short red patterned kimono, bare feet, cheerful posture, standing in T-pose, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<p style="margin:18px 0 6px"><strong>C-1. 会社員（スーツ）</strong></p>
+<div class="codewrap">
+<pre><code>a modern Japanese office worker, dark navy business suit, white shirt, carrying a briefcase, standing in T-pose, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<p style="margin:18px 0 6px"><strong>C-2. 若い女性（カジュアル）</strong></p>
+<div class="codewrap">
+<pre><code>a modern Japanese young woman, casual beige coat over a white top, shoulder bag, sneakers, standing in T-pose, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<p style="margin:18px 0 6px"><strong>C-3. 学生</strong></p>
+<div class="codewrap">
+<pre><code>a modern Japanese student, school blazer uniform, large backpack, sneakers, standing in T-pose, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<p style="margin:18px 0 6px"><strong>C-4. 買い物客</strong></p>
+<div class="codewrap">
+<pre><code>a modern Japanese shopper, casual jacket and jeans, holding two paper shopping bags, standing in T-pose, full body, game-ready character</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<h3>② GPT-6 Astra — 桶狭間の戦い（兵が一人ひとり歩く）</h3>
+<p class="note">実測: 生成 22分16秒 / 62KB / $0。<code>codex exec -m gpt-6-astra "$(cat お題.txt)"</code> で投げています。</p>
+<div class="codewrap">
+<pre><code>【実行条件・厳守】
+1. 出力は「単一のHTMLファイル」を1つだけ。同じフォルダに models/ と narration/ がある前提でよい。
+   ファイル名は index.html にすること。
+2. コードは省略禁止。「// 以下同様」「...(省略)」は禁止。全文を書ききる。
+3. three.js は使ってよい（CDN可）。GLTFLoader / DRACOLoader / AnimationMixer /
+   InstancedMesh / EffectComposer も可。★ただしバージョンは固定して書くこと。
+   DRACOLoader のデコーダも CDN のパスを明示すること（glb は draco 圧縮済み）。
+4. 起動時のコンソールエラーは0件であること。**かつ canvas が実サイズで描画されていること**。
+5. 画面にHUDを常時出す: FPS / 時刻 / 局面 / 両軍残存 / 表示中の部隊数 / 描画中の兵の数。
+6. 最後に「仕様チェックリスト」を表で出し、各項目に ✅/❌ を自己申告する（嘘の✅は最も減点される）。
+
+【使える素材】
+models/ashigaru_yari.glb     足軽（槍）  19ボーン・アニメ名 &quot;preset:walk&quot;
+models/ashigaru_hata.glb     旗持ち足軽  同上
+models/ashigaru_teppo.glb    鉄砲足軽    同上
+models/samurai_taisho.glb    武将        同上
+models/kiba_musha.glb        騎馬武者    同上
+narration/00.mp3 〜 06.mp3   ナレーション（00=導入、01〜06=各局面）
+
+※ glb はすべて Draco 圧縮済み・Y-up・1ユニット≒1メートル相当。
+※ 各 glb は1メッシュ1スキンで、アニメーションクリップは &quot;preset:walk&quot; の1本だけ。
+
+【お題】桶狭間の戦いを、兵の一人ひとりが見える3Dシミュレーションにしろ。
+
+1560年、尾張・桶狭間。今川軍の本陣を織田軍が急襲した合戦を再現する。
+数字や経緯には諸説があるので、断定せず「通説では」と明記すること。
+
+必須仕様:
+
+■ 地形
+- 丘陵・谷・街道・林を手続き的に生成する(起伏のある地形メッシュ。平らな板にしない)
+- 高低差が戦況に意味を持つこと(低い谷は上から見えにくい等)
+- 等高線の表示をON/OFFできる
+
+■ 兵
+- ★兵は一人ひとり3Dモデルで描く。models/*.glb を読み込んで使う
+- ★近くの兵は歩行アニメーション(&quot;preset:walk&quot;)を再生する
+- 遠くの兵は簡略表示に切り替えてよい。★描画中の兵の数をHUDに出す
+- 織田軍6部隊・今川軍8部隊の計14部隊。部隊ごとに旗の色を変える
+- 部隊の規模に応じて兵の数を変える(通説では織田約2,500・今川約20,000)
+
+■ 動き(ここが主題)
+- ★部隊は経路に沿って実際に移動する。兵は隊列を組み、地形の起伏に沿って上下する
+- ★兵の向きは進行方向を向く。停止時は敵の方向を向く
+- 接敵したら隊列が崩れる(密集→散開)
+- ★部隊の位置は時刻の関数として決まる(同じ時刻なら必ず同じ配置)
+
+■ 時間
+- 再生 / 一時停止 / 早送り(x1 x2 x4 x8) / 巻き戻し。スライダーで任意の時刻へ飛べる
+- 合戦を6つの局面に区切る。局面が変わると見出しと解説が出る
+  01 集結 12:00 / 02 前進 12:20 / 03 豪雨 12:40 / 04 接敵 13:00 / 05 急襲 13:20 / 06 離脱 13:40
+  (12:00→14:00 を 360秒で再生する)
+
+■ 解説(★1つのコンテンツとして完結させる)
+- ★局面ごとに解説カードを出す。何が起きているか・なぜそうなったかを2〜3行で
+- ★地図に進軍の矢印を描く。どの部隊がどこへ向かっているかが俯瞰で分かること
+- ★narration/NN.mp3 を局面に同期して再生する。ON/OFFボタンを付ける
+  (00が導入、01〜06が各局面。★ボタンを押すまで鳴らさない=自動再生制限のため)
+- 部隊をクリックすると、部隊名・兵数・その時刻の行動が出る
+
+■ カメラ
+- 俯瞰(戦場全体) / 追尾(選んだ部隊を追う) / 現地(地上を歩く) の3つを切り替えられる
+- ★局面が切り替わったら、その局面の見せ場へカメラが寄る(自動演出。OFFにもできる)
+
+■ 天候
+- 豪雨の演出。雨のON/OFFで視界と「見えている部隊の数」が変わる
+- 局面が進むと雨脚が強まる
+
+■ 性能
+- 兵の総数が多いので、遠景はインスタンス描画にするなど描画負荷を抑える工夫をすること
+- HUDのFPSが落ちたら簡略表示へ自動で切り替える仕組みを入れてよい</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<h3>③ GPT-6 Astra — 京都（町人が歩く街）</h3>
+<p class="note">実測: 生成 35分32秒 / 74KB / $0。<code>codex exec -m gpt-6-astra "$(cat お題.txt)"</code> で投げています。</p>
+<div class="codewrap">
+<pre><code>【実行条件・厳守】
+1. 出力は「単一のHTMLファイル」を1つだけ。ファイル名は index.html。
+   同じフォルダに models/ がある前提でよい。
+2. コードは省略禁止。「// 以下同様」「...(省略)」は禁止。全文を書ききる。
+3. three.js は使ってよい(CDN可)。★バージョンは固定して書くこと。
+   GLTFLoader / DRACOLoader / AnimationMixer / InstancedMesh も可。
+   ★DRACOLoader のデコーダも CDN のパスを明示すること(glb は draco 圧縮済み)。
+4. 起動時のコンソールエラーは0件であること。**かつ canvas が実サイズで描画されていること**。
+5. HUDを常時出す: FPS / 建物数 / 三角形数 / 歩いている人の数 / 時刻 / 座標。
+6. 最後に「仕様チェックリスト」を表で出し、各項目に ✅/❌ を自己申告する(嘘の✅は最も減点される)。
+
+【使える素材】
+models/kyoto_man.glb    町人(男)  19ボーン・アニメ名 &quot;preset:walk&quot;
+models/kyoto_woman.glb  町人(女)  同上
+models/kyoto_monk.glb   僧侶      同上
+models/kyoto_child.glb  子供      同上
+※ Y-up・1ユニット≒1メートル相当・1メッシュ1スキン・クリップは &quot;preset:walk&quot; の1本だけ。
+
+【お題】京都の街を、人が生活している街にしろ。
+
+歩ける・飛べる3Dの京都に、人を歩かせる。
+
+必須仕様:
+
+■ 街
+- 建物・道路・川・山をコードで手続き的に生成する(建物は最低300棟)
+- ランドマークを最低5つ、それと分かる形で作る
+  (五重塔・鳥居の並び・木造の橋・城・寺の伽藍)
+- ★固定シードを使う。同じシードなら必ず同じ街が建つこと。シード値を画面に出す
+- 昼と夜を切り替えられる。夜は窓と提灯に明かりが灯る
+- 遠景に山並み、空に時間帯に応じた色のグラデーション
+
+■ 人(★ここが今回の主題)
+- ★models/*.glb を読み込み、町人が通りを歩く。歩行アニメーション(&quot;preset:walk&quot;)を再生する
+- ★最低200人。通りに沿って歩き、建物にはぶつからない
+- ★人は道の上だけを歩く(建物の中や川の上を歩かない)
+- ★すれ違うときに互いを避ける。立ち止まって話している組がいてもよい
+- 時間帯で人の数と行き先が変わる(朝は多い・夜は少なく提灯を持つ等)
+- 人をクリックすると、その人を追いかけるカメラに切り替わる
+- ★歩いている人の数をHUDに出す
+
+■ カメラ
+- 歩く / 飛ぶ / 人を追う の3つを切り替えられる(WASD移動・マウスで視点)
+- 名所をクリックすると名前と説明のカードが出て、「近くへ飛ぶ」ができる
+
+■ 性能
+- 人が多いので、遠くの人は簡略表示にするなどして描画負荷を抑える
+- FPSが落ちたら自動で人数を減らす仕組みを入れてよい</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<h3>④ GPT-6 Astra — 渋谷 CROSSING LAB（何人まで安全か）</h3>
+<p class="note">実測: 生成 24分03秒 / 66KB / $0。<code>codex exec -m gpt-6-astra "$(cat お題.txt)"</code> で投げています。</p>
+<div class="codewrap">
+<pre><code>【実行条件・厳守】
+1. 出力は「単一のHTMLファイル」を1つだけ。ファイル名は index.html。
+   同じフォルダに models/ がある前提でよい。
+2. コードは省略禁止。「// 以下同様」「...(省略)」は禁止。全文を書ききる。
+3. three.js は使ってよい(CDN可)。★バージョンは固定して書くこと。
+   GLTFLoader / DRACOLoader / AnimationMixer / InstancedMesh も可。
+   ★DRACOLoader のデコーダも CDN のパスを明示すること(glb は draco 圧縮済み)。
+4. 起動時のコンソールエラーは0件であること。★かつ canvas が実サイズで描画されていること。
+5. ★FPSは「実経過時間」から計算すること。
+   シミュレーションの時間刻みに上限を掛けるのは構わないが、
+   **その上限を掛けた値でFPSを計算してはいけない**(重い環境でFPSが実際より高く出る)。
+6. 最後に「仕様チェックリスト」を表で出し、各項目に ✅/❌ を自己申告する(嘘の✅は最も減点される)。
+
+【使える素材】
+models/shibuya_suit.glb     会社員(スーツ)  19ボーン・アニメ名 &quot;preset:walk&quot;
+models/shibuya_woman.glb    若い女性        同上
+models/shibuya_student.glb  学生            同上
+models/shibuya_shopper.glb  買い物客        同上
+※ Y-up・1ユニット≒1メートル相当・1メッシュ1スキン・クリップは &quot;preset:walk&quot; の1本だけ。
+
+────────────────────────────────────────────────
+【お題】「何人までなら安全に渡れるのか」を確かめる交差点シミュレーターを作れ。
+────────────────────────────────────────────────
+
+■ このシミュレーターが答える問い（★これが主題。見た目より優先する）
+
+  「人数と信号周期をこう設定したとき、この交差点は安全か、危険か」
+
+  使う人は、イベント主催者・施設管理者・自治体の担当者を想定する。
+  「規制をかけるべきか」「何人で止めるべきか」の判断材料を出すのが目的。
+  ★見て楽しいものではなく、**答えが出る**ものにすること。
+
+■ 判定の基準（★国際的に使われている指標を使う）
+
+  歩行者の密度（人/m²）で危険度を判定する。Fruin の Level of Service を使う:
+    LOS A  〜0.31 人/m²   自由に歩ける
+    LOS B  〜0.43         ほぼ自由
+    LOS C  〜0.72         他人を意識して進路を選ぶ
+    LOS D  〜1.08         流れに従うしかない
+    LOS E  〜2.17         歩行速度が大きく落ちる・接触が起きる
+    LOS F  2.17〜         流れが止まる・★群集事故の危険域
+  ※ この数値は一般に公開されている基準。画面に「Fruin LOS」と出典を明記すること。
+
+■ ★主役の表示＝密度のヒートマップ（ここが一番大事）
+
+  - ★交差点の路面を格子（1メートル四方程度）に分け、**各マスの人/m²を色で塗る**
+  - 色は LOS に対応させる（A〜C=緑〜黄、D=橙、E=赤、F=濃赤）。凡例を必ず出す
+  - ★**このヒートマップが画面の主役**。俯瞰で見たとき、どこが危ないか一目で分かること
+  - 人の3Dモデルはヒートマップの上に乗る「証拠」として描く（主役ではない）
+  - 危険域（LOS E以上）のマスの面積と、そこにいる人数を常時表示する
+
+■ 出すべき数字（HUDに常時）
+
+  - 現在の最大密度（人/m²）と、その LOS 等級
+  - ★**危険域（E以上）の面積 m² と、そこにいる人数**
+  - 交差点にいる人数 / 渡り終えた人数 / 歩道で待っている人数
+  - 1周期あたりの平均待ち時間（秒）
+  - FPS（★実経過時間から計算したもの）
+
+■ 操作（★動かすと答えが変わること）
+
+  - ★人の流入量スライダー: 10〜3,000人/分。増やすと危険域が広がる
+  - ★信号周期スライダー: 30〜120秒。短くすると滞留が増え、長くすると一度に渡る人が増える
+  - ★「規制をかける」ボタン: 流入を制限したとき、危険域がどう消えるかを見せる
+  - 時間帯プリセット: 平常 / 週末 / イベント時（カウントダウン等の想定）
+  - 再生 / 一時停止 / ×1 ×2 ×4
+
+■ ★結果の要約（見た人が持ち帰れるように）
+
+  - 画面のどこかに、いまの設定に対する**一文の判定**を出す
+    例:「この設定では最大 2.4 人/m²（LOS F）。★危険域が 38 m² 発生しています」
+       「この設定では最大 0.9 人/m²（LOS D）。流れは保たれています」
+  - ★**何人を超えると LOS E に入るか**を自動で探して表示する（しきい値の提示）
+
+■ 場所
+
+  - 五叉路のスクランブル交差点を手続き的に生成する。横断歩道・歩道・車道・建物
+  - 周囲のビルの広告は★実在の企業名やロゴを出さない。抽象的な色と形にする
+  - 昼 / 夕方 / 夜。ただし★見た目より**ヒートマップの視認性**を優先すること
+
+■ 人
+
+  - models/*.glb を読み込み、歩行アニメーション(&quot;preset:walk&quot;)を再生する
+  - ★近景では実モデル、遠景は簡略表示でよいが、
+    **近景に実モデルが十分な数（数十体）出るようにする**。
+    ⚠ 歩行者目線にしたとき、目の前が簡略表示だらけにならないこと
+  - 人は互いを避ける。密度が上がると速度が落ちる（LOS の定義に沿わせる）
+
+■ カメラ
+
+  - ★既定は「俯瞰」。ヒートマップ全体が見えること
+  - 俯瞰 / 歩行者目線 / 定点 を切り替えられる
+
+■ 性能
+
+  - 3,000人まで出せるように、遠景は簡略表示にするなど描画負荷を抑える
+  - FPSが落ちたら自動で簡略化してよい（★ただし判定に使うFPSは実経過時間から計算すること）
+
+■ ⚠ 断り書き（必ず画面に出す）
+
+  - この交差点の形状・寸法は模式的なものであり、実在の交差点の測量値ではないこと
+  - 密度の判定基準は Fruin の Level of Service を用いていること
+  - このシミュレーションは検討の材料であり、実際の安全判断は現地の状況によること</code></pre>
+<button class="copy" onclick="cp(this)">コピー</button>
+</div>
+<div class="box warn">
+  <h4>■ ★渋谷だけ、お題を2回書きました</h4>
+  <p>1本目は「<strong>渋谷スクランブル交差点の人の流れを再現しろ</strong>」と書きました。動くものは出てきましたが、<strong>何の問いにも答えていませんでした</strong>。</p>
+  <p style="margin-bottom:0">2本目は「<strong>何人までなら安全に渡れるのかを確かめる交差点シミュレーターを作れ</strong>」に変え、<strong>使う人・判定基準（Fruin の Level of Service）・主役の表示（密度のヒートマップ）</strong>まで指定しました。上に載せているのは2本目です。</p>
+</div>
+
+<div class="box">
+  <p style="margin:0;font-size:17px"><strong>「再現しろ」と書くと、再現しか返ってこない。<br>「この問いに答えろ」と書くと、答えを出す道具が返ってくる。</strong></p>
+</div>
+
 <h2>12. ★結論 ― 縛りは制限ではなく、測定装置だった</h2>
 
 <p><strong>縛ったのは、意地悪をするためではありませんでした。</strong></p>
