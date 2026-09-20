@@ -78,6 +78,14 @@ function createGame(seed, rows, cols, mines, onChange) {
              progress: Math.round((opened / safe) * 100),
              over: state.over, won: state.won, seconds: sec };
   };
+  // ★経過時間は毎秒の再描画で更新する（クリック時だけだと思考中に時計が止まる・2026-09-20 レビュー指摘）
+  state.startTicker = function () {
+    if (state._ticker) return;
+    state._ticker = setInterval(function () {
+      if (state.startedAt !== null && !state.over) onChange();
+      if (state.over) { clearInterval(state._ticker); state._ticker = null; }
+    }, 1000);
+  };
   return state;
 }
 
@@ -113,4 +121,5 @@ function render(){
   (s.over?(s.won?'WON':'LOST'):'playing')+` seconds=${s.seconds}`;
 }
 render();
+g.startTicker();
 </script>
