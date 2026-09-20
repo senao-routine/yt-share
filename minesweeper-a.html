@@ -1,0 +1,116 @@
+<!doctype html><meta charset="utf-8">
+  <meta name="robots" content="noindex">
+<title>マインスイーパ A（読める版・DOM）</title>
+<style>
+ body{font:16px system-ui;margin:24px;background:#f6f2e9;color:#241f18}
+ h1{font-size:20px;margin:0 0 4px} .sub{color:#5c5346;font-size:14px;margin-bottom:14px}
+ #grid{display:grid;gap:3px;width:max-content;background:#e2d9c6;padding:3px;border-radius:8px}
+ button.cell{width:38px;height:38px;font:700 16px system-ui;border:1px solid #cfc4ab;
+   border-radius:5px;background:#fffdf8;cursor:pointer;padding:0}
+ button.cell[data-state="open"]{background:#efe7d6;cursor:default}
+ button.cell[data-mine="true"]{background:#c0392b;color:#fff}
+ #status{margin-top:14px;font-weight:700}
+</style>
+<h1>マインスイーパ A — 読める版</h1>
+<p class="sub">各マスが独立したボタンです。ラベルに状態が文字で入っています。</p>
+<div id="grid"></div>
+<p id="status">clicks=0 opened=0/71 progress=0% state=playing</p>
+<script>
+// 同一盤面を生成する（seed固定＝DOM版とCanvas版で完全に同じ問題になる）
+// ★この実験の肝：ゲームの難易度を揃えて、違いを「実装」だけにする
+function makeBoard(seed, rows, cols, mines) {
+  let s = seed >>> 0;
+  const rnd = () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296);
+  const mine = Array.from({ length: rows }, () => Array(cols).fill(false));
+  let placed = 0;
+  while (placed < mines) {
+    const r = Math.floor(rnd() * rows), c = Math.floor(rnd() * cols);
+    if (!mine[r][c]) { mine[r][c] = true; placed++; }
+  }
+  const num = Array.from({ length: rows }, () => Array(cols).fill(0));
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+    if (mine[r][c]) { num[r][c] = -1; continue; }
+    let n = 0;
+    for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
+      const rr = r + dr, cc = c + dc;
+      if (rr >= 0 && rr < rows && cc >= 0 && cc < cols && mine[rr][cc]) n++;
+    }
+    num[r][c] = n;
+  }
+  return { mine, num };
+}
+
+// 共通のゲーム状態（描画方法だけが違う）
+function createGame(seed, rows, cols, mines, onChange) {
+  const { mine, num } = makeBoard(seed, rows, cols, mines);
+  const open = Array.from({ length: rows }, () => Array(cols).fill(false));
+  const state = { rows, cols, mines, mine, num, open, clicks: 0, over: false, won: false,
+                  startedAt: null, endedAt: null };
+
+  function flood(r, c) {
+    if (r < 0 || r >= rows || c < 0 || c >= cols || open[r][c] || mine[r][c]) return;
+    open[r][c] = true;
+    if (num[r][c] === 0) {
+      for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) flood(r + dr, c + dc);
+    }
+  }
+  state.click = function (r, c) {
+    if (state.over || r < 0 || r >= rows || c < 0 || c >= cols || open[r][c]) return;
+    if (state.startedAt === null) state.startedAt = Date.now();
+    state.clicks++;
+    if (mine[r][c]) {
+      state.over = true; state.won = false; state.endedAt = Date.now();
+      for (let rr = 0; rr < rows; rr++) for (let cc = 0; cc < cols; cc++) if (mine[rr][cc]) open[rr][cc] = true;
+    } else {
+      flood(r, c);
+      let rest = 0;
+      for (let rr = 0; rr < rows; rr++) for (let cc = 0; cc < cols; cc++) if (!open[rr][cc] && !mine[rr][cc]) rest++;
+      if (rest === 0) { state.over = true; state.won = true; state.endedAt = Date.now(); }
+    }
+    onChange();
+  };
+  state.summary = function () {
+    const sec = state.startedAt ? Math.round(((state.endedAt || Date.now()) - state.startedAt) / 1000) : 0;
+    let opened = 0;
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) if (open[r][c] && !mine[r][c]) opened++;
+    const safe = rows * cols - mines;
+    return { clicks: state.clicks, opened, safe,
+             progress: Math.round((opened / safe) * 100),
+             over: state.over, won: state.won, seconds: sec };
+  };
+  return state;
+}
+
+</script>
+<script>
+const ROWS=9, COLS=9, MINES=10, SEED=20260918;
+const grid=document.getElementById('grid');
+grid.style.gridTemplateColumns=`repeat(${COLS},38px)`;
+const g=createGame(SEED,ROWS,COLS,MINES,render);
+const btns=[];
+for(let r=0;r<ROWS;r++){const row=[];for(let c=0;c<COLS;c++){
+  const b=document.createElement('button');
+  b.className='cell'; b.dataset.row=r; b.dataset.col=c;
+  b.addEventListener('click',()=>g.click(r,c));
+  grid.appendChild(b); row.push(b);
+} btns.push(row);}
+function render(){
+ for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+  const b=btns[r][c];
+  if(g.open[r][c]){
+    b.dataset.state='open';
+    if(g.mine[r][c]){b.dataset.mine='true';b.textContent='X';b.setAttribute('aria-label',`行${r+1} 列${c+1} 地雷`);}
+    else{b.textContent=g.num[r][c]||'';
+         b.setAttribute('aria-label',`行${r+1} 列${c+1} 開封済み 数字${g.num[r][c]}`);}
+  }else{
+    b.dataset.state='closed'; b.textContent='';
+    b.setAttribute('aria-label',`行${r+1} 列${c+1} 未開封`);
+  }
+ }
+ const s=g.summary();
+ document.getElementById('status').textContent=
+  `clicks=${s.clicks} opened=${s.opened}/${s.safe} progress=${s.progress}% state=`+
+  (s.over?(s.won?'WON':'LOST'):'playing')+` seconds=${s.seconds}`;
+}
+render();
+</script>
