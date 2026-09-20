@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-09-20 | [マインスイーパ B（見るしかない版・Canvas）](https://senao-routine.github.io/yt-share/minesweeper-b.html) | https://senao-routine.github.io/yt-share/minesweeper-b.html |
 | 2026-09-20 | [マインスイーパ A（読める版・DOM）](https://senao-routine.github.io/yt-share/minesweeper-a.html) | https://senao-routine.github.io/yt-share/minesweeper-a.html |
 | 2026-09-18 | [GPT-6 Astraのパソコン操作｜AIは画面を見ていなかった](https://senao-routine.github.io/yt-share/20260918GPT6AstraPC.html) | https://senao-routine.github.io/yt-share/20260918GPT6AstraPC.html |
 | 2026-09-16 | [Typeless 完全ガイド｜言い間違いが消える音声入力の使い方と安全性](https://senao-routine.github.io/yt-share/20260916Typeless.html) | https://senao-routine.github.io/yt-share/20260916Typeless.html |
