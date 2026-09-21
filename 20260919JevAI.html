@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Jev AI 実践ガイド｜文章を書かないAIは、どの作業に効くのか</title>
+<style>
+  :root {
+    --bg:        #f6f2e9;
+    --surface:   #fffdf8;
+    --surface-2: #f0ead9;
+    --ink:       #241f18;
+    --ink-soft:  #5c5346;
+    --ink-faint: #8a7f6d;
+    --line:      #e2d9c6;
+    --line-soft: #ece4d4;
+    --accent:    #b9791a;
+    --accent-ink:#8a5a10;
+    --accent-bg: #f6e7cd;
+    --teal:      #2f6f68;
+    --teal-bg:   #dcebe8;
+    --code-bg:   #26221b;
+    --code-ink:  #ece3d2;
+    --shadow: 0 1px 2px rgba(40,32,18,.05), 0 8px 30px rgba(40,32,18,.06);
+    --radius: 14px;
+    --maxw: 820px;
+    --font-jp: "Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+    --font-mono: "SFMono-Regular",Menlo,Consolas,"Noto Sans Mono",monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:var(--font-jp); line-height:1.9; font-size:16px; }
+  .container { max-width:var(--maxw); margin:0 auto; padding:48px 22px 80px; }
+
+  header { text-align:center; margin-bottom:40px; }
+  .badge { display:inline-block; background:var(--accent-bg); color:var(--accent-ink); border:1px solid var(--accent); border-radius:999px; padding:5px 20px; font-size:13px; font-weight:700; letter-spacing:.14em; }
+  h1 { font-size:30px; font-weight:800; line-height:1.5; margin:18px 0 12px; }
+  h1 .gold { color:var(--accent-ink); }
+  .sub { color:var(--ink-soft); font-size:15.5px; max-width:36em; margin:0 auto; }
+  .rule { width:64px; height:3px; margin:28px auto 0; border-radius:2px; background:linear-gradient(90deg, var(--accent), var(--teal)); }
+
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:30px 34px; margin-bottom:26px; }
+  .kicker { color:var(--teal); font-size:13.5px; font-weight:700; letter-spacing:.18em; margin-bottom:8px; }
+  h2 { font-size:21px; font-weight:800; margin-bottom:14px; }
+  h3 { font-size:16.5px; font-weight:800; margin:24px 0 10px; }
+  p { margin-bottom:12px; }
+  strong { color:var(--accent-ink); }
+  ul,ol { padding-left:24px; margin-bottom:12px; }
+  li { margin-bottom:6px; }
+  li::marker { color:var(--accent); }
+  a { color:var(--teal); }
+
+  code { background:var(--surface-2); border:1px solid var(--line); border-radius:6px; padding:2px 8px; font-family:var(--font-mono); font-size:.86em; color:var(--accent-ink); }
+  pre { background:var(--code-bg); border-radius:10px; padding:18px 22px; overflow-x:auto; margin:12px 0 16px; }
+  pre code { background:none; border:none; padding:0; color:var(--code-ink); font-size:13px; line-height:1.75; }
+  .copybox { position:relative; }
+  .copy-btn { position:absolute; top:12px; right:12px; background:var(--accent); color:#fff; border:none; border-radius:8px; font-family:inherit; font-weight:700; font-size:13px; padding:7px 15px; cursor:pointer; transition:background .15s; }
+  .copy-btn:hover { background:var(--accent-ink); }
+  .copy-btn.done { background:var(--teal); }
+
+  table { width:100%; border-collapse:collapse; margin:14px 0 18px; font-size:14.5px; }
+  th,td { border:1px solid var(--line); padding:9px 13px; text-align:left; }
+  th { background:var(--surface-2); color:var(--accent-ink); font-weight:700; font-size:13.5px; }
+  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  tr.hi td { background:var(--teal-bg); }
+  tr.hi td:first-child { font-weight:700; }
+
+  .lead-note { background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:14px 18px; font-size:14.5px; color:var(--ink-soft); margin:14px 0 18px; }
+  .lead-note strong { color:var(--accent-ink); }
+
+  .figure { margin:20px 0 8px; text-align:center; }
+  .figure svg { max-width:100%; height:auto; }
+  .figcap { font-size:13px; color:var(--ink-faint); margin-top:6px; text-align:center; line-height:1.7; }
+
+  .kpirow { display:flex; gap:26px; flex-wrap:wrap; margin:16px 0 4px; }
+  .kpirow div { font-size:13px; color:var(--ink-faint); }
+  .kpirow b { display:block; font-size:24px; color:var(--ink); font-variant-numeric:tabular-nums; margin-top:2px; font-weight:800; }
+  .kpirow b.good { color:var(--teal); }
+
+  .typegrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:14px; margin:16px 0; }
+  .typecard { background:var(--surface-2); border:1px solid var(--line); border-radius:11px; padding:16px 18px; }
+  .typecard .t { font-family:var(--font-mono); font-weight:700; color:var(--accent-ink); font-size:15px; margin-bottom:6px; }
+  .typecard .d { font-size:14px; color:var(--ink-soft); line-height:1.8; }
+  .typecard .ex { font-size:12.5px; color:var(--ink-faint); margin-top:8px; border-top:1px solid var(--line); padding-top:8px; }
+
+  .steps { counter-reset:st; list-style:none; padding-left:0; }
+  .steps li { counter-increment:st; position:relative; padding-left:38px; margin-bottom:14px; }
+  .steps li::before { content:counter(st); position:absolute; left:0; top:2px; width:25px; height:25px; border-radius:50%; background:var(--accent-bg); border:1px solid var(--accent); color:var(--accent-ink); font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center; }
+
+  .warn { border:1px solid var(--accent); background:var(--accent-bg); border-radius:10px; padding:14px 18px; font-size:14.5px; margin:14px 0; }
+  .warn .wt { font-weight:800; color:var(--accent-ink); margin-bottom:4px; }
+
+  footer { text-align:center; color:var(--ink-faint); font-size:12.5px; margin-top:36px; line-height:2; }
+  footer .src { font-family:var(--font-mono); font-size:11.5px; }
+  .toc { columns:2; column-gap:26px; font-size:14.5px; }
+  .toc a { display:block; padding:3px 0; text-decoration:none; color:var(--ink-soft); }
+  .toc a:hover { color:var(--teal); }
+  @media (max-width:640px){ .toc { columns:1; } .card { padding:24px 20px; } h1 { font-size:24px; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <span class="badge">実践ガイド</span>
+  <h1>Jev AI は、<span class="gold">どの作業に効くのか</span></h1>
+  <p class="sub">文章を書かないAI「Jev」を、自分の回線で Claude Opus 5 / GPT-6 Astra / Gemini 3.8 Flash と測り比べました。この資料は、その実測値と、今日から動かすためのコードをまとめたものです。</p>
+  <div class="rule"></div>
+</header>
+
+<div class="card">
+  <div class="kicker">CONTENTS</div>
+  <h2>この資料の中身</h2>
+  <nav class="toc">
+    <a href="#what">1. 結論 — 何を返すAIなのか</a>
+    <a href="#types">2. 質問の型は3つだけ</a>
+    <a href="#start">3. 今日から始める手順</a>
+    <a href="#code">4. コピペで動くコード</a>
+    <a href="#bench">5. 実測 — 自分の回線で測った数字</a>
+    <a href="#why">6. 速さの正体は「増えないこと」</a>
+    <a href="#where">7. 効く仕事と、3層の考え方</a>
+    <a href="#gate">8. 置き換えずに「前に足す」</a>
+    <a href="#traps">9. 最初に必ず踏む5つ</a>
+    <a href="#threshold">10. 閾値の決め方</a>
+    <a href="#no">11. 向いていない仕事</a>
+    <a href="#price">12. 料金の計算</a>
+  </nav>
+</div>
+
+<div class="card" id="what">
+  <div class="kicker">01 — 結論</div>
+  <h2>文章を書かない。返すのは判定と確信度だけ</h2>
+  <p>Jev は TypeSafe AI が 2026年9月15日に公開したモデルです。作ったのは <strong>Diogo Almeida</strong>（InstructGPT・RLHF の共同発明者）。「なぜ超人的なチャットモデルが AGI につながらないのか」を問い続けた結果、2年のステルス開発で <code>RLCD</code>（Reinforcement Learning from Calibrated Decisions）という学習手法を作り、そこから生まれたのがこのモデルです。</p>
+  <p>公式は <strong>System One モデル</strong>と呼んでいます。人間の思考でいう「直感」の側だけを担当し、<strong>文章生成の口をそもそも持っていません</strong>。入力は「判定したい文章（state）＋型のついた質問」、出力は「判定＋較正済みの確率」だけです。</p>
+  <div class="lead-note">
+    いちばん的確な言い換えは、公開直後に開発者コミュニティで広まったこの一文です。<br>
+    「<strong>gpt や claude を置き換えるものじゃない。ただの"本当に"賢い switch 文だ</strong>」<br>
+    <span style="font-size:13px;color:var(--ink-faint)">— Nathan Flurry（2026-09-16・約66万表示）。2016年の分類器が2026年の賢さを手に入れた、という比喩も添えられています。</span>
+  </div>
+  <p>つまり立ち位置は「LLMの代わり」ではなく、<strong>LLMの前に置くもの</strong>。この資料の8章で、それを実測で確かめます。</p>
+</div>
+
+<div class="card" id="types">
+  <div class="kicker">02 — 仕様</div>
+  <h2>質問の型は3つだけ</h2>
+  <p>呼び出す側が<strong>先に選択肢を定義します</strong>。だから定義にない答えは返ってきません。これが「ハルシネーションしない」と言われる仕組みの正体です（＝出力形式の話であって、判断の中身が正しい保証ではありません。11章参照）。</p>
+  <div class="typegrid">
+    <div class="typecard">
+      <div class="t">Noul</div>
+      <div class="d">はい／いいえを <strong>0〜1の確率</strong>で返す</div>
+      <div class="ex">この問い合わせは緊急か → 0.92</div>
+    </div>
+    <div class="typecard">
+      <div class="t">Choice</div>
+      <div class="d">決めた選択肢から1つ＋<strong>各選択肢の確率と確信度</strong></div>
+      <div class="ex">カテゴリ → 不具合・障害／確信度 0.97</div>
+    </div>
+    <div class="typecard">
+      <div class="t">Score</div>
+      <div class="d">段階評価。<strong>整数ではなく小数</strong>で返る</div>
+      <div class="ex">不満度 0〜4 → 3.07</div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>項目</th><th>値</th></tr></thead>
+    <tbody>
+      <tr><td>料金（入力）</td><td><strong>$0.042 / 100万トークン</strong>（約6円）</td></tr>
+      <tr><td>料金（出力）</td><td><strong>$0（無料）</strong></td></tr>
+      <tr><td>コンテキスト長</td><td>32,000トークン</td></tr>
+      <tr><td>公称レイテンシ</td><td>70〜500ms（LLM比 40〜200倍速と主張）</td></tr>
+      <tr><td>エンドポイント</td><td><code>POST /api/alpha/decisions</code>（チャットAPIとは別）</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card" id="start">
+  <div class="kicker">03 — 準備</div>
+  <h2>今日から始める手順</h2>
+  <p>公開直後は待機リスト制で、申し込みが殺到して API が一時停止するほどでしたが、<strong>2026年9月21日に待機リストが撤廃されました</strong>。今は登録するだけで使えます。</p>
+  <ol class="steps">
+    <li><strong>公式コンソールで登録する</strong>（<code>console.typesafe.ai</code>）。登録すると <strong>$5 のクレジット</strong>が付きます。$0.042 / 100万トークンで割ると<strong>約1.2億トークン相当</strong>で、個人の検証ではまず使い切れません。</li>
+    <li><strong>または、既存の OpenRouter キーで叩く</strong>。モデルIDは <code>typesafe/jev-1.13</code>。この資料のコードはこちらの経路です（LLM側と同じ入口から叩かないと、速度の比較が公平にならないため）。</li>
+    <li>他の経路として <strong>Cloudflare Workers AI</strong>・<strong>Vercel AI Gateway</strong> もあります（未検証）。</li>
+  </ol>
+  <div class="warn">
+    <div class="wt">普通のAPIと叩き方が違います</div>
+    <code>chat/completions</code> に投げると <strong>400</strong> で弾かれます。専用の <code>/api/alpha/decisions</code> を使ってください。また Jev は <strong>OpenRouter のモデル一覧（446件）に出てきません</strong>（alpha エンドポイント専用のため）。一覧にないから使えない、ではありません。
+  </div>
+</div>
+
+<div class="card" id="code">
+  <div class="kicker">04 — コード</div>
+  <h2>コピペで動く最小コード</h2>
+  <p>キーを1本入れれば、そのまま動きます。</p>
+
+  <h3>まず1回叩いてみる（curl）</h3>
+  <div class="copybox">
+    <button class="copy-btn">コピー</button>
+    <pre><code>curl -s -X POST "https://openrouter.ai/api/alpha/decisions" \
+  -H "Authorization: Bearer $OPENROUTER_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "typesafe/jev-1.13",
+    "state": "払い出しが3日間ずっと失敗しています。至急なんとかしてください。",
+    "questions": {
+      "is_urgent": {
+        "type": "noul",
+        "instructions": "この問い合わせは緊急対応が必要ですか？",
+        "criteria": {
+          "true":  "業務が止まっている・金銭的被害・期限が迫っている",
+          "false": "すぐ対応しなくても実害が出ない"
+        }
+      }
+    }
+  }'</code></pre>
+  </div>
+  <p>返ってくる JSON はこれだけです。パースも整形も要りません。</p>
+  <div class="copybox">
+    <button class="copy-btn">コピー</button>
+    <pre><code>{
+  "model": "typesafe/jev-1.13-20260917",
+  "answers": { "is_urgent": { "type": "noul", "noul": 0.92 } },
+  "usage": { "input_tokens": 365, "output_tokens": 23, "cost": 0.00001533 },
+  "provider": "TypeSafe"
+}</code></pre>
+  </div>
+  <div class="lead-note">
+    指定は <code>typesafe/jev-1.13</code> ですが、<strong>返ってくる実体は <code>1.13-20260917</code></strong>（9月17日版）です。モデルの世代を記録に残すときは、リクエストではなく<strong>レスポンスの <code>model</code> を見てください</strong>。
+  </div>
+
+  <h3>3つの型を一度に投げる（Python・標準ライブラリだけ）</h3>
+  <div class="copybox">
+    <button class="copy-btn">コピー</button>
+    <pre><code>import json, os, time, urllib.request
+
+KEY = os.environ["OPENROUTER_API_KEY"]
+CATS = ["請求・支払い", "不具合・障害", "使い方の質問", "解約・契約変更", "その他"]
+
+QUESTIONS = {
+    # Noul: criteria は true / false のキーを持つ辞書
+    "is_urgent": {
+        "type": "noul",
+        "instructions": "この問い合わせは緊急対応が必要ですか？",
+        "criteria": {"true": "業務が止まっている・金銭的被害・期限が迫っている",
+                     "false": "すぐ対応しなくても実害が出ない"},
+    },
+    # Choice: criteria は「選択肢 → その条件」の辞書
+    "category": {
+        "type": "choice",
+        "instructions": "一次カテゴリを選んでください。",
+        "criteria": {c: c for c in CATS},
+    },
+    # Score: criteria は低→高の順に並べた配列（★ここだけ配列）
+    "frustration": {
+        "type": "score",
+        "instructions": "書き手の不満度",
+        "criteria": ["満足・好意的", "中立", "やや不満", "強い不満", "激怒・解約寸前"],
+    },
+}
+
+def jev(state, questions):
+    req = urllib.request.Request(
+        "https://openrouter.ai/api/alpha/decisions",
+        data=json.dumps({"model": "typesafe/jev-1.13",
+                         "state": state, "questions": questions}).encode(),
+        headers={"Authorization": f"Bearer {KEY}",
+                 "Content-Type": "application/json"})
+    t0 = time.perf_counter()
+    with urllib.request.urlopen(req, timeout=60) as r:
+        body = json.loads(r.read())
+    return body, (time.perf_counter() - t0) * 1000
+
+body, ms = jev("解約したいのに導線が見つかりません。もう3回問い合わせています。", QUESTIONS)
+a = body["answers"]
+print(f"緊急度   {a['is_urgent']['noul']:.2f}")
+print(f"カテゴリ {a['category']['choice']}（確信度 {a['category'].get('confidence')}）")
+print(f"不満度   {a['frustration']['score']:.2f}")
+print(f"{ms:.0f}ms / ${body['usage']['cost']:.8f}")</code></pre>
+  </div>
+
+  <h3>1つの文書を、たくさんの観点でまとめて判定する</h3>
+  <p>これが Jev のいちばんおいしい使い方です。<strong>質問を何個束ねても1リクエスト</strong>で返ります。</p>
+  <div class="copybox">
+    <button class="copy-btn">コピー</button>
+    <pre><code>CHECKS = [
+    "第三者提供について記載があるか", "削除請求の手段が記載されているか",
+    "削除対応の期限が明記されているか", "データの保管国が明記されているか",
+    "未成年の扱いが記載されているか", "Cookieのオプトアウトが可能か",
+    # …24個でも48個でも、まとめて1回で投げる
+]
+
+questions = {
+    f"q{i}": {"type": "noul", "instructions": c,
+              "criteria": {"true": "文書中に明記がある", "false": "明記がない"}}
+    for i, c in enumerate(CHECKS)
+}
+body, ms = jev(規約の本文, questions)
+for i, c in enumerate(CHECKS):
+    print(f"{body['answers'][f'q{i}']['noul']:.2f}  {c}")</code></pre>
+  </div>
+</div>
+
+<div class="card" id="bench">
+  <div class="kicker">05 — 実測</div>
+  <h2>自分の回線で測った数字</h2>
+  <p>公称は「40〜200倍速い」。本当かどうか、<strong>いつも新モデルを検証しているツールに速度モードを足して</strong>、同じ課題・同じ入口（OpenRouter）・全レーン同時スタートで測りました。</p>
+
+  <h3>規約を24項目でチェック（1リクエストにまとめて判定）</h3>
+  <table>
+    <thead><tr><th>モデル</th><th class="num">所要時間</th><th class="num">費用</th><th class="num">Jev比（時間）</th><th class="num">Jev比（費用）</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td>Jev</td><td class="num">332ms</td><td class="num">$0.000070</td><td class="num">—</td><td class="num">—</td></tr>
+      <tr><td>GPT-6 Astra</td><td class="num">6,378ms</td><td class="num">$0.020610</td><td class="num">19.2倍</td><td class="num">294倍</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td class="num">7,427ms</td><td class="num">$0.004330</td><td class="num">22.4倍</td><td class="num">62倍</td></tr>
+      <tr><td>Claude Opus 5</td><td class="num">18,966ms</td><td class="num">$0.028800</td><td class="num"><strong>57.1倍</strong></td><td class="num"><strong>411倍</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>問い合わせ10件を1件ずつ仕分け（件数ぶん往復が発生する形）</h3>
+  <table>
+    <thead><tr><th>モデル</th><th class="num">所要時間</th><th class="num">費用</th><th class="num">Jev比（時間）</th><th class="num">Jev比（費用）</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td>Jev</td><td class="num">3,047ms</td><td class="num">$0.000243</td><td class="num">—</td><td class="num">—</td></tr>
+      <tr><td>GPT-6 Astra</td><td class="num">27.7s</td><td class="num">$0.032840</td><td class="num">9.1倍</td><td class="num">135倍</td></tr>
+      <tr><td>Claude Opus 5</td><td class="num">37.8s</td><td class="num">$0.027130</td><td class="num">12.4倍</td><td class="num">112倍</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td class="num">48.8s</td><td class="num">$0.015627</td><td class="num">16.0倍</td><td class="num">64倍</td></tr>
+    </tbody>
+  </table>
+  <p>この課題では、<strong>Jev 側だけカテゴリに確信度が付きます</strong>。「自信の低い件だけ人間に回す」運用ができるのは、この確信度があるからです。</p>
+
+  <div class="lead-note">
+    測定条件＝2026年9月21日・日本の自宅回線・OpenRouter 経由・温度0固定・全レーン同時発走。<strong>各1回の測定</strong>であって中央値ではありません。回線や混雑で変動します。<br>
+    Gemini 3.8 Flash が Opus 5 より遅い結果になっていますが、<strong>速度の優劣として一般化はできません</strong>（この課題・この回線での1回の結果です）。
+  </div>
+</div>
+
+<div class="card" id="why">
+  <div class="kicker">06 — 核心</div>
+  <h2>速さの正体は「増えないこと」</h2>
+  <p>同じ課題を<strong>1項目だけ</strong>にして測り直すと、差はぐっと縮みます。ここがいちばん大事なところです。</p>
+
+  <div class="figure">
+    <svg viewBox="0 0 800 360" role="img" aria-label="質問数を1から24へ増やしたときの応答時間。Jevはほぼ水平、LLM3種は右肩上がり。">
+      <line x1="70" y1="40"  x2="610" y2="40"  stroke="#e2d9c6"/>
+      <line x1="70" y1="110" x2="610" y2="110" stroke="#e2d9c6"/>
+      <line x1="70" y1="180" x2="610" y2="180" stroke="#e2d9c6"/>
+      <line x1="70" y1="250" x2="610" y2="250" stroke="#e2d9c6"/>
+      <line x1="70" y1="320" x2="610" y2="320" stroke="#241f18" stroke-width="1.2"/>
+      <text x="62" y="44"  text-anchor="end" font-size="12" fill="#8a7f6d" font-family="monospace">20,000</text>
+      <text x="62" y="114" text-anchor="end" font-size="12" fill="#8a7f6d" font-family="monospace">15,000</text>
+      <text x="62" y="184" text-anchor="end" font-size="12" fill="#8a7f6d" font-family="monospace">10,000</text>
+      <text x="62" y="254" text-anchor="end" font-size="12" fill="#8a7f6d" font-family="monospace">5,000</text>
+      <text x="62" y="324" text-anchor="end" font-size="12" fill="#8a7f6d" font-family="monospace">0</text>
+      <text x="62" y="26"  text-anchor="end" font-size="12" fill="#8a7f6d">ms</text>
+      <text x="70"  y="344" text-anchor="middle" font-size="13" fill="#5c5346">1問</text>
+      <text x="610" y="344" text-anchor="middle" font-size="13" fill="#5c5346">24問</text>
+      <text x="340" y="344" text-anchor="middle" font-size="12" fill="#8a7f6d">← 質問の数 →</text>
+
+      <path d="M70 265 L610 55" fill="none" stroke="#b9791a" stroke-width="2.6"/>
+      <circle cx="70" cy="265" r="4" fill="#b9791a"/><circle cx="610" cy="55" r="4" fill="#b9791a"/>
+      <text x="622" y="52" font-size="13" font-weight="700" fill="#b9791a">Claude Opus 5</text>
+      <text x="622" y="68" font-size="11.5" fill="#8a7f6d" font-family="monospace">18,966ms（4.88倍）</text>
+
+      <path d="M70 284 L610 216" fill="none" stroke="#8a5a10" stroke-width="2.6"/>
+      <circle cx="70" cy="284" r="4" fill="#8a5a10"/><circle cx="610" cy="216" r="4" fill="#8a5a10"/>
+      <text x="622" y="213" font-size="13" font-weight="700" fill="#8a5a10">Gemini 3.8 Flash</text>
+      <text x="622" y="229" font-size="11.5" fill="#8a7f6d" font-family="monospace">7,427ms（2.90倍）</text>
+
+      <path d="M70 299 L610 231" fill="none" stroke="#5b6d8a" stroke-width="2.6"/>
+      <circle cx="70" cy="299" r="4" fill="#5b6d8a"/><circle cx="610" cy="231" r="4" fill="#5b6d8a"/>
+      <text x="622" y="252" font-size="13" font-weight="700" fill="#5b6d8a">GPT-6 Astra</text>
+      <text x="622" y="268" font-size="11.5" fill="#8a7f6d" font-family="monospace">6,378ms（4.27倍）</text>
+
+      <path d="M70 316 L610 315" fill="none" stroke="#2f6f68" stroke-width="3.4"/>
+      <circle cx="70" cy="316" r="4.5" fill="#2f6f68"/><circle cx="610" cy="315" r="4.5" fill="#2f6f68"/>
+      <text x="622" y="305" font-size="13.5" font-weight="800" fill="#2f6f68">Jev</text>
+      <text x="622" y="321" font-size="11.5" fill="#2f6f68" font-family="monospace">332ms（1.18倍）</text>
+    </svg>
+    <div class="figcap">質問を24倍に増やしても、Jev の応答時間は 282ms → 332ms（1.18倍）でほぼ変わらない。</div>
+  </div>
+
+  <div class="kpirow">
+    <div>Jev の伸び（1問→24問）<b class="good">1.18倍</b></div>
+    <div>Claude Opus 5<b>4.88倍</b></div>
+    <div>GPT-6 Astra<b>4.27倍</b></div>
+    <div>Gemini 3.8 Flash<b>2.90倍</b></div>
+  </div>
+
+  <p style="margin-top:18px"><strong>なぜこうなるのか。</strong>LLM は答えを「文字として書く」ので、項目が増えるほど書く量が増え、時間が伸びます。Jev は文字を書かず<strong>全部を同時に返す</strong>ので伸びません。</p>
+  <div class="lead-note">
+    だから、Opus 5 との差は <strong>1項目なら13.8倍</strong>、<strong>24項目で57.1倍</strong>まで開きます。差が開くのは「Jev が速くなる」からではなく、<strong>向こうが遅くなる</strong>からです。<br>
+    公称の「40〜200倍」は<strong>条件つきで本当</strong>でした。到達するのは<strong>質問をたくさん束ねたとき</strong>で、1問だけなら十数倍です。
+  </div>
+</div>
+
+<div class="card" id="where">
+  <div class="kicker">07 — 使いどころ</div>
+  <h2>効く仕事と、3層の考え方</h2>
+  <p>効くのは<strong>答えが「言葉」ではなく「どれか」や「何点」で済む仕事</strong>だけです。具体的には3つの型に分かれます。</p>
+  <table>
+    <thead><tr><th>型</th><th>具体例</th></tr></thead>
+    <tbody>
+      <tr><td><strong>大量の文章を仕分ける</strong></td><td>問い合わせ・レビュー・メール・応募書類</td></tr>
+      <tr><td><strong>1つの対象を多くの観点で採点する</strong></td><td>規約・契約書・コードレビュー・チェックリスト</td></tr>
+      <tr><td><strong>LLMに渡す前の門番</strong></td><td>難易度判定・安全確認・振り分け</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3層に分けて考える</h3>
+  <p>開発者コミュニティで広まっている整理がこれです。今までは<strong>内側か外側しかなく、その真ん中が空いていた</strong>という見方です。</p>
+  <div class="figure">
+    <svg viewBox="0 0 760 250" role="img" aria-label="3層アーキテクチャ。内側=コード、中間=Jevの確率つき判定、外側=LLMの文章生成。">
+      <rect x="20"  y="40" width="220" height="150" rx="12" fill="#f0ead9" stroke="#e2d9c6"/>
+      <text x="130" y="30" text-anchor="middle" font-size="12.5" fill="#8a7f6d" font-weight="700">内側</text>
+      <text x="130" y="82"  text-anchor="middle" font-size="16" font-weight="800" fill="#241f18">コード</text>
+      <text x="130" y="106" text-anchor="middle" font-size="13" fill="#5c5346">正規表現・条件分岐</text>
+      <text x="130" y="140" text-anchor="middle" font-size="12.5" fill="#8a7f6d">最速・ほぼ無料</text>
+      <text x="130" y="162" text-anchor="middle" font-size="12.5" fill="#8a7f6d">意味は理解できない</text>
+
+      <rect x="264" y="40" width="220" height="150" rx="12" fill="#dcebe8" stroke="#2f6f68" stroke-width="1.6"/>
+      <text x="374" y="30" text-anchor="middle" font-size="12.5" fill="#2f6f68" font-weight="700">中間 — ここが空いていた</text>
+      <text x="374" y="82"  text-anchor="middle" font-size="16" font-weight="800" fill="#2f6f68">Jev</text>
+      <text x="374" y="106" text-anchor="middle" font-size="13" fill="#241f18">確率つきの判定</text>
+      <text x="374" y="140" text-anchor="middle" font-size="12.5" fill="#5c5346">速い・1件0.01円以下</text>
+      <text x="374" y="162" text-anchor="middle" font-size="12.5" fill="#5c5346">意味は分かる／書けない</text>
+
+      <rect x="508" y="40" width="220" height="150" rx="12" fill="#f0ead9" stroke="#e2d9c6"/>
+      <text x="618" y="30" text-anchor="middle" font-size="12.5" fill="#8a7f6d" font-weight="700">外側</text>
+      <text x="618" y="82"  text-anchor="middle" font-size="16" font-weight="800" fill="#241f18">LLM</text>
+      <text x="618" y="106" text-anchor="middle" font-size="13" fill="#5c5346">文章生成・理由の説明</text>
+      <text x="618" y="140" text-anchor="middle" font-size="12.5" fill="#8a7f6d">低速・高額</text>
+      <text x="618" y="162" text-anchor="middle" font-size="12.5" fill="#8a7f6d">書ける</text>
+
+      <path d="M244 115 L260 115" stroke="#8a7f6d" stroke-width="1.5"/>
+      <path d="M488 115 L504 115" stroke="#8a7f6d" stroke-width="1.5"/>
+      <text x="374" y="222" text-anchor="middle" font-size="13" fill="#5c5346">左ほど速く安い。右ほど賢く高い。まず左で済ませ、必要なぶんだけ右へ渡す。</text>
+    </svg>
+  </div>
+
+  <h3>「検査を足せるようになった」のが本質</h3>
+  <p>既存の判定を置き換えるより、<strong>これまで高すぎて検査を置けなかった場所に、検査を足せる</strong>ようになったことが大きい、という見方です。具体的な設置場所として挙がっているのがこの5つです。</p>
+  <ul>
+    <li><strong>入口チェック</strong> — プロンプトインジェクションの検知</li>
+    <li><strong>検索結果フィルタ</strong> — 関係ない結果を落とす</li>
+    <li><strong>ループ検出</strong> — エージェントが同じ手を繰り返していないか</li>
+    <li><strong>出力検証</strong> — LLM の答えが条件を満たしているか</li>
+    <li><strong>メモリ照合</strong> — 記憶と矛盾していないか</li>
+  </ul>
+</div>
+
+<div class="card" id="gate">
+  <div class="kicker">08 — 実測</div>
+  <h2>置き換えずに「前に足す」と、総額が下がる</h2>
+  <p>問い合わせ12件を、(A) 全部 Claude Opus 5 で回答する場合と、(B) Jev に難易度を判定させて振り分ける場合で比べました。</p>
+  <div class="figure">
+    <svg viewBox="0 0 760 270" role="img" aria-label="門番ルーターの構成と総額比較。門番ありで総額が1.6倍安くなる。">
+      <text x="60" y="34" font-size="13" fill="#5c5346">問い合わせ 12件</text>
+      <rect x="20" y="44" width="110" height="46" rx="9" fill="#f0ead9" stroke="#e2d9c6"/>
+      <text x="75" y="72" text-anchor="middle" font-size="13.5" fill="#241f18">受信</text>
+      <path d="M134 67 L176 67" stroke="#8a7f6d" stroke-width="1.5" marker-end="url(#ar)"/>
+      <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+        <path d="M0 0 L8 4 L0 8 z" fill="#8a7f6d"/></marker></defs>
+
+      <rect x="180" y="40" width="140" height="54" rx="9" fill="#dcebe8" stroke="#2f6f68" stroke-width="1.8"/>
+      <text x="250" y="62" text-anchor="middle" font-size="14" font-weight="800" fill="#2f6f68">Jev 門番</text>
+      <text x="250" y="82" text-anchor="middle" font-size="11.5" fill="#5c5346">難問か？を 0〜1 で判定</text>
+
+      <path d="M324 56 L392 34" stroke="#8a7f6d" stroke-width="1.5" marker-end="url(#ar)"/>
+      <path d="M324 78 L392 104" stroke="#8a7f6d" stroke-width="1.5" marker-end="url(#ar)"/>
+      <text x="390" y="27" text-anchor="end" font-size="11.5" fill="#8a7f6d" font-family="monospace">0.03〜0.21</text>
+      <text x="390" y="126" text-anchor="end" font-size="11.5" fill="#8a7f6d" font-family="monospace">0.69〜0.82</text>
+
+      <rect x="396" y="14" width="180" height="42" rx="9" fill="#f0ead9" stroke="#e2d9c6"/>
+      <text x="486" y="32" text-anchor="middle" font-size="12.5" fill="#241f18">定型 8件 → 安いモデル</text>
+      <text x="486" y="48" text-anchor="middle" font-size="11.5" fill="#8a7f6d">Gemini 3.8 Flash</text>
+      <rect x="396" y="84" width="180" height="42" rx="9" fill="#f0ead9" stroke="#e2d9c6"/>
+      <text x="486" y="102" text-anchor="middle" font-size="12.5" fill="#241f18">専門 4件 → 高性能モデル</text>
+      <text x="486" y="118" text-anchor="middle" font-size="11.5" fill="#8a7f6d">Claude Opus 5</text>
+
+      <line x1="20" y1="158" x2="740" y2="158" stroke="#e2d9c6"/>
+      <text x="20" y="187" font-size="13" font-weight="700" fill="#2f6f68">門番あり</text>
+      <rect x="92" y="172" width="290" height="22" rx="4" fill="#2f6f68"/>
+      <rect x="92" y="172" width="4" height="22" fill="#b9791a"/>
+      <text x="394" y="188" font-size="14" font-weight="800" fill="#2f6f68" font-family="monospace">$0.149</text>
+      <text x="462" y="188" font-size="12" fill="#8a7f6d">約23円 ／ 門番のコストは全体の 0.13%</text>
+
+      <text x="20" y="223" font-size="13" fill="#5c5346">門番なし</text>
+      <text x="20" y="238" font-size="10.5" fill="#8a7f6d">全件 Opus 5</text>
+      <rect x="92" y="212" width="451" height="22" rx="4" fill="#5b6d8a"/>
+      <text x="555" y="228" font-size="14" font-weight="800" fill="#5b6d8a" font-family="monospace">$0.232</text>
+      <text x="623" y="228" font-size="12" fill="#8a7f6d">約36円</text>
+
+      <text x="20" y="258" font-size="13" fill="#241f18">AIを1段「足した」のに、総額は <tspan font-weight="800" fill="#2f6f68">1.6倍安く</tspan>なる。</text>
+    </svg>
+  </div>
+  <div class="lead-note">
+    この比較は<strong>日をまたいで2回測り、どちらも同じ結論になりました</strong>。<br>
+    1回目 — 門番あり $0.149 / 全件 $0.232（<strong>1.6倍安</strong>）　2回目 — 門番あり $0.141 / 全件 $0.241（<strong>1.7倍安</strong>）<br>
+    <span style="font-size:13px;color:var(--ink-faint)">門番自身が占める割合は、2回とも <strong>0.13%</strong> で一致しました。</span>
+  </div>
+  <div class="warn">
+    <div class="wt">ここで見るのは時間ではなく総額です</div>
+    所要時間は 164.8s 対 179.6s でほとんど変わりません（回答を書くのは結局 LLM だからです）。門番が効くのは<strong>お金</strong>と、<strong>難しい問いにだけ高いモデルを使えること</strong>です。
+  </div>
+</div>
+
+<div class="card" id="traps">
+  <div class="kicker">09 — 注意</div>
+  <h2>最初に必ず踏む5つ</h2>
+  <ol class="steps">
+    <li><strong><code>choice</code> の criteria は「辞書」、<code>score</code> の criteria は「配列」。</strong>逆にすると <code>400 Bad Request</code> が返り、エラー文は <code>expected array, received object</code> の形になります。ここでいちばん時間を溶かします。</li>
+    <li><strong><code>score</code> は整数で返りません。</strong>加重平均の小数（例 <code>3.07</code>）です。段階に戻したいなら自分で丸めてください。</li>
+    <li><strong>コンテキストは 32,000トークンまで。</strong>長い文書は自分で分割します。</li>
+    <li><strong><code>chat/completions</code> では通りません。</strong><code>/api/alpha/decisions</code> を使います。</li>
+    <li><strong>OpenRouter のモデル一覧に出てきません。</strong>alpha エンドポイント専用のためで、一覧にないから使えないわけではありません。</li>
+  </ol>
+  <p>1番は実際にエラーを出して確かめられます。</p>
+  <div class="copybox">
+    <button class="copy-btn">コピー</button>
+    <pre><code># ✗ わざと間違える（score の criteria を辞書にする）→ 400
+curl -s -X POST "https://openrouter.ai/api/alpha/decisions" \
+  -H "Authorization: Bearer $OPENROUTER_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"typesafe/jev-1.13","state":"解約したいのに導線が見つかりません。",
+       "questions":{"unhappy":{"type":"score","instructions":"不満度",
+       "criteria":{"0":"満足","1":"中立","2":"不満"}}}}'
+
+# ✓ 正しい形（低→高の順に並べた配列）
+curl -s -X POST "https://openrouter.ai/api/alpha/decisions" \
+  -H "Authorization: Bearer $OPENROUTER_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"typesafe/jev-1.13","state":"解約したいのに導線が見つかりません。",
+       "questions":{"unhappy":{"type":"score","instructions":"不満度",
+       "criteria":["満足","中立","やや不満","強い不満"]}}}'</code></pre>
+  </div>
+</div>
+
+<div class="card" id="threshold">
+  <div class="kicker">10 — 設計</div>
+  <h2>閾値の決め方</h2>
+  <p>Jev は「0.72」のような確率を返してきます。<strong>それをどう扱うかは、使う側が決めなければいけません</strong>。ここは自動では決まらない部分です。</p>
+  <div class="lead-note">
+    「50%で返ってきたらコイン投げと同じ。<strong>無視する判断が要る</strong>」— 公開直後にコミュニティから出た指摘です。確率が出ること自体は、正しさの保証ではありません。
+  </div>
+  <p>判定の精度は、モデルより<strong>聞き方</strong>で決まります。実装するときの4点セットがこれです。</p>
+  <ol class="steps">
+    <li><strong>state を必要な情報だけに絞る</strong> — 関係ない文脈を混ぜると判定がぶれます。</li>
+    <li><strong>型を選ぶ</strong> — 二択なら Noul、分類なら Choice、程度なら Score。迷ったら Noul を複数並べるほうが安定します。</li>
+    <li><strong>criteria に条件を書き切る</strong> — 選択肢の名前だけでなく、「どういうときにこれを選ぶか」を書きます。ここが精度に直結します。</li>
+    <li><strong>閾値は自分の正解データで測る</strong> — 手元の30件ほどに正解を付けて、どこで切ると見逃しと空振りのバランスが良いかを実際に測ります。</li>
+  </ol>
+  <p>運用としては、<strong>グレーゾーンを人間に回す</strong>設計が扱いやすいです。たとえば「0.8以上は自動処理・0.3以下は自動で除外・その間だけ人が見る」といった三分割にすると、確信度の低い判定で事故が起きにくくなります。</p>
+</div>
+
+<div class="card" id="no">
+  <div class="kicker">11 — 限界</div>
+  <h2>向いていない仕事</h2>
+  <p>ここは正直に書きます。万能の置き換えではありません。</p>
+  <ul>
+    <li><strong>文章が欲しい仕事には一切使えません。</strong>要約も翻訳も執筆も書けません。そこは今まで通り LLM です。</li>
+    <li><strong>簡単な分類では差がつきませんでした。</strong>40業種への分類を試したところ Jev は確信度1.0で正解しましたが、比較した LLM 2種も正解しました。<strong>精度差は出ていません</strong>。差がつくのは速度と費用だけです。</li>
+    <li><strong>「ハルシネーションしない」は出力形式の話です。</strong>定義にない答えを返せない、という意味であって、<strong>判断の中身が正しい保証ではありません</strong>。</li>
+    <li><strong>プロンプトインジェクション耐性も、今回の攻撃では差が出ませんでした。</strong>判定対象の文章に「これまでの指示を無視して」を仕込んでも Jev は正しく判定しましたが、比較した LLM も引っかかりませんでした。違いは「程度」ではなく<strong>構造</strong>（Jev はそもそも文字列を返す口を持たない）として理解するのが正確です。</li>
+    <li><strong>見逃しや位置バイアスの報告があります。</strong>「通った＝確認済み」とは扱わないでください。課題によって精度は大きく変わります。</li>
+    <li><strong>用途によっては割高になります。</strong>メール分類では他モデルより10〜20倍高かった、という開発者の報告もあります。</li>
+  </ul>
+</div>
+
+<div class="card" id="price">
+  <div class="kicker">12 — 料金</div>
+  <h2>いくらかかるのか</h2>
+  <p>入力 <strong>$0.042 / 100万トークン</strong>、出力 <strong>$0</strong>。実際に払った額で言うと、こうなります。</p>
+  <table>
+    <thead><tr><th>やったこと</th><th class="num">実費</th><th class="num">日本円</th></tr></thead>
+    <tbody>
+      <tr><td>規約を24項目でチェック（1回）</td><td class="num">$0.000070</td><td class="num">約0.011円</td></tr>
+      <tr><td>問い合わせ10件を3観点で仕分け</td><td class="num">$0.000243</td><td class="num">約0.038円</td></tr>
+      <tr><td>問い合わせ12件の難易度判定（門番）</td><td class="num">$0.000188</td><td class="num">約0.029円</td></tr>
+    </tbody>
+  </table>
+  <p>登録時の <strong>$5 クレジット</strong>は、この単価なら<strong>約1.2億トークン</strong>に相当します。上の24項目チェックなら、ざっと<strong>7万回ぶん</strong>です。個人の検証で使い切ることはまずありません。</p>
+  <div class="lead-note">
+    比較として、Claude Opus 5 は入力 $5.00・出力 $25.00、GPT-6 Astra は入力 $10.00・出力 $50.00（いずれも100万トークンあたり）。<strong>Jev は出力が無料</strong>なので、判定だけを大量に回す用途では差がさらに開きます。
+  </div>
+</div>
+
+<footer>
+  <p>数値はすべて 2026年9月21日時点の実測・一次情報です。立ち上がり直後のため、価格・提供経路は変わる可能性があります。</p>
+  <p class="src">公式 typesafe.ai ／ ドキュメント docs.typesafe.ai ／ OpenRouter openrouter.ai/typesafe/jev-1.13</p>
+  <p>ITとAIのルーティンラボ</p>
+</footer>
+
+</div>
+<script>
+document.querySelectorAll('.copy-btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var pre = btn.parentElement.querySelector('pre code');
+    if (!pre) return;
+    navigator.clipboard.writeText(pre.innerText).then(function () {
+      btn.textContent = 'コピーしました';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = 'コピー'; btn.classList.remove('done'); }, 1800);
+    });
+  });
+});
+</script>
+</body>
+</html>
