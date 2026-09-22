@@ -9,7 +9,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 | 公開日 | タイトル | URL |
 |---|---|---|
 | 2026-09-22 | [voice-agent 導入編｜受け取ってから、声で開発が始まるまで](https://senao-routine.github.io/yt-share/voice-agent-setup.html) | https://senao-routine.github.io/yt-share/voice-agent-setup.html |
-| 2026-09-22 | [スライドキャストキット — メンバー限定配布のご案内](https://senao-routine.github.io/yt-share/slidecast-kit.html) | https://senao-routine.github.io/yt-share/slidecast-kit.html |
+| 2026-09-22 | [スライドキャストキット — できることと動作要件](https://senao-routine.github.io/yt-share/slidecast-kit.html) | https://senao-routine.github.io/yt-share/slidecast-kit.html |
 | 2026-09-22 | [Jev AI 実践ガイド｜文章を書かないAIは、どの作業に効くのか](https://senao-routine.github.io/yt-share/20260919JevAI.html) | https://senao-routine.github.io/yt-share/20260919JevAI.html |
 | 2026-09-16 | [Typeless 完全ガイド｜言い間違いが消える音声入力の使い方と安全性](https://senao-routine.github.io/yt-share/20260916Typeless.html) | https://senao-routine.github.io/yt-share/20260916Typeless.html |
 | 2026-09-16 | [GPT-6 Astraで3Dを作らせる｜HTML1枚で京都に353棟が建った](https://senao-routine.github.io/yt-share/20260916GPT6Astra3D.html) | https://senao-routine.github.io/yt-share/20260916GPT6Astra3D.html |
