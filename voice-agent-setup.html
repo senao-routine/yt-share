@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="robots" content="noindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>voice-agent 導入編｜受け取ってから、声で開発が始まるまで</title>
+<style>
+  :root {
+    --bg:#f6f2e9; --surface:#fffdf8; --surface-2:#f0ead9; --ink:#241f18; --ink-soft:#5c5346;
+    --ink-faint:#8a7f6d; --line:#e2d9c6; --accent:#b9791a; --accent-ink:#8a5a10; --accent-bg:#f6e7cd;
+    --teal:#2f6f68; --code-bg:#26221b; --code-ink:#ece3d2;
+    --shadow: 0 1px 2px rgba(40,32,18,.05), 0 8px 30px rgba(40,32,18,.06);
+    --radius:14px; --maxw:800px;
+    --font-jp:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+    --font-mono:"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono",monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:var(--font-jp); line-height:1.9; font-size:16px; }
+  .container { max-width:var(--maxw); margin:0 auto; padding:44px 22px 80px; }
+  .badge { display:inline-block; background:var(--accent-bg); color:var(--accent-ink); border:1px solid var(--accent); border-radius:999px; padding:5px 20px; font-size:13px; font-weight:700; letter-spacing:.14em; }
+  header { text-align:center; margin-bottom:32px; }
+  h1 { font-size:29px; font-weight:800; line-height:1.5; margin:18px 0 12px; }
+  h1 .gold { color:var(--accent-ink); }
+  .sub { color:var(--ink-soft); font-size:15.5px; max-width:36em; margin:0 auto; }
+  .rule { width:64px; height:3px; margin:26px auto 0; border-radius:2px; background:linear-gradient(90deg, var(--accent), var(--teal)); }
+  figure { margin:0 0 26px; }
+  figure img { width:100%; display:block; border-radius:var(--radius); border:1px solid var(--line); background:var(--surface); }
+  figcaption { font-size:13px; color:var(--ink-faint); margin-top:8px; text-align:center; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:26px 30px; margin-bottom:24px; }
+  .kicker { color:var(--teal); font-size:13px; font-weight:700; letter-spacing:.18em; margin-bottom:8px; }
+  h2 { font-size:20px; font-weight:800; margin:34px 0 14px; padding-bottom:8px; border-bottom:1px solid var(--line); }
+  h2 .step { display:inline-block; background:var(--accent-bg); color:var(--accent-ink); border-radius:8px; padding:1px 11px; font-size:14px; margin-right:10px; vertical-align:2px; }
+  h3 { font-size:16.5px; font-weight:700; margin:22px 0 10px; color:var(--accent-ink); }
+  p { margin-bottom:13px; }
+  ul, ol { margin:0 0 14px 1.3em; }
+  li { margin-bottom:7px; }
+  strong { font-weight:700; color:var(--accent-ink); }
+  a { color:var(--teal); }
+  table { width:100%; border-collapse:collapse; margin:16px 0 20px; font-size:14.5px; }
+  th, td { border:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top; }
+  th { background:var(--surface-2); font-weight:700; }
+  .tbl-wrap { overflow-x:auto; }
+  pre { background:var(--code-bg); color:var(--code-ink); border-radius:10px; padding:18px 20px; overflow-x:auto; font-family:var(--font-mono); font-size:13.5px; line-height:1.7; margin-bottom:8px; }
+  code { font-family:var(--font-mono); font-size:.92em; background:var(--surface-2); padding:2px 6px; border-radius:4px; }
+  pre code { background:none; padding:0; font-size:inherit; color:inherit; }
+  .copywrap { position:relative; margin-bottom:22px; }
+  .copybtn { position:absolute; top:10px; right:10px; background:var(--surface-2); color:var(--ink); border:1px solid var(--line); border-radius:7px; padding:5px 12px; font-size:12px; cursor:pointer; font-family:var(--font-jp); }
+  .copybtn:hover { background:var(--accent-bg); border-color:var(--accent); }
+  .note { background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:16px 20px; margin:16px 0 20px; font-size:14.5px; }
+  .note .lbl { font-weight:700; color:var(--accent-ink); display:block; margin-bottom:5px; font-size:13px; letter-spacing:.08em; }
+  
+  
+  footer { text-align:center; color:var(--ink-faint); font-size:13px; margin-top:50px; padding-top:24px; border-top:1px solid var(--line); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <span class="badge">導入ガイド ─ 受け取る前に読める版</span>
+  <h1>voice-agent <span class="gold">導入編</span><br>受け取ってから、声で開発が始まるまで</h1>
+  <p class="sub">zip を開いてから、自分のPCに向かって喋ると Claude Code が動く状態になるまでの全手順。</p>
+  <div class="rule"></div>
+</header>
+
+<div class="card">
+  <div class="kicker">この回のゴール</div>
+  <p style="margin-bottom:0">見終わったら、<strong>自分のPCに向かって喋ると Claude Code が動く状態</strong>になっている。</p>
+</div>
+
+<h2>最初に言う2つ（脱落率がいちばん下がる）</h2>
+<ol>
+  <li><strong>Anthropic の APIキーは要らない</strong> — ターミナルで <code>claude</code> が動く状態なら、その資格情報をそのまま使う</li>
+  <li><strong>OpenAI のキーが無くても、動くところまでは確認できる</strong> — 音声だけが無効になる作り。<strong>お金を使う前に「自分のPCで動くか」を確かめられる</strong></li>
+</ol>
+
+<h2><span class="step">STEP 0</span>受け取り方とアップデート</h2>
+
+<div class="tbl-wrap">
+<table>
+  <tr><th></th><th>メンバーシップ版</th><th>買い切り版</th></tr>
+  <tr><td>受け取る場所</td><td><strong>Discord の <code>📦配布物</code></strong></td><td><strong>note の販売記事</strong></td></tr>
+  <tr><td>更新</td><td><strong>在籍中ずっと最新版が届く</strong></td><td>購入時点の版（以後の更新は含まない）</td></tr>
+  <tr><td>質問</td><td><strong>Discord の質問部屋</strong></td><td>個別サポートなし</td></tr>
+  <tr><td>解約・期限</td><td>解約後も受け取った版はそのまま使える</td><td>期限なし</td></tr>
+</table>
+</div>
+
+<div class="note">
+  <span class="lbl">ライセンスを1回だけ、はっきり言う</span>
+  受け取った本人が使う・改変するのは自由。ただし<strong>再配布・転載・販売はできない</strong>（改変したものも同じ）。<br>
+  免責：これは<strong>声での指示で Claude Code にファイルの読み書きとコマンド実行をさせる</strong>もの。
+  重要なデータはバックアップを取り、<strong>git で管理されたフォルダで使う</strong>こと。
+</div>
+
+<h2><span class="step">STEP 1</span>前提を確認する（動かない環境がある）</h2>
+
+<div class="tbl-wrap">
+<table>
+  <tr><th>環境</th><th>状態</th></tr>
+  <tr><td><strong>macOS 14 以降</strong></td><td><strong>全機能</strong>（想定している環境）</td></tr>
+  <tr><td>Windows 11 / Linux（x64・arm64）</td><td>会話と開発作業は動く。<strong>PC操作と doctor の macOS権限2項目は使えない</strong></td></tr>
+  <tr><td><strong>Windows on ARM / Alpine Linux</strong></td><td>⚠ <strong>非対応</strong>（<code>sqlite-vec</code> のバイナリが無く、サーバが起動しない）</td></tr>
+</table>
+</div>
+
+<p><strong>必要なもの</strong>（1つずつコマンドで確認して見せる）：</p>
+<ul>
+  <li><strong>Node.js 22 以上</strong> — <code>node -v</code></li>
+  <li><strong>pnpm 10</strong> — <code>corepack enable</code> で入る</li>
+  <li><strong>Chrome か Edge</strong> — マイクと WebRTC を使う（Safari は未確認）</li>
+  <li><strong>Claude Code にログイン済みのターミナル</strong> — <code>claude</code> が動けばOK</li>
+</ul>
+<p>ネイティブのコンパイルは走らない（依存はすべてビルド済み）。</p>
+
+<h2><span class="step">STEP 2</span>OpenAI の APIキーを取る</h2>
+<ol>
+  <li>「Create new secret key」を押す</li>
+  <li><strong>作った直後の1回しか全体を見られない。その場でコピーする</strong></li>
+  <li>支払い方法の登録が要る</li>
+  <li><code>gpt-realtime</code> が使えないと言われたら、<strong>組織の本人確認</strong>（Verify Organization）</li>
+</ol>
+
+<div class="note">
+  <span class="lbl">★必ず言う</span>
+  <strong>このキーを、AIのチャット欄に貼って「設定して」とお願いしないこと。</strong>
+  自分の手で <code>.env</code> に書く。
+</div>
+
+<h2><span class="step">STEP 3</span>入れる（4コマンド）</h2>
+
+<div class="copywrap">
+<button class="copybtn" onclick="copyPre(this)">コピー</button>
+<pre><code>corepack enable              # pnpm を使えるようにする
+pnpm install
+cp .env.example .env         # ここに OPENAI_API_KEY を書く
+pnpm run doctor              # 足りないものを日本語で教えてくれる</code></pre>
+</div>
+
+<div class="note">
+  <span class="lbl">★実際に見せる</span>
+  <code>pnpm doctor</code> は <strong>pnpm 内蔵のコマンドに取られて何も出ない</strong>。
+  <strong>わざと叩いて何も出ないところを見せる</strong>のが、いちばん伝わる説明。正解は <code>pnpm run doctor</code>。
+</div>
+
+<h2><span class="step">STEP 4</span>macOS の権限3種を通す</h2>
+<p>アクセシビリティ／オートメーション／画面収録。実際に許可ダイアログを出して見せる。</p>
+
+<div class="note">
+  <span class="lbl">いちばん大事な注意</span>
+  <strong>許可は「起動したアプリごと」に付く。</strong>
+  ターミナルから起動する場合と、常駐させる場合で<strong>別に許可が要る</strong>。「さっき許可したのに」はだいたいこれ。
+</div>
+
+<p>ターミナルが Microphone の一覧に出てこないとき：</p>
+
+<div class="copywrap">
+<button class="copybtn" onclick="copyPre(this)">コピー</button>
+<pre><code># 対象を必ず指定する
+tccutil reset Microphone com.apple.Terminal     # iTerm2 なら com.googlecode.iterm2
+
+# → Cmd+Q で完全終了（ウィンドウを閉じるだけではダメ）
+# → 再起動すると許可ダイアログが出る</code></pre>
+</div>
+
+<div class="note">
+  <span class="lbl">⚠ 注意</span>
+  bundle-id を付けずに叩くと、<strong>Mac の全アプリのマイク許可が消える</strong>。Zoom や Slack も含めて。<strong>通話中は絶対にやらない。</strong>
+</div>
+
+<h2><span class="step">STEP 5</span>起動して、最初の会話</h2>
+
+<div class="copywrap">
+<button class="copybtn" onclick="copyPre(this)">コピー</button>
+<pre><code>pnpm dev                     # → http://localhost:5173</code></pre>
+</div>
+
+<p>ブラウザが開いてマイクが開き、会話係が挨拶を返す。<strong>再読み込み直後は一度画面に触る必要がある</strong>（ここで「マイクが動かない」と思う人が出る）。</p>
+
+<p><strong>最初に試してもらう3つ</strong>：</p>
+<ol>
+  <li>「こんにちは」— 声が返ってくればOK</li>
+  <li>「READMEを要約して」— Claude Code に渡る</li>
+  <li>確認が出たら「はい」— 声で許可が通ることの確認</li>
+</ol>
+
+<h2><span class="step">STEP 6</span>覚えておく操作（この6つだけ）</h2>
+
+<div class="tbl-wrap">
+<table>
+  <tr><th>言うこと</th><th>起きること</th></tr>
+  <tr><td>中断</td><td>途中でやめる</td></tr>
+  <tr><td>作業画面を見せて</td><td>3Dの作業画面へ</td></tr>
+  <tr><td>軽いモデルにして</td><td>会話係を軽量モデルへ（<strong>単価が約3分の1</strong>）</td></tr>
+  <tr><td><strong>編集は自動にして</strong></td><td>そのプロジェクトだけ<strong>ファイル編集</strong>の確認をなくす（<strong>コマンド実行の確認は残る</strong>）</td></tr>
+  <tr><td>確認ありに戻して</td><td>元に戻す</td></tr>
+  <tr><td>英語表示にして</td><td>表記が英語に</td></tr>
+</table>
+</div>
+
+<p><strong>割り込める</strong>：読み上げている最中に話しかければ、その場で止まって聞いてくれる。</p>
+
+<div class="note">
+  <span class="lbl">作業が始まらないとき</span>
+  <strong>「見送りました」の表示が出ていないか</strong>を見る。
+  相槌だけ・短すぎる・こちらの読み上げを拾っただけ、のときは<strong>わざと始めない</strong>作りになっている。
+</div>
+
+<h2><span class="step">STEP 7</span>自分のプロジェクトで使う</h2>
+
+<h3>方法① 既定の作業対象を変える</h3>
+<div class="copywrap">
+<button class="copybtn" onclick="copyPre(this)">コピー</button>
+<pre><code># .env
+VOICE_AGENT_WORKSPACE=/path/to/your/repo</code></pre>
+</div>
+
+<h3>方法② 声で場所を指して開く</h3>
+<ul>
+  <li>「<strong>ダウンロードフォルダの ToDoアプリ で作業して</strong>」— 場所つきで開いてそのまま作業</li>
+  <li>「<strong>ダウンロードに家計簿アプリを作って開発して</strong>」— 無ければ「作りますか？」と聞かれ、<strong>「はい」と答えるまでフォルダは作られない</strong></li>
+</ul>
+<p>複数を同時に開ける（「packages/web も開いて」）。画面に半透明のターミナルが並び、<strong>話しかけている相手だけ縁が光る</strong>。</p>
+
+<h3>声で開ける範囲を決める</h3>
+<div class="tbl-wrap">
+<table>
+  <tr><th>設定</th><th>範囲</th></tr>
+  <tr><td><code>near</code></td><td>作業フォルダとその隣だけ（<strong>いちばん安全。ここから始めるのがおすすめ</strong>）</td></tr>
+  <tr><td><code>home</code>（既定）</td><td>ホーム配下。<code>~/.ssh</code> などの隠しフォルダは開けない</td></tr>
+  <tr><td><code>anywhere</code></td><td>制限なし</td></tr>
+</table>
+</div>
+<p style="font-size:14px;color:var(--ink-faint)">今どの範囲かは、サーバの起動ログに毎回出る。</p>
+
+<h2><span class="step">STEP 8</span>お金の見方</h2>
+
+<div class="copywrap">
+<button class="copybtn" onclick="copyPre(this)">コピー</button>
+<pre><code>pnpm loop:report            # logs/ を読んで、速さと費用をまとめる</code></pre>
+</div>
+
+<div class="note">
+  <span class="lbl">1つだけ覚えてほしいこと</span>
+  <strong>サーバを起動したまま使い続けるほど安くなる</strong>（プロンプトキャッシュ）。
+  <strong>こまめに落として立ち上げ直すほど高くつく。</strong>直感と逆。
+</div>
+
+<p>高いと感じたら、まず会話係を軽量モデルに（ヘッダーから／声で「軽いモデルにして」）。<br>
+単価を確かめていないモデルは費用を <code>—</code> と出す（0として黙って足し込まない）。</p>
+
+<h2><span class="step">STEP 9</span>任意の追加設定（時間が無ければ飛ばしてよい）</h2>
+
+<h3>(a) 手元の資料を引けるようにする</h3>
+<div class="copywrap">
+<button class="copybtn" onclick="copyPre(this)">コピー</button>
+<pre><code>pnpm rag:index              # docs/ を読み直して data/knowledge.db を作る</code></pre>
+</div>
+<ul>
+  <li><code>docs/</code> に <code>.md</code> <code>.txt</code> <code>.pdf</code> を置くと、会話の中で引ける</li>
+  <li>資料に無いことは「資料には見つかりませんでした」と返る。<strong>それらしい答えを作らない</strong></li>
+  <li>鍵らしい名前（<code>.env*</code> <code>id_rsa*</code> <code>*.pem</code> <code>credentials*</code>）は<strong>中身を読む前に</strong>索引から外れる</li>
+</ul>
+<div class="note">
+  <span class="lbl">⚠ 注意して言う</span>
+  索引にした資料の本文は <code>data/knowledge.db</code> に<strong>平文で入る</strong>。
+  人に見せたくない資料を入れたまま、そのフォルダを渡さないこと。
+</div>
+
+<h3>(b) アバターを変える</h3>
+<p>既定は<strong>計器表示</strong>（声に反応して波形と発光が動く）。VRMを使うなら <code>packages/web/public/avatar.vrm</code> に置いて <code>avatar.kind</code> を <code>"vrm"</code> に。
+<strong>置いただけでは切り替わらない</strong>（「置く」と「使う」を分けてある）。声で「アニメのほうにして」でも切り替わる。</p>
+
+<h2><span class="step">STEP 10</span>困ったとき</h2>
+
+<div class="copywrap">
+<button class="copybtn" onclick="copyPre(this)">コピー</button>
+<pre><code>pnpm run doctor             # まずこれ。足りない設定・権限を日本語で出す</code></pre>
+</div>
+
+<div class="tbl-wrap">
+<table>
+  <tr><th>症状</th><th>見るところ</th></tr>
+  <tr><td>声が出ない・つながらない</td><td><code>.env</code> の <code>OPENAI_API_KEY</code>。<code>gpt-realtime</code> が使えるアカウントか</td></tr>
+  <tr><td>マイクが使えない</td><td>ブラウザのマイク許可。<strong>再読み込み直後は一度画面に触る</strong></td></tr>
+  <tr><td>作業が始まらない</td><td><strong>「見送りました」</strong>の表示が出ていないか</td></tr>
+  <tr><td>ポートが使われている</td><td><strong>8787</strong>（サーバ）と <strong>5173</strong>（画面）</td></tr>
+  <tr><td><code>pnpm doctor</code> が何も出さない</td><td><strong><code>pnpm run doctor</code></strong> と打つ</td></tr>
+</table>
+</div>
+
+<h3>お金を使わずに切り分ける</h3>
+<div class="copywrap">
+<button class="copybtn" onclick="copyPre(this)">コピー</button>
+<pre><code>pnpm sim "READMEを要約して"        # 音声抜きで対話（Claude Code は実物）
+pnpm sim --fake "テストを実行して"  # エージェントも偽物。API もトークンも使わない
+pnpm dev:fake                       # 偽エージェントで画面を起動</code></pre>
+</div>
+<p><strong><code>--fake</code> は API もトークンも使わない。</strong>何度でも回してよいので、「声が悪いのか、その下が悪いのか」を切り分けるときに使う。</p>
+<p>⚠ <code>pnpm dev</code> を起動したまま <code>pnpm e2e</code> を叩かない（本物のサーバを使い回して壊れる）。</p>
+
+<h2>まとめ ＋ 次回予告</h2>
+<p>前提確認 → APIキー → インストール → macOS権限 → 起動 → 最初の会話 → 自分のプロジェクト → 費用の見方。</p>
+<p><strong>次回は、実際にこれでアプリを開発していくところ。</strong>今日は「動く状態にする」まで。次は「使い倒す」側。</p>
+
+<footer>Routine Labo ─ 導入ガイド（公開版）<br>2026年8月9日 時点の手順です。メンバーシップ版は Discord の質問部屋、買い切り版は note の記事コメントからどうぞ。</footer>
+
+</div>
+<script>
+function copyPre(btn){
+  var pre = btn.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(function(){
+    var o = btn.textContent; btn.textContent = 'コピーしました';
+    setTimeout(function(){ btn.textContent = o; }, 1600);
+  });
+}
+</script>
+</body>
+</html>
