@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>スライドキャストキット — メンバー限定配布のご案内</title>
+<style>
+  :root {
+    --bg:        #f6f2e9;
+    --surface:   #fffdf8;
+    --surface-2: #f0ead9;
+    --ink:       #241f18;
+    --ink-soft:  #5c5346;
+    --ink-faint: #8a7f6d;
+    --line:      #e2d9c6;
+    --line-soft: #ece4d4;
+    --accent:    #b9791a;
+    --accent-ink:#8a5a10;
+    --accent-bg: #f6e7cd;
+    --teal:      #2f6f68;
+    --code-bg:   #26221b;
+    --code-ink:  #ece3d2;
+    --code-line: #3a352b;
+    --shadow: 0 1px 2px rgba(40,32,18,.05), 0 8px 30px rgba(40,32,18,.06);
+    --radius: 14px;
+    --maxw: 760px;
+    --font-jp: "Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+    --font-mono: "SFMono-Regular",Menlo,Consolas,"Noto Sans Mono",monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-jp); line-height: 1.85; font-size: 15.5px; }
+  main { max-width: var(--maxw); margin: 0 auto; padding: 48px 20px 80px; }
+  h1 { font-size: 26px; line-height: 1.4; letter-spacing: .01em; }
+  h2 { font-size: 19px; margin: 44px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  h2 small { color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: .08em; display: block; margin-bottom: 2px; }
+  p { margin: 10px 0; color: var(--ink-soft); }
+  strong { color: var(--ink); }
+  .lead { color: var(--ink-soft); margin-top: 12px; }
+  .badge { display: inline-block; background: var(--accent-bg); color: var(--accent-ink); font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 999px; margin-bottom: 14px; letter-spacing: .04em; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 22px; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; font-size: 14.5px; }
+  th { background: var(--surface-2); text-align: left; font-size: 13px; color: var(--ink-soft); padding: 8px 14px; border-bottom: 1px solid var(--line); }
+  td { padding: 9px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  code { font-family: var(--font-mono); font-size: 13px; background: var(--surface-2); padding: 1px 6px; border-radius: 5px; }
+  pre { background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 14px 16px; overflow-x: auto; font-family: var(--font-mono); font-size: 13px; line-height: 1.7; margin: 12px 0; }
+  pre code { background: none; padding: 0; color: inherit; }
+  ol, ul { margin: 10px 0 10px 22px; color: var(--ink-soft); }
+  li { margin: 5px 0; }
+  .fig { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin: 18px 0; overflow-x: auto; }
+  .fig svg { display: block; margin: 0 auto; max-width: 100%; }
+  .note { font-size: 13px; color: var(--ink-faint); }
+  .kicker { color: var(--teal); font-weight: 700; }
+  .dl { background: var(--accent-bg); border: 1px solid var(--accent); border-radius: var(--radius); padding: 18px 22px; margin: 18px 0; }
+  .dl strong { color: var(--accent-ink); }
+  footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-faint); }
+</style>
+</head>
+<body>
+<main>
+  <span class="badge">メンバーシップ特典（スタンダードAIプラン以上）</span>
+  <h1>スライドキャストキット<br>— キャラが喋る解説動画メーカー</h1>
+  <p class="lead">台本ファイルを1枚書いて1コマンド実行すると、<strong>2Dキャラクターが口パクで喋る解説動画（フルHD mp4）</strong>ができあがります。毎朝X（旧Twitter）に自動投稿している5分のAIニュース動画と、同じ仕組みの配布版です。</p>
+
+  <h2><small>OVERVIEW</small>仕組み（台本→動画まで全自動）</h2>
+  <div class="fig">
+    <svg viewBox="0 0 700 120" width="700" height="120" role="img" aria-label="パイプライン図">
+      <defs>
+        <marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#8a7f6d"/></marker>
+      </defs>
+      <g font-family="Hiragino Kaku Gothic ProN, sans-serif" font-size="13">
+        <rect x="8"   y="34" width="118" height="52" rx="10" fill="#fffdf8" stroke="#b9791a" stroke-width="1.6"/>
+        <text x="67"  y="56" text-anchor="middle" fill="#241f18" font-weight="700">台本 JSON</text>
+        <text x="67"  y="74" text-anchor="middle" fill="#8a7f6d" font-size="11">1枚書くだけ</text>
+        <rect x="156" y="34" width="118" height="52" rx="10" fill="#fffdf8" stroke="#e2d9c6"/>
+        <text x="215" y="56" text-anchor="middle" fill="#241f18" font-weight="700">音声合成</text>
+        <text x="215" y="74" text-anchor="middle" fill="#8a7f6d" font-size="11">Fish Audio</text>
+        <rect x="304" y="34" width="118" height="52" rx="10" fill="#fffdf8" stroke="#e2d9c6"/>
+        <text x="363" y="56" text-anchor="middle" fill="#241f18" font-weight="700">口パク同期</text>
+        <text x="363" y="74" text-anchor="middle" fill="#8a7f6d" font-size="11">自動解析</text>
+        <rect x="452" y="34" width="118" height="52" rx="10" fill="#fffdf8" stroke="#e2d9c6"/>
+        <text x="511" y="56" text-anchor="middle" fill="#241f18" font-weight="700">動くスライド</text>
+        <text x="511" y="74" text-anchor="middle" fill="#8a7f6d" font-size="11">図表・カード</text>
+        <rect x="600" y="34" width="92"  height="52" rx="10" fill="#2f6f68"/>
+        <text x="646" y="56" text-anchor="middle" fill="#fffdf8" font-weight="700">mp4</text>
+        <text x="646" y="74" text-anchor="middle" fill="#d8e6e3" font-size="11">フルHD</text>
+        <line x1="126" y1="60" x2="152" y2="60" stroke="#8a7f6d" stroke-width="1.5" marker-end="url(#ar)"/>
+        <line x1="274" y1="60" x2="300" y2="60" stroke="#8a7f6d" stroke-width="1.5" marker-end="url(#ar)"/>
+        <line x1="422" y1="60" x2="448" y2="60" stroke="#8a7f6d" stroke-width="1.5" marker-end="url(#ar)"/>
+        <line x1="570" y1="60" x2="596" y2="60" stroke="#8a7f6d" stroke-width="1.5" marker-end="url(#ar)"/>
+      </g>
+    </svg>
+  </div>
+  <ul>
+    <li><span class="kicker">2つの形式</span> — 2キャラ掛け合いの<strong>podcast形式</strong>（ニュース・対談向き）と、1キャラ解説の<strong>solo形式</strong>（チュートリアル向き）</li>
+    <li><span class="kicker">visual文法</span> — 棒グラフ・大数値・スペック表・循環図・フロー図・Webスクショ・台詞同期カードを台本から指定</li>
+    <li><span class="kicker">ポーズ切替</span> — 指差し・考え中・手上げを台詞1行ごとに指定可能</li>
+    <li><span class="kicker">直しに強い</span> — 台本を1行直すと、その行の音声だけ再生成（キャッシュ内蔵でコスト最小）</li>
+  </ul>
+
+  <h2><small>INCLUDED</small>同梱物</h2>
+  <table>
+    <tr><th>内容</th><th>説明</th></tr>
+    <tr><td>生成スクリプト一式</td><td><code>run_job.py</code>（一括実行）・<code>verify_format.py</code>（動作確認）ほか</td></tr>
+    <tr><td>サンプルキャラ2体</td><td>ナナ（アンドロイド風）とレン（エンジニア風）。口パク5種＋ポーズ付き・そのまま商用利用可</td></tr>
+    <tr><td>既定ボイス設定</td><td>Fish Audio公開ボイス2種を設定済み（自分のAPIキーでそのまま使える）</td></tr>
+    <tr><td>サンプル台本2本</td><td>掛け合い版とソロ版。書き換えれば自分の番組になる</td></tr>
+    <tr><td>Claude Codeスキル2本</td><td><code>/slidecast-setup</code>（初期設定の案内）と <code>/slidecast</code>（制作ループ）</td></tr>
+    <tr><td>手順書・規約</td><td>README・利用規約・CHANGELOG（更新はメンバー特典として継続）</td></tr>
+  </table>
+
+  <h2><small>REQUIREMENTS</small>動作要件と費用</h2>
+  <table>
+    <tr><th>項目</th><th>内容</th></tr>
+    <tr><td>パソコン</td><td>Mac（Apple Silicon で動作実績）。Python 3.10+・Node.js 22+・ffmpeg</td></tr>
+    <tr><td>初回のみ</td><td>ネット接続で約1GBの自動ダウンロード（レンダラ本体）</td></tr>
+    <tr><td>Fish Audio</td><td><strong>別途従量課金</strong>（ご自身のAPIキー）。目安は5分動画1本 ¥15前後</td></tr>
+    <tr><td>キット本体</td><td>追加費用なし（メンバーシップ特典）。動画側のクレジット消費もゼロ</td></tr>
+  </table>
+  <p class="note">APIキーが無くても、同梱の音声キャッシュで「動作確認まで」は課金ゼロで完走します。</p>
+
+  <h2><small>SETUP</small>セットアップの流れ（約15分＋ダウンロード時間）</h2>
+  <ol>
+    <li>zipを展開し、Claude Code でフォルダを開く</li>
+    <li><code>/slidecast-setup</code> を実行 → 環境チェックから順に案内されます</li>
+    <li>合格判定（<code>verify_format</code>）が2形式とも「失敗 0」になればOK</li>
+    <li>Fish AudioのAPIキーを <code>.env</code> に設定</li>
+    <li><code>run_job.py</code> でサンプル台本を実行 → 最初の1本（48秒）が完成</li>
+  </ol>
+
+  <div class="dl">
+    <strong>ダウンロード</strong>
+    <p>配布zipは <strong>メンバー限定Discordの配布チャンネル</strong> に置いています。メンバーシップ加入後、Discord連携でチャンネルが開放されます（加入はiPhoneアプリからではなく<strong>ブラウザから</strong>がお得です）。</p>
+  </div>
+
+  <h2><small>SUPPORT</small>サポートと更新</h2>
+  <ul>
+    <li>質問は メンバーDiscord の質問チャンネルへ（手順書の範囲でサポートします）</li>
+    <li>個別環境の代行セットアップ・カスタマイズ代行は対象外です</li>
+    <li>キットはメンバー特典として継続更新（更新履歴はCHANGELOG・新版は同じチャンネルで告知）</li>
+    <li>再配布・転売・素材の単体流用はご遠慮ください（詳細は同梱の利用規約）</li>
+  </ul>
+
+  <footer>Routine Labo ｜ スライドキャストキット v1.0.0（2026-07-27）｜ このページの内容は予告なく更新されることがあります</footer>
+</main>
+</body>
+</html>
