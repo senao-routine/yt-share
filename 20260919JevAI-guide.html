@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Jev AI とは何か｜文章を書かないAIは、どの作業に効くのか</title>
+<style>
+  :root{
+    --bg:#f6f2e9; --surface:#fffdf8; --surface-2:#f0ead9;
+    --ink:#241f18; --ink-soft:#5c5346; --ink-faint:#8a7f6d;
+    --line:#e2d9c6; --line-soft:#ece4d4;
+    --accent:#b9791a; --accent-ink:#8a5a10; --accent-bg:#f6e7cd;
+    --teal:#2f6f68; --teal-bg:#dcebe8;
+    --code-bg:#26221b; --code-ink:#ece3d2;
+    --shadow:0 1px 2px rgba(40,32,18,.05),0 8px 30px rgba(40,32,18,.06);
+    --radius:14px; --maxw:900px;
+    --font-jp:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+    --font-mono:"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono",monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font-jp);line-height:1.9;font-size:16px}
+  .container{max-width:var(--maxw);margin:0 auto;padding:40px 22px 80px}
+  header{text-align:center;margin-bottom:34px}
+  .badge{display:inline-block;background:var(--accent-bg);color:var(--accent-ink);border:1px solid var(--accent);
+         border-radius:999px;padding:5px 20px;font-size:13px;font-weight:700;letter-spacing:.14em}
+  h1{font-size:28px;font-weight:800;line-height:1.5;margin:18px 0 10px}
+  h1 .gold{color:var(--accent-ink)}
+  .sub{color:var(--ink-soft);font-size:14.5px;max-width:40em;margin:0 auto}
+  .rule{width:64px;height:3px;margin:24px auto 0;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--teal))}
+  h2{font-size:20px;font-weight:800;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--line);
+     display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  h2 .step{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--teal);
+           background:var(--teal-bg);border:1px solid var(--teal);border-radius:999px;padding:1px 10px}
+  h3{font-size:16.5px;font-weight:800;margin:22px 0 8px}
+  h4{font-size:14px;font-weight:800;margin:16px 0 6px;color:var(--accent-ink)}
+  p{margin-bottom:10px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+        box-shadow:var(--shadow);padding:22px 26px;margin-bottom:16px}
+  ul,ol{padding-left:24px;margin-bottom:10px}
+  li{margin-bottom:5px}
+  li::marker{color:var(--accent)}
+  strong,b{color:var(--accent-ink)}
+  code{background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:2px 7px;
+       font-family:var(--font-mono);font-size:.86em;color:var(--accent-ink)}
+  table{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+  th{background:var(--surface-2);color:var(--accent-ink);font-weight:700;font-size:13px}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr.hi td{background:var(--teal-bg)}
+  .say{border:1px solid var(--teal);background:var(--teal-bg);border-radius:10px;padding:11px 15px;margin:10px 0;font-size:14.5px}
+  .say::before{content:"ポイント";display:block;font-size:10.5px;font-weight:800;letter-spacing:.12em;color:var(--teal);margin-bottom:3px}
+  .warn{border:1px solid var(--accent);background:var(--accent-bg);border-radius:10px;padding:11px 15px;margin:10px 0;font-size:14.5px}
+  .warn::before{content:"注意";display:block;font-size:10.5px;font-weight:800;letter-spacing:.12em;color:var(--accent-ink);margin-bottom:3px}
+  .do{list-style:none;padding-left:0}
+  .do li{padding-left:30px;position:relative;margin-bottom:8px}
+  .do li::before{content:"";position:absolute;left:0;top:5px;width:17px;height:17px;border:2px solid var(--line);
+                 border-radius:5px;background:var(--surface)}
+  .fig{margin:18px 0 6px;text-align:center}
+  .fig img{max-width:100%;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+  .figcap{font-size:12.5px;color:var(--ink-faint);margin-top:6px;line-height:1.7}
+  .pending{border:1px dashed var(--line-strong,#cdc3ad);border-radius:10px;padding:26px;color:var(--ink-faint);
+           font-size:13px;background:var(--surface-2)}
+  .codewrap{position:relative}
+  .copy{position:absolute;top:10px;right:10px;background:var(--accent);color:#fff;border:0;border-radius:8px;
+        font-family:inherit;font-weight:700;font-size:12.5px;padding:6px 14px;cursor:pointer}
+  .copy:hover{background:var(--accent-ink)} .copy.done{background:var(--teal)}
+  pre{background:var(--code-bg);border-radius:10px;padding:16px 20px;overflow-x:auto;margin:10px 0 14px}
+  pre code{background:none;border:none;padding:0;color:var(--code-ink);font-size:13px;line-height:1.75}
+  .toc{columns:2;column-gap:26px;font-size:14.5px}
+  .toc a{display:block;padding:3px 0;text-decoration:none;color:var(--ink-soft)}
+  .toc a:hover{color:var(--teal)}
+  .meta{font-size:13px;color:var(--ink-soft)}
+  footer{text-align:center;color:var(--ink-faint);font-size:12.5px;margin-top:34px;line-height:2}
+  @media(max-width:640px){.toc{columns:1}.card{padding:18px 16px}h1{font-size:23px}}
+</style>
+</head>
+<body><div class="container">
+
+<header>
+  <span class="badge">解説メモ</span>
+  <h1>Jev AI｜<span class="gold">文章を書かないAI</span>は、どの作業に効くのか</h1>
+  <p class="sub">動画で扱った内容のまとめです。数字はすべて2026年9月に自分の回線で測った実測値で、
+  公称値をそのまま載せてはいません。再現できなかったものは、そう書いています。</p>
+  <div class="rule"></div>
+</header>
+
+<div class="card">
+  <h2 style="margin-top:0;border:0;padding:0">この記事の中身</h2>
+  <nav class="toc">
+    <a href="#s3">結論 — 何を返すAIなのか</a>
+    <a href="#s5">Jev とは何か（型・速さ・料金）</a>
+    <a href="#s6">どこに使えるのか</a>
+    <a href="#s7">実際に動かした4つ</a>
+    <a href="#s8">まとめ</a>
+  </nav>
+  
+</div>
+
+<h2 id="s3">結論 — 何を返すAIなのか</h2>
+<div class="card">
+  <p><b>一文で言い切る：</b>Jev AI は、文章を書かないAI。返ってくるのは、型の決まった判定と、その確信度だけ。</p>
+  <h4>実物のレスポンス</h4>
+  <div class="codewrap"><button class="copy">コピー</button>
+  <pre><code>{
+  "answers": { "is_urgent": { "noul": 0.92 } },
+  "usage": { "cost": 0.00001533 }
+}</code></pre></div>
+  <div class="say">これで全部です。<b>文章がどこにも無い。</b>「緊急です」とも「0.92です」とも書かれていない。
+    <b>0.92 という数字が、そのまま返ってくる</b>。だからプログラムがそのまま使えます。</div>
+  <h4>いちばん伝わる言い換え（X で66万表示）</h4>
+  <blockquote style="margin:8px 0 8px 12px;padding-left:14px;border-left:0;color:var(--ink-soft)">
+    「gpt や claude を置き換えるものじゃない。ただの<b>"本当に"賢い switch 文</b>だ」</blockquote>
+  <p>→「<b>2016年の分類器が、2026年の賢さを手に入れた</b>。そういう道具です」</p>
+  <div class="say"><b>AIに何かを"判定"させている人は、全員関係あります。</b>メールの仕分け、問い合わせの振り分け、
+    コメントの選別、コードのチェック——<b>あれ、全部LLMにやらせる必要なかったんです。</b></div>
+  <p class="meta">作ったのは <b>TypeSafe AI ／ Diogo Almeida</b>（InstructGPT・RLHF の共同発明者）。
+  本人の言葉＝「ChatGPTを共同発明したあと、なぜ超人的なチャットモデルがAGIにつながらないのかをずっと自問していた」</p>
+</div>
+
+<h2 id="s5">Jev とは何か</h2>
+<div class="card">
+  
+
+  <h3>① そもそも何が新しいのか</h3>
+  <p><b>System One モデル</b>＝人間の思考でいう<b>直感の側だけ</b>を担当するAI。<b>文章生成の口をそもそも持っていない</b>。
+  入力＝状態（判定したい文章）＋型のついた質問／出力＝判定＋較正済みの確率。</p>
+  <div class="say">AIに作文させるのをやめて、<b>決裁だけさせる</b>。</div>
+
+  <h4>質問の型は3つだけ</h4>
+  <table>
+    <tr><th>型</th><th>返すもの</th><th>例</th></tr>
+    <tr><td><b>Noul</b></td><td>はい／いいえを <b>0〜1の確率</b>で</td><td>この問い合わせは緊急か → 0.92</td></tr>
+    <tr><td><b>Choice</b></td><td><b>決めた選択肢から1つ</b>＋各選択肢の確率＋確信度</td><td>カテゴリ → 不具合・障害／確信度 0.97</td></tr>
+    <tr><td><b>Score</b></td><td>段階評価（<b>小数で返る</b>）</td><td>不満度 0〜4 → 3.07</td></tr>
+  </table>
+  <div class="say">選択肢は<b>呼ぶ側が先に決める。だから、定義にない答えは返ってこない。</b>
+    これが「ハルシネーションしない」と言われる仕組みの正体（＝出力形式の話）。</div>
+  <div class="fig"><svg viewBox="0 0 860 330" role="img" aria-label="Jevが返す3つの型（Noul・Choice・Score）と、文章が返ってこないこと">
+  <rect width="860" height="330" fill="#fffdf8"/>
+  <text x="430" y="30" text-anchor="middle" font-size="19" font-weight="700" fill="#241f18">返ってくるのは3つの型だけ</text>
+  <text x="430" y="50" text-anchor="middle" font-size="12.5" fill="#5c5346">文章はどこにも入っていない</text>
+  <line x1="386" y1="58" x2="474" y2="58" stroke="#b9791a" stroke-width="2"/>
+
+  <g>
+    <rect x="24" y="76" width="262" height="112" rx="10" fill="#f0ead9" stroke="#e2d9c6"/>
+    <circle cx="44" cy="96" r="9" fill="#b9791a"/><text x="44" y="100" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">1</text>
+    <text x="62" y="101" font-size="16" font-weight="700" fill="#8a5a10" font-family="monospace">Noul</text>
+    <text x="40" y="126" font-size="12.5" fill="#241f18">はい・いいえを 0〜1 の確率で返す</text>
+    <line x1="40" y1="140" x2="270" y2="140" stroke="#e2d9c6"/>
+    <text x="40" y="160" font-size="11.5" fill="#5c5346">この問い合わせは緊急か</text>
+    <text x="40" y="177" font-size="13" font-weight="700" fill="#2f6f68" font-family="monospace">→ 0.92</text>
+  </g>
+  <g>
+    <rect x="299" y="76" width="262" height="112" rx="10" fill="#f0ead9" stroke="#e2d9c6"/>
+    <circle cx="319" cy="96" r="9" fill="#b9791a"/><text x="319" y="100" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">2</text>
+    <text x="337" y="101" font-size="16" font-weight="700" fill="#8a5a10" font-family="monospace">Choice</text>
+    <text x="315" y="126" font-size="12.5" fill="#241f18">決めた選択肢から1つ選ぶ</text>
+    <line x1="315" y1="140" x2="545" y2="140" stroke="#e2d9c6"/>
+    <text x="315" y="160" font-size="11.5" fill="#5c5346">カテゴリ</text>
+    <text x="315" y="177" font-size="13" font-weight="700" fill="#2f6f68" font-family="monospace">→ 不具合・障害 / 0.97</text>
+  </g>
+  <g>
+    <rect x="574" y="76" width="262" height="112" rx="10" fill="#f0ead9" stroke="#e2d9c6"/>
+    <circle cx="594" cy="96" r="9" fill="#b9791a"/><text x="594" y="100" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">3</text>
+    <text x="612" y="101" font-size="16" font-weight="700" fill="#8a5a10" font-family="monospace">Score</text>
+    <text x="590" y="126" font-size="12.5" fill="#241f18">段階評価。整数ではなく小数</text>
+    <line x1="590" y1="140" x2="820" y2="140" stroke="#e2d9c6"/>
+    <text x="590" y="160" font-size="11.5" fill="#5c5346">不満度 0〜4</text>
+    <text x="590" y="177" font-size="13" font-weight="700" fill="#2f6f68" font-family="monospace">→ 3.07</text>
+  </g>
+
+  <rect x="24" y="210" width="430" height="66" rx="9" fill="#26221b"/>
+  <text x="42" y="234" font-size="12" fill="#ece3d2" font-family="monospace">{ "answers": { "is_urgent": { "noul": 0.92 } },</text>
+  <text x="42" y="256" font-size="12" fill="#ece3d2" font-family="monospace">  "usage": { "cost": 0.00001533 } }</text>
+
+  <path d="M556 243 L472 243" stroke="#b9791a" stroke-width="3" marker-end="url(#a1)"/>
+  <defs><marker id="a1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+    <path d="M0 0 L9 4.5 L0 9 z" fill="#b9791a"/></marker></defs>
+  <text x="566" y="238" font-size="13" font-weight="700" fill="#8a5a10">返ってくるのはこれだけ</text>
+  <text x="566" y="258" font-size="12" fill="#a33d2f">文章は返ってこない</text>
+
+  <rect x="24" y="290" width="812" height="28" rx="7" fill="#f0ead9"/>
+  <text x="40" y="309" font-size="11.5" fill="#5c5346">選択肢は呼ぶ側が先に決める。定義にない答えは返ってこない ／ だからプログラムがそのまま使える（文字列を読み解く処理が要らない）</text>
+</svg></div><div class="figcap">返ってくるのは「型のついた判定」と「確信度」だけ。文章は一切返ってこない。</div>
+
+  <h3>② よくある3つの疑問</h3>
+  <table>
+    <tr><th style="width:14em">ChatGPTの代わりになるの？</th><td><b>なりません。文章が書けない。</b>要約も翻訳も執筆も無理</td></tr>
+    <tr><th>精度が上がるの？</th><td><b>上がりません。</b>うちの検証では簡単な分類ならLLMも同じく正解した。差がつくのは<b>速度と費用</b>だけ</td></tr>
+    <tr><th>難しそう</th><td><b>curl 1本で動きます。</b>登録して、キーを入れるだけ</td></tr>
+  </table>
+
+  <h3>③ なぜ速いのか＝この回の核心</h3>
+  <p>公称は <b>70〜500ms・LLM比40〜200倍</b>。うちの回線では、1問だけなら十数倍。でも<b>質問を増やすと話が変わる</b>。</p>
+  <table>
+    <tr><th>条件</th><th class="num">Jev</th><th class="num">Claude Opus 5</th><th class="num">差</th></tr>
+    <tr class="hi"><td>規約<b>24項目</b>のチェック</td><td class="num">332ms</td><td class="num">18,966ms</td><td class="num"><b>57.1倍速・411倍安</b></td></tr>
+    <tr><td>同じ課題を<b>1項目</b>に</td><td class="num">282ms</td><td class="num">3,888ms</td><td class="num">13.8倍</td></tr>
+    <tr><td>伸び率（1問→24問）</td><td class="num"><b>1.18倍</b></td><td class="num">4.88倍</td><td class="num">—</td></tr>
+  </table>
+  <div class="say">LLMは答えを<b>"文字として書く"</b>から、項目が増えるほど時間が伸びる。<b>Jevは全部を同時に返すから伸びない。</b><br>
+    一言で：<b>速いんじゃなくて、"増えない"んです。</b></div>
+  <div class="warn">公称の40〜200倍は<b>条件つきで本当</b>でした。<b>束ねるほど公称に近づく</b>。</div>
+  <div class="fig"><svg viewBox="0 0 860 360" role="img" aria-label="チェック項目を1から20に増やしたときの応答時間。Jevはほぼ変わらない。">
+  <rect width="860" height="360" fill="#fffdf8"/>
+  <text x="430" y="30" text-anchor="middle" font-size="19" font-weight="700" fill="#241f18">速いのではなく、増えない</text>
+  <text x="430" y="50" text-anchor="middle" font-size="12.5" fill="#5c5346">チェック項目を増やしたときの応答時間</text>
+  <line x1="386" y1="58" x2="474" y2="58" stroke="#b9791a" stroke-width="2"/>
+
+  <line x1="86" y1="270" x2="640" y2="270" stroke="#241f18" stroke-width="1.6"/>
+  <text x="76" y="274" text-anchor="end" font-size="11" fill="#8a7f6d" font-family="monospace">0</text>
+  <line x1="86" y1="200" x2="640" y2="200" stroke="#ece4d4"/>
+  <text x="76" y="204" text-anchor="end" font-size="11" fill="#8a7f6d" font-family="monospace">200</text>
+  <line x1="86" y1="130" x2="640" y2="130" stroke="#ece4d4"/>
+  <text x="76" y="134" text-anchor="end" font-size="11" fill="#8a7f6d" font-family="monospace">400</text>
+  <text x="76" y="112" text-anchor="end" font-size="11" fill="#8a7f6d">ms</text>
+
+  <rect x="126" y="160" width="86" height="110" rx="4" fill="#2f6f68"/>
+  <text x="169" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#241f18" font-family="monospace">315ms</text>
+  <text x="169" y="292" text-anchor="middle" font-size="12.5" fill="#5c5346">1項目</text>
+
+  <rect x="262" y="115" width="86" height="155" rx="4" fill="#2f6f68"/>
+  <text x="305" y="107" text-anchor="middle" font-size="14" font-weight="700" fill="#241f18" font-family="monospace">442ms</text>
+  <text x="305" y="292" text-anchor="middle" font-size="12.5" fill="#5c5346">5項目</text>
+
+  <rect x="398" y="161" width="86" height="109" rx="4" fill="#2f6f68"/>
+  <text x="441" y="153" text-anchor="middle" font-size="14" font-weight="700" fill="#241f18" font-family="monospace">312ms</text>
+  <text x="441" y="292" text-anchor="middle" font-size="12.5" font-weight="700" fill="#241f18">20項目</text>
+
+  <line x1="96" y1="158" x2="492" y2="158" stroke="#8a7f6d" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <text x="305" y="320" text-anchor="middle" font-size="11.5" font-weight="700" fill="#8a7f6d">1項目と20項目はほぼ同じ高さ</text>
+
+  <rect x="556" y="72" width="60" height="198" rx="4" fill="#a33d2f"/>
+  <path d="M586 72 L586 64" stroke="#a33d2f" stroke-width="2.6"/>
+  <path d="M586 58 l-6 9 h12 z" fill="#a33d2f"/>
+  <text x="600" y="60" text-anchor="start" font-size="12" font-weight="700" fill="#a33d2f">ここまで伸びる</text>
+  <text x="586" y="292" text-anchor="middle" font-size="12" fill="#a33d2f">LLMなら20項目で</text>
+  <text x="586" y="308" text-anchor="middle" font-size="12" fill="#a33d2f">20倍の時間</text>
+
+  <rect x="660" y="96" width="180" height="76" rx="9" fill="#dcebe8" stroke="#2f6f68"/>
+  <text x="674" y="118" font-size="11.5" fill="#241f18">Jevは全部を同時に返す</text>
+  <text x="674" y="137" font-size="11.5" fill="#241f18">だから増えても伸びない</text>
+  <text x="674" y="160" font-size="11" fill="#2f6f68" font-weight="700">1項目 → 20項目 で 0.99倍</text>
+
+  <rect x="660" y="186" width="180" height="84" rx="9" fill="#f0ead9" stroke="#e2d9c6"/>
+  <text x="674" y="208" font-size="11.5" fill="#241f18">費用だけは増える</text>
+  <text x="674" y="229" font-size="11" fill="#5c5346" font-family="monospace">$0.0000186</text>
+  <text x="674" y="247" font-size="11" fill="#5c5346" font-family="monospace">→ $0.0000627</text>
+  <text x="674" y="264" font-size="11" fill="#8a5a10" font-weight="700">1回およそ 0.01円</text>
+
+  <rect x="24" y="320" width="812" height="28" rx="7" fill="#f0ead9"/>
+  <text x="40" y="339" font-size="11.5" fill="#5c5346">LLMは答えを「文字として書く」から、項目が増えるほど時間が伸びる ／ Jevは全部を同時に返すから伸びない（2026-09-22 実測）</text>
+</svg></div><div class="figcap">チェック項目を1→20に増やしても応答時間は 315ms → 312ms。増えるのは費用だけ（2026-09-22 実測）。</div>
+
+  <h3>④ 料金と制約</h3>
+  <p><b>$0.042 / 100万入力トークン・出力は $0</b>。コンテキストは <b>32,000トークン</b>。24項目の監査1回で<b>約0.011円</b>。
+  比較：Claude Opus 5 は入力$5.00・出力$25.00（100万トークンあたり）。</p>
+  <div class="say">今日このあと動かすアプリ、<b>全部合わせても1円行きません</b>。</div>
+
+  <h3>⑤ なぜ今か＝時事フック</h3>
+  <ul>
+    <li><b>9月15日</b> 早期アクセス開始 → <b>申し込み殺到でAPIが一時停止</b></li>
+    <li><b>9月21日</b> <b>waitlist 撤廃</b>。誰でも登録するだけ・<b>$5クレジット付き</b>（約1.2億トークン）</li>
+    <li><b>そしてもう追随が出ている</b>：<b>Laya</b>（オープンウェイトの System One）が「ローカルで Jev の11〜50倍速」という報告。16GBのMacBook Airで動くという</li>
+  </ul>
+  <div class="say">これはツール1個の話じゃなくて、<b>"System One"という新しい型の1号機</b>。だからもう2号機、3号機が出てきている。</div>
+  <div class="warn">⚠ <b>Laya は自分で検証していない</b>。必ず「<b>そういう報告がある</b>」と言う。</div>
+
+  <h3>⑥ 今日から始める手順</h3>
+  <ul>
+    <li><b>公式</b>：<code>console.typesafe.ai</code> で登録するだけ。<b>$5クレジット付き</b></li>
+    <li><b>他の経路</b>：OpenRouter（<code>typesafe/jev-1.13</code>）／Cloudflare Workers AI／Vercel AI Gateway</li>
+  </ul>
+  <div class="warn">⚠ 叩き方が普通のAPIと違う：<code>chat/completions</code> では<b>400</b>。<b><code>POST /api/alpha/decisions</code></b> を使う。</div>
+  <div class="codewrap"><button class="copy">コピー</button>
+  <pre><code>curl -s -X POST "https://openrouter.ai/api/alpha/decisions" \
+  -H "Authorization: Bearer $OPENROUTER_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "typesafe/jev-1.13",
+    "state": "払い出しが3日間ずっと失敗しています。至急なんとかしてください。",
+    "questions": {
+      "is_urgent": {
+        "type": "noul",
+        "instructions": "この問い合わせは緊急対応が必要ですか？",
+        "criteria": {
+          "true":  "業務が止まっている・金銭的被害・期限が迫っている",
+          "false": "すぐ対応しなくても実害が出ない"
+        }
+      }
+    }
+  }'</code></pre></div>
+</div>
+
+<h2 id="s6">どこに使えるのか</h2>
+<div class="card">
+  <h4>効く仕事の4類型</h4>
+  <table>
+    <tr><th style="width:16em">型</th><th>具体例</th><th style="width:6em">デモ</th></tr>
+    <tr><td><b>大量の文章を仕分ける</b></td><td>問い合わせ・メール・コメント・応募書類</td><td>①</td></tr>
+    <tr><td><b>1つの対象を多くの観点で見る</b></td><td>台本・規約・契約書・コードレビュー</td><td>②</td></tr>
+    <tr><td><b>道具を選ぶ・振り分ける</b></td><td>どのツールを使うか・どのモデルに回すか</td><td>③</td></tr>
+    <tr><td><b>件数の多い数値判定</b></td><td>献立のカロリー・帯分け・注意フラグを1ヶ月ぶん（写真を読むのは別のAIの仕事）</td><td>④</td></tr>
+  </table>
+  <div class="say">共通点は、<b>答えが"言葉"じゃなくて"どれか"や"何点"で済む仕事</b>。そこだけ効きます。</div>
+
+  <h4>ネットで注目されている設計</h4>
+  <ul>
+    <li><b>3層に分ける考え方</b>：内側＝正規表現などのコード／中間＝<b>Jevの確率つき判定</b>／外側＝LLMの文章生成
+      →「<b>今までは内側か外側しかなかった。その真ん中が空いていた</b>」</li>
+    <li><b>ハーネスに検査層を"足す"</b>：置き換えではなく、<b>これまで高すぎて検査を置けなかった所に置ける</b>
+      （入口チェック／検索結果フィルタ／ループ検出／出力検証／メモリ照合）</li>
+    <li><b>伸びている紹介</b>：Jev×Codex の実践ガイド（<b>45万表示</b>）／活用術15選（<b>17万表示</b>）／browser-use の <code>jev-ultrafast</code></li>
+  </ul>
+  <div class="fig"><svg viewBox="0 0 860 370" role="img" aria-label="コード・Jev・LLMの3層と、確信度による分かれ道">
+  <rect width="860" height="370" fill="#fffdf8"/>
+  <text x="430" y="30" text-anchor="middle" font-size="19" font-weight="700" fill="#241f18">真ん中が空いていた</text>
+  <text x="430" y="50" text-anchor="middle" font-size="12.5" fill="#5c5346">置き換えではなく、あいだに足す</text>
+  <line x1="386" y1="58" x2="474" y2="58" stroke="#b9791a" stroke-width="2"/>
+
+  <rect x="24" y="80" width="248" height="96" rx="10" fill="#f0ead9" stroke="#e2d9c6"/>
+  <text x="148" y="108" text-anchor="middle" font-size="16" font-weight="700" fill="#241f18">コード</text>
+  <text x="148" y="130" text-anchor="middle" font-size="12" fill="#5c5346">正規表現・条件分岐</text>
+  <text x="148" y="152" text-anchor="middle" font-size="11" fill="#8a7f6d">最速・ほぼ無料</text>
+  <text x="148" y="168" text-anchor="middle" font-size="11" fill="#8a7f6d">意味は分からない</text>
+
+  <text x="430" y="74" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2f6f68">ここが空いていた</text>
+  <rect x="306" y="80" width="248" height="96" rx="10" fill="#dcebe8" stroke="#2f6f68" stroke-width="2.4"/>
+  <text x="430" y="108" text-anchor="middle" font-size="16" font-weight="700" fill="#2f6f68">Jev</text>
+  <text x="430" y="130" text-anchor="middle" font-size="12" fill="#241f18">確率つきの判定</text>
+  <text x="430" y="152" text-anchor="middle" font-size="11" fill="#5c5346">速い・1件0.01円以下</text>
+  <text x="430" y="168" text-anchor="middle" font-size="11" fill="#5c5346">意味は分かる／書けない</text>
+
+  <rect x="588" y="80" width="248" height="96" rx="10" fill="#f0ead9" stroke="#e2d9c6"/>
+  <text x="712" y="108" text-anchor="middle" font-size="16" font-weight="700" fill="#241f18">LLM</text>
+  <text x="712" y="130" text-anchor="middle" font-size="12" fill="#5c5346">文章を書く・理由を説明する</text>
+  <text x="712" y="152" text-anchor="middle" font-size="11" fill="#8a7f6d">低速・高額</text>
+  <text x="712" y="168" text-anchor="middle" font-size="11" fill="#8a7f6d">書ける</text>
+
+  <path d="M276 128 L302 128" stroke="#b9791a" stroke-width="2.4"/>
+  <path d="M558 128 L584 128" stroke="#b9791a" stroke-width="2.4"/>
+  <line x1="24" y1="192" x2="836" y2="192" stroke="#e2d9c6"/>
+  <text x="30" y="188" font-size="11" fill="#8a7f6d">速い・安い</text>
+  <text x="830" y="188" text-anchor="end" font-size="11" fill="#8a7f6d">賢い・高い</text>
+
+  <text x="140" y="228" font-size="14" font-weight="700" fill="#241f18">迷ったときの分かれ道</text>
+  <circle cx="110" cy="284" r="36" fill="#f6e7cd" stroke="#b9791a" stroke-width="2.2"/>
+  <text x="110" y="282" text-anchor="middle" font-size="12" font-weight="700" fill="#8a5a10">確信度</text>
+  <text x="110" y="298" text-anchor="middle" font-size="10.5" fill="#8a5a10">しきい値 0.80</text>
+
+  <path d="M150 268 L206 248" stroke="#2f6f68" stroke-width="2.2" marker-end="url(#a3)"/>
+  <path d="M150 300 L206 320" stroke="#a33d2f" stroke-width="2.2" marker-end="url(#a3r)"/>
+  <defs>
+    <marker id="a3" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#2f6f68"/></marker>
+    <marker id="a3r" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#a33d2f"/></marker>
+  </defs>
+  <rect x="214" y="228" width="214" height="40" rx="8" fill="#dcebe8" stroke="#2f6f68"/>
+  <text x="228" y="253" font-size="12.5" font-weight="700" fill="#2f6f68">0.80以上 → そのまま自動で進める</text>
+  <rect x="214" y="300" width="214" height="40" rx="8" fill="#fbeae7" stroke="#a33d2f"/>
+  <text x="228" y="325" font-size="12.5" font-weight="700" fill="#a33d2f">0.80未満 → 人に回す</text>
+
+  <text x="452" y="238" font-size="11" font-weight="700" fill="#8a7f6d">実際に人へ回った例</text>
+  <rect x="452" y="248" width="384" height="26" rx="6" fill="#f0ead9"/>
+  <text x="464" y="265" font-size="11.5" fill="#241f18" font-family="monospace">git push --force origin main</text>
+  <text x="824" y="265" text-anchor="end" font-size="11.5" font-weight="700" fill="#a33d2f">0.76</text>
+  <rect x="452" y="280" width="384" height="26" rx="6" fill="#f0ead9"/>
+  <text x="464" y="297" font-size="11.5" fill="#241f18">ショート動画を3本作りたい</text>
+  <text x="824" y="297" text-anchor="end" font-size="11.5" font-weight="700" fill="#a33d2f">0.76</text>
+  <rect x="452" y="312" width="384" height="26" rx="6" fill="#f0ead9"/>
+  <text x="464" y="329" font-size="11.5" fill="#241f18">領収書の宛名を会社名に変更したい</text>
+  <text x="824" y="329" text-anchor="end" font-size="11.5" font-weight="700" fill="#a33d2f">0.66</text>
+</svg></div><div class="figcap">真ん中の層が空いていた。確信度がしきい値を下回った件は、自動で人に回る。</div>
+
+  <h4>向いていない仕事（正直に言う・信頼の担保）</h4>
+  <ul>
+    <li><b>文章が欲しい仕事には一切使えない</b>（要約・翻訳・執筆）</li>
+    <li><b>簡単な分類では差がつかなかった</b>：40業種分類は Jev も LLM も正解。<b>精度差は出ていない</b></li>
+    <li><b>「ハルシネーションしない」は出力形式の話</b>。判断の中身が正しい保証ではない</li>
+    <li>確率が0.5付近のときどうするかは、<b>使う側が決める</b>（→デモ①③で実演）</li>
+  </ul>
+</div>
+
+<h2 id="s7">実際に動かした4つ</h2>
+<div class="card">
+  <h3>デモ①｜危険なコマンドの門番（<code>/sort</code>）</h3>
+  <p>「判定だけのAI」が<b>何の役に立つか</b>を、説明なしで分からせる。</p>
+  <ol>
+    <li><code>http://localhost:8777/sort</code> を開く</li>
+    <li>題材タブ「<b>危険なコマンドの門番</b>」を選ぶ</li>
+    <li>「仕分けを流す」→ <b>25本のコマンドが3つの箱に落ちていく</b></li>
+    <li><code>rm -rf /</code>・fork爆弾・<code>curl|bash</code> が「実行しない」に入るのを指す</li>
+  </ol>
+  <p><b>確信度1.00で止まる</b>。「AIにコマンドを任せる時代に、<b>入口に門番を置ける</b>」</p>
+  <h4>確信度が低く、自動で人に回った件</h4>
+  <table>
+    <tr><th>コマンド</th><th class="num">確信度</th></tr>
+    <tr class="hi"><td><code>git push --force origin main</code></td><td class="num">0.76</td></tr>
+    <tr><td><code>git reset --hard && git clean -fdx</code></td><td class="num">0.34</td></tr>
+    <tr><td><code>npm install express</code></td><td class="num">0.71</td></tr>
+  </table>
+  <div class="say">force push は「実行しない」と判定<b>されませんでした</b>。でも<b>確信度が0.76で、しきい値0.80に届かなかったから、自動で人に回った</b>。
+    <b>迷ったら人に聞く、が既定になっている。</b>これが確信度が返ってくる意味です。</div>
+  <h4>別のモデルと比べる</h4>
+  <table>
+    <tr><th>モデル</th><th class="num">時間</th><th class="num">費用</th></tr>
+    <tr class="hi"><td><b>Jev</b></td><td class="num"><b>9.1秒</b></td><td class="num"><b>$0.000808</b></td></tr>
+    <tr><td>Gemini 3.8 Flash</td><td class="num">197.8秒</td><td class="num">$0.032480</td></tr>
+  </table>
+  <p>→ <b>21.6倍の時間・40.2倍の費用</b></p>
+  
+  
+</div>
+
+<div class="card">
+  <h3>デモ②｜一斉点検（<code>/check</code>）<span style="font-size:13px;color:var(--teal)">なぜ速いのかの証明</span></h3>
+  <p><b>「速いんじゃなくて増えない」</b>を、目の前で証明する。</p>
+  <ol>
+    <li><code>http://localhost:8777/check</code> を開く</li>
+    <li>「良い例を入れる」→「点検する」→ <b>20項目が一瞬で全部立つ</b></li>
+    <li>項目数を <b>1</b> にして点検 → <b>5</b> → <b>20</b></li>
+    <li>左下に積み上がった<b>実測表</b>を指す</li>
+  </ol>
+  <table>
+    <tr><th class="num">項目数</th><th class="num">応答時間</th><th class="num">費用</th></tr>
+    <tr><td class="num">1項目</td><td class="num">315ms</td><td class="num">$0.0000186</td></tr>
+    <tr><td class="num">5項目</td><td class="num">442ms</td><td class="num">$0.0000279</td></tr>
+    <tr class="hi"><td class="num"><b>20項目</b></td><td class="num"><b>312ms</b></td><td class="num">$0.0000627</td></tr>
+  </table>
+  <div class="say">20倍にしたのに、<b>時間が変わっていません。</b>費用だけ3倍。
+    <b>LLMなら20倍の時間がかかります。</b>ここがこのモデルの正体です。</div>
+  <p>「よくある例を入れる」（＝「どうも、こんにちは。まずチャンネル登録を…」）
+    → <b>「挨拶で始まっていない」0.04</b>・<b>「具体的な数字が入っている」0.04</b> で落ちる</p>
+  <div class="say">自分の台本、<b>これで毎回点検してます</b>。</div>
+  
+</div>
+
+<div class="card">
+  <h3>デモ③｜スキル・ルーター（<code>/route</code>）<span style="font-size:13px;color:var(--teal)">どこに使うかの答え</span></h3>
+  <p><b>LLMのFunction Calling（ツール選択）は、文章を書かせなくていい</b>ことを見せる。</p>
+  <ol>
+    <li><code>http://localhost:8777/route</code> を開く</li>
+    <li>「サムネイルを作りたい」と<b>打つ</b> → <b>打ち終わる頃には答えが出ている</b></li>
+    <li>候補の確率バーを指す</li>
+    <li>「<b>ショート動画を3本作りたい</b>」と打つ</li>
+  </ol>
+  <table>
+    <tr><th>入力</th><th>選ばれたスキル</th><th class="num">確信度</th><th class="num">時間</th></tr>
+    <tr><td>サムネイルを作りたい</td><td><code>/youtube-thumbnail</code></td><td class="num"><b>1.00</b></td><td class="num">316ms</td></tr>
+    <tr class="hi"><td><b>ショート動画を3本作りたい</b></td><td><code>/edit-short</code> 0.78 ／ <code>/short-video</code> 0.21</td><td class="num"><b>0.76</b></td><td class="num">—</td></tr>
+  </table>
+  <div class="say">うちのスキルに、<b>似たものが2本あることをAIが見つけました。</b>これ、普通に使ってたら気づかない。
+    <b>確信度が低いこと自体が情報になっている。</b><br><br>
+    ふつうは「どのツールを使うか」をLLMに文章で答えさせます。でも<b>選ぶだけなら文章は要らない</b>。
+    だから<b>59択でも0.3秒・0.03円</b>です。</div>
+  
+</div>
+
+<div class="card">
+  <h3>デモ④｜30食のカロリー判定（<code>/meal</code>）<span style="font-size:13px;color:var(--teal)">件数を積むと差が体感になる</span></h3>
+  <p>1件なら体感できない速さの差を、<b>1ヶ月ぶん30食を捌き切る合計時間</b>で比べる。返させるのは推定カロリー・カロリー帯・食べ過ぎ注意の3つだけ。</p>
+  <ol>
+    <li><code>http://localhost:8777/meal</code> を開く</li>
+    <li>モデルを3つ（Jev／Claude Opus 5／Gemini 3.8 Flash）選び、30食のまま「<b>分析する</b>」</li>
+    <li>30食を捌き切るまでの合計時間と、カロリー帯への仕分けを見比べる</li>
+  </ol>
+  <table>
+    <tr><th>モデル</th><th class="num">30食の合計</th><th class="num">1食あたり</th><th class="num">費用</th><th class="num">1ヶ月の合計</th></tr>
+    <tr class="hi"><td><b>Jev</b></td><td class="num"><b>10.3秒</b></td><td class="num"><b>0.35秒</b></td><td class="num"><b>$0.00094</b></td><td class="num">27,495 kcal</td></tr>
+    <tr><td>Gemini 3.8 Flash</td><td class="num">127.6秒</td><td class="num">4.0秒</td><td class="num">$0.0497</td><td class="num">22,440 kcal</td></tr>
+    <tr><td>Claude Opus 5</td><td class="num">199.8秒</td><td class="num">6.2秒</td><td class="num">$0.161</td><td class="num">21,860 kcal</td></tr>
+  </table>
+  <p class="meta">2026-09-24・自宅回線・OpenRouter 経由・3モデル同時発走・温度0の1回測定。回線で変動します。</p>
+  <div class="say"><b>1食だと差は一瞬。でも30食積むと、この差になります。</b><br><br>
+    ただし<b>Jev だけ合計を高めに出しました</b>（参考値22,600 kcalの約1.2倍）。参考値は目安で正解ではありませんが、
+    <b>速さと費用は判定モデル、数値の細かさはLLMに分がある</b>、というのが正直なところです。</div>
+  <h4>写真を渡すとどうなるか</h4>
+  <table>
+    <tr><th>渡したもの</th><th class="num">Jev の答え（「赤色ですか？」）</th><th class="num">入力トークン</th></tr>
+    <tr class="hi"><td>赤い画像</td><td class="num"><b>0.45</b></td><td class="num">493</td></tr>
+    <tr class="hi"><td>青い画像</td><td class="num"><b>0.45</b>（同じ）</td><td class="num">496</td></tr>
+    <tr><td>文章で「真っ赤な画像です」</td><td class="num"><b>0.96</b></td><td class="num">320</td></tr>
+    <tr><td>文章で「真っ青な画像です」</td><td class="num"><b>0.01</b></td><td class="num">320</td></tr>
+  </table>
+  <div class="say"><b>Jev は画像を読めません。</b>渡してもエラーにならず（HTTP 200）、画像を文字列として受け取って「分からない」と答えます。
+    だから<b>写真を読む係と、判定する係は別</b>。写真から献立の文章にするのはマルチモーダルのAIの仕事で、
+    そこから先の「30食ぶんを仕分けて数える」が判定モデルの土俵です。</div>
+</div>
+
+<div class="card">
+  <h4>（デモの合間に30秒）最初に必ず踏むエラー</h4>
+  <ol>
+    <li><code>choice</code> の criteria は<b>辞書</b>／<code>score</code> の criteria は<b>配列</b>。逆にすると <b>400</b></li>
+    <li><code>score</code> は整数で返らない（3.07のような加重平均）</li>
+    <li><b>32,000トークン上限</b></li>
+    <li>OpenRouterのモデル一覧に Jev は出てこない（alpha専用）。<code>chat/completions</code> では400</li>
+  </ol>
+  <div class="say">criteriaの型で<b>30分溶かしました</b>。</div>
+</div>
+
+<h2 id="s8">まとめ</h2>
+<div class="card">
+  <ol>
+    <li>Jev AI は文章を書かない。<b>型のついた判定と確信度</b>だけを返す</li>
+    <li>速さの正体は「<b>判定をいくつ増やしても時間が増えない</b>」こと</li>
+    <li>使いどころは<b>LLMの代わりではなく、LLMの前・横に足す</b>所</li>
+  </ol>
+  <table>
+    <tr><th style="width:10em">使うべき人</th><td><b>仕分け・採点・振り分けを大量に回している人</b></td></tr>
+    <tr><td>使わなくていい人</td><td>AIに文章を書かせたい人（そこは今まで通りLLM）</td></tr>
+  </table>
+  <div class="say">今日3回、<b>確信度が低いから人に回す</b>場面が出ました。
+    <b>AIが「分からない」と言えるようになった</b>、というのがこのモデルのいちばん大きい変化だと思います。</div>
+  <ul>
+    <li>次に確かめたいこと：<b>オープンウェイトの Laya は、本当にローカルで速いのか</b></li>
+  </ul>
+</div>
+
+<footer>
+  <p>2026年9月時点の実測です。立ち上がり直後のため、価格・提供経路は変わる可能性があります。</p>
+  <p>ITとAIのルーティンラボ</p>
+</footer>
+
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click', function(){
+    var c = b.parentElement.querySelector('pre code');
+    if(!c) return;
+    navigator.clipboard.writeText(c.innerText).then(function(){
+      b.textContent='コピーしました'; b.classList.add('done');
+      setTimeout(function(){ b.textContent='コピー'; b.classList.remove('done'); }, 1800);
+    });
+  });
+});
+</script>
+</body></html>
