@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-09-23 | [Grok 4.7 で何が作れる？｜Routine Labo](https://senao-routine.github.io/yt-share/20260923Grok47.html) | https://senao-routine.github.io/yt-share/20260923Grok47.html |
 | 2026-09-22 | [voice-agent 導入編｜受け取ってから、声で開発が始まるまで](https://senao-routine.github.io/yt-share/voice-agent-setup.html) | https://senao-routine.github.io/yt-share/voice-agent-setup.html |
 | 2026-09-22 | [スライドキャストキット — できることと動作要件](https://senao-routine.github.io/yt-share/slidecast-kit.html) | https://senao-routine.github.io/yt-share/slidecast-kit.html |
 | 2026-09-22 | [Jev AI 実践ガイド｜文章を書かないAIは、どの作業に効くのか](https://senao-routine.github.io/yt-share/20260919JevAI.html) | https://senao-routine.github.io/yt-share/20260919JevAI.html |
