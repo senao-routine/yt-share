@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>音声入力ツール選びチェックリスト</title>
+<style>
+  :root {
+    --bg:#f6f2e9; --surface:#fffdf8; --surface-2:#f0ead9;
+    --ink:#241f18; --ink-soft:#5c5346; --ink-faint:#8a7f6d;
+    --line:#e2d9c6; --line-soft:#ece4d4;
+    --accent:#b9791a; --accent-ink:#8a5a10; --accent-bg:#f6e7cd; --teal:#2f6f68;
+    --radius:14px; --maxw:760px;
+    --font-jp:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-jp); line-height:1.8; font-size:16px; }
+  main { max-width:var(--maxw); margin:0 auto; padding:40px 16px 64px; }
+  header { margin-bottom:28px; }
+  .eyebrow { font-size:13px; color:var(--accent-ink); letter-spacing:.08em; margin:0 0 6px; }
+  h1 { font-size:26px; line-height:1.45; margin:0 0 12px; }
+  .lead { color:var(--ink-soft); margin:0; }
+  section { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:22px 22px 18px; margin:0 0 18px; }
+  h2 { font-size:19px; margin:0 0 4px; }
+  .num { color:var(--accent); font-weight:700; margin-right:8px; }
+  .why { color:var(--ink-faint); font-size:14px; margin:0 0 12px; }
+  ul.check { list-style:none; margin:0; padding:0; }
+  ul.check li { border-top:1px solid var(--line-soft); padding:10px 0; }
+  ul.check label { display:flex; gap:12px; align-items:flex-start; cursor:pointer; }
+  ul.check input { margin-top:6px; width:18px; height:18px; accent-color:var(--teal); flex:none; }
+  .note { font-size:14px; color:var(--ink-soft); margin:10px 0 0; }
+  table { width:100%; border-collapse:collapse; font-size:14px; margin-top:6px; }
+  th, td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+  th { background:var(--surface-2); font-weight:600; }
+  .scroll { overflow-x:auto; }
+  a { color:var(--teal); }
+  .links { background:var(--surface-2); border:none; }
+  .links p { margin:6px 0; }
+  .pr { font-size:12px; color:var(--ink-faint); margin-top:28px; }
+  @media (max-width:520px){ h1{font-size:22px;} section{padding:18px 16px 14px;} }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">ルーティンラボ ｜ LINE配布資料</p>
+    <h1>音声入力ツール選びチェックリスト</h1>
+    <p class="lead">音声入力AIは「便利かどうか」より先に「自分の声がどこへ行くか」を確かめておくと、あとで困りません。動画で紹介したTypelessを例に、選ぶ前に見るべき点を5つにまとめました。チェックを入れながら使ってください。</p>
+  </header>
+
+  <section>
+    <h2><span class="num">1</span>どこで処理するツールか</h2>
+    <p class="why">クラウド処理は整形が賢い代わりにネット必須。ローカル処理はオフラインでも動き、声が外に出ない。</p>
+    <ul class="check">
+      <li><label><input type="checkbox">公式サイトやFAQで「クラウド処理」か「端末内（ローカル）処理」かを確認した</label></li>
+      <li><label><input type="checkbox">使う場所（会社・自宅・外出先）の通信が安定しているか考えた</label></li>
+      <li><label><input type="checkbox">オフラインで使いたい場面があるなら、ローカル型も候補に入れた</label></li>
+    </ul>
+    <p class="note">Typeless と Aqua Voice はクラウド処理、SuperWhisper は自分のパソコンの中で処理できます。</p>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span>どんな権限を求められるか</h2>
+    <p class="why">権限は「何のために必要か」説明できるものだけを許可する。</p>
+    <ul class="check">
+      <li><label><input type="checkbox">インストール時に求められる権限を一覧で確認した</label></li>
+      <li><label><input type="checkbox">それぞれの権限の用途が公式に説明されているか確認した</label></li>
+      <li><label><input type="checkbox">用途の説明が無い権限は許可しない、と決めた</label></li>
+    </ul>
+    <p class="note">Typeless（Mac）が求めるのはマイクとアクセシビリティの2つ。マイクは声を拾うため、アクセシビリティはカーソル位置に文字を入れるために使われます。</p>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span>声がどの会社を通るか</h2>
+    <p class="why">クラウド型は、運営会社だけでなく委託先のAI事業者も声を処理します。</p>
+    <ul class="check">
+      <li><label><input type="checkbox">公式の Trust Center や「Subprocessors（外部委託先）」のページを探した</label></li>
+      <li><label><input type="checkbox">AI処理を担う委託先の社名と、所在国を確認した</label></li>
+      <li><label><input type="checkbox">運営会社の所在地（どの国の法律で動いているか）を確認した</label></li>
+    </ul>
+    <p class="note">Typeless の場合、委託先は全12社・すべて米国。うちAI処理は Gemini・OpenAI・Groq・Fireworks AI・Microsoft Foundry の5社です（<a href="https://trust.typeless.com/subprocessors" target="_blank" rel="noopener">公式の委託先一覧</a>）。運営は Simply CA LLC（米カリフォルニア州）。</p>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span>保存・学習・履歴の扱い</h2>
+    <p class="why">「保存しない」「学習に使わない」がどこに書いてあるかまで確かめる。</p>
+    <ul class="check">
+      <li><label><input type="checkbox">音声や文字が保存されるか、されるならどこに何日か確認した</label></li>
+      <li><label><input type="checkbox">入力内容がAIの学習に使われるか確認した</label></li>
+      <li><label><input type="checkbox">履歴が端末内か、クラウドに同期されるかを確認した</label></li>
+    </ul>
+    <p class="note">Typeless の公式説明は「保存しない・学習に使わない・履歴は端末の中」。ただし有料版のクラウド同期を使うかどうかでも変わるので、設定画面も合わせて見ておくと安心です。</p>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span>仕事で使う前に確認すること</h2>
+    <p class="why">個人では問題なくても、会社のルールに引っかかることがあります。</p>
+    <ul class="check">
+      <li><label><input type="checkbox">会社に「外部AIサービスへの入力ルール」があるか確認した</label></li>
+      <li><label><input type="checkbox">顧客名・個人情報・社外秘を話す場面では使わない、と線を引いた</label></li>
+      <li><label><input type="checkbox">固有名詞は個人辞書に登録して、読み間違いを減らした</label></li>
+    </ul>
+    <p class="note">動画でも話したとおり、僕は顧客名が出る打ち合わせメモには音声入力を使っていません。</p>
+  </section>
+
+  <section>
+    <h2>主要ツールの比較（2026年9月時点）</h2>
+    <div class="scroll">
+    <table>
+      <thead><tr><th>ツール</th><th>処理する場所</th><th>得意なこと</th><th>向かない場面</th></tr></thead>
+      <tbody>
+        <tr><td>Typeless</td><td>クラウド</td><td>言い直し・フィラーを消して文章に整える／文体の書き分け／翻訳</td><td>通信が不安定な場所・速さ最優先</td></tr>
+        <tr><td>Aqua Voice</td><td>クラウド</td><td>速さ</td><td>通信が不安定な場所</td></tr>
+        <tr><td>SuperWhisper</td><td>自分のパソコンの中</td><td>ネットなしで動く</td><td>整形まで任せたい場合</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Typeless の料金は無料が週8,000語、Pro は年額払いで月12ドル／月払いで月30ドル。1回の入力は9分までです。</p>
+  </section>
+
+  <section class="links">
+    <p><strong>Typeless を無料で試す</strong><br><a href="https://www.typeless.com/?via=SENAO" target="_blank" rel="noopener sponsored">https://www.typeless.com/?via=SENAO</a></p>
+    <p><strong>本編動画</strong><br><a href="https://youtu.be/kFKapq1uUag" target="_blank" rel="noopener">https://youtu.be/kFKapq1uUag</a></p>
+    <p><strong>ブログ記事（手順と画面つき）</strong><br><a href="https://rutinelabo.com/typeless/" target="_blank" rel="noopener">https://rutinelabo.com/typeless/</a></p>
+    <p><strong>解説資料（動画の内容を資料版で）</strong><br><a href="https://senao-routine.github.io/yt-share/20260916Typeless.html" target="_blank" rel="noopener">https://senao-routine.github.io/yt-share/20260916Typeless.html</a></p>
+  </section>
+
+  <p class="pr">※ 動画・記事は Typeless 様より Pro プランの提供を受けて制作しています（内容の指定はありません）。Typeless のリンクはアフィリエイトリンクです。料金・委託先は2026年9月時点の公式情報に基づきます。<br>ルーティンラボ／せなお</p>
+</main>
+</body>
+</html>
