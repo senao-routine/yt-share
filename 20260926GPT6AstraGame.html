@@ -1,0 +1,366 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Astra × Tripo ゲーム制作手順書</title><style>
+:root{--bg:#f6f2e9;--surface:#fffdf8;--surface-2:#f0ead9;--ink:#241f18;--ink-soft:#5c5346;--ink-faint:#8a7f6d;
+--line:#e2d9c6;--line-soft:#ece4d4;--accent:#b9791a;--accent-ink:#8a5a10;--accent-bg:#f6e7cd;
+--code-bg:#26221b;--code-ink:#ece3d2;--code-line:#3a352b;--radius:14px;--maxw:780px;
+--font-jp:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+--font-mono:"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono",monospace}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-jp);line-height:1.8;font-size:16px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:40px 16px 80px}
+header.top{padding:8px 0 28px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.eyebrow{font-size:12px;letter-spacing:.14em;color:var(--accent-ink);font-weight:700}
+h1{font-size:30px;line-height:1.35;margin:10px 0 12px;letter-spacing:.01em}
+.lead{color:var(--ink-soft);margin:0}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px 8px;margin:22px 0 0}
+nav.toc a{font-size:13px;color:var(--ink-soft);text-decoration:none;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+nav.toc a:hover{color:var(--accent-ink);border-color:var(--accent)}
+section{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;margin:0 0 18px}
+.kicker{font-size:12px;letter-spacing:.12em;color:var(--accent-ink);font-weight:700}
+h2{font-size:21px;margin:4px 0 6px;line-height:1.45}
+.desc{color:var(--ink-faint);font-size:14px;margin:0 0 14px}
+h3{font-size:15px;margin:22px 0 8px;color:var(--ink)}
+.pbox{position:relative;margin:10px 0 4px}
+.pbox pre{margin:0;background:var(--code-bg);color:var(--code-ink);border-radius:10px;padding:18px 16px 16px;
+font-family:var(--font-mono);font-size:13.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word;overflow-x:auto;max-height:460px}
+.copy{position:absolute;top:8px;right:8px;font:600 12px var(--font-jp);color:var(--code-ink);background:transparent;
+border:1px solid var(--code-line);border-radius:8px;padding:5px 11px;cursor:pointer}
+.copy:hover{border-color:var(--accent);color:#fff}.copy.done{border-color:var(--accent);color:var(--accent-bg)}
+ul.plain{margin:0;padding-left:1.2em}ul.plain li{margin:4px 0}
+ol.flow{list-style:none;margin:0;padding:0}
+ol.flow li{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line-soft)}
+ol.flow li:first-child{border-top:0}
+.n{flex:0 0 28px;height:28px;border-radius:50%;background:var(--accent-bg);color:var(--accent-ink);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.note{font-size:14px;color:var(--ink-soft);background:var(--surface-2);border-radius:10px;padding:12px 14px;margin:14px 0 0}
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0}
+th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+th{background:var(--surface-2);font-weight:700;font-size:13px;color:var(--ink-soft)}
+td.r,th.r{text-align:right;white-space:nowrap}
+code{font-family:var(--font-mono);font-size:.9em;background:var(--surface-2);padding:1px 5px;border-radius:5px}
+footer{color:var(--ink-faint);font-size:13px;text-align:center;margin-top:30px}
+@media (max-width:560px){h1{font-size:24px}section{padding:20px 16px}.pbox pre{font-size:12.5px}th,td{padding:8px 6px}}
+</style></head><body><div class="wrap">
+<header class="top"><div class="eyebrow">ROUTINE LABO ／ GPT-6 Astra 徹底紹介 第3回</div>
+<h1>GPT-6 Astra × Tripo で<br>3Dゲームを3本つくる手順書</h1>
+<p class="lead">大乱闘風・サバイバー風・3Dアクションの3本を、デザイン画から3D化、ゲーム本体、仕上げまで再現できるように、使ったプロンプトと手順をそのまま載せました。コピーして Codex アプリに貼って使えます。</p>
+<nav class="toc"><a href="#ready">準備</a><a href="#flow">全体の流れ</a><a href="#browser">手順2</a><a href="#cli0">手順3</a><a href="#strip">手順3の道具</a><a href="#review">手順5・6</a><a href="#trap">つまずきやすい所</a><a href="#data">実測</a></nav></header>
+<section id="ready"><div class="kicker">準備</div><h2>はじめに用意するもの</h2><ul class="plain">
+<li><b>Codex アプリ</b>（GPT-6 Astra を選択）。ブラウザ操作は対話画面で動きます</li>
+<li><b>Tripo のアカウント</b>。Web版と API（CLI）はクレジットが別です。CLI を使うなら API 用を別にチャージします</li>
+<li><b>Node.js 20 以上</b>（tripo CLI 用）と <b>Python 3</b>（ローカル配信とモーションの修正用）</li>
+<li>画像生成が使える環境（Codex アプリの画像生成など）</li>
+</ul>
+<p class="note">3本それぞれ、<b>デザイン画 → 3D化（Tripo）→ ゲーム本体（Astra）→ 遊んで直す</b>の順に進めます。ゲーム1本あたり、キャラと小物で 1,000〜1,600 クレジットほど使いました（Smart Mesh P2.0 は画像から1体 110）。</p></section><section id="flow"><div class="kicker">全体の流れ</div><h2>6つの手順で、ゲームが1本できる</h2><ol class="flow">
+<li><span class="n">1</span><div><b>デザイン画を描く</b><br>ゲームごとに画風を変える（格闘＝かっこいい・ホラー＝暗く・3Dアクション＝原色のマスコット）</div></li>
+<li><span class="n">2</span><div><b>ブラウザで Tripo を操作して1体作る</b><br>Codex アプリが Web版を操作して、生成から保存まで</div></li>
+<li><span class="n">3</span><div><b>CLI でまとめて3D化する</b><br>Smart Mesh P2.0 → 骨入れ → モーション → 腰の前進を取り除く</div></li>
+<li><span class="n">4</span><div><b>ゲームを作る</b><br>原作ジャンルの世界観・操作・カメラを数値で指定して依頼する</div></li>
+<li><span class="n">5</span><div><b>遊んで確かめる</b><br>引き戻し・姿勢・カメラ・難易度を確認させて、直させる</div></li>
+<li><span class="n">6</span><div><b>何周か直す</b><br>1周で完成しない。見えた問題を具体的な数値で返す</div></li>
+</ol></section><section id="smash1"><div class="kicker">大乱闘風「天空闘技場」</div><h2>手順1　デザイン画を描く</h2><p class="desc">英語のプロンプトはそのまま使えます</p><div class="pbox"><button class="copy" type="button">コピー</button><pre>次のキャラクター・小物のデザイン画を、1体ずつ画像生成で描いてください。
+保存先は concept/&lt;名前&gt;.png。描けたら一覧で見せて、私が OK したものだけ次へ進みます。
+
+## 画風（全員共通）
+stylized 3D platform fighter character render, chunky stylized proportions exactly 4 to 5 heads tall, large head and hands, short sturdy legs, bold readable silhouette, cool heroic attitude, smooth clean shapes with few thin parts, polished console game quality, not realistic, not anime gacha art
+
+## 1枚ごとのプロンプト（英語のまま使う）
+- valk: an original heroic knight swordsman with polished silver armor with blue trim, a flowing deep blue cape, a glowing azure longsword, determined sharp eyes, spiky dark hair. [画風], full body, front view, standing in a T-pose with both arms straight out to the sides, feet apart, single character, plain pure white background, centered, no text, no logo
+- riza: an original sky pirate gunslinger woman with a long crimson coat, brass goggles on her head, twin glowing energy pistols in holsters, confident smirk, windswept ponytail. [画風], full body, front view, standing in a T-pose with both arms straight out to the sides, feet apart, single character, plain pure white background, centered, no text, no logo
+- garou: an original muscular wolf-beast brawler with grey fur, a torn red scarf, heavy iron gauntlets, battle scars, fierce golden eyes, martial arts pants. [画風], full body, front view, standing in a T-pose with both arms straight out to the sides, feet apart, single character, plain pure white background, centered, no text, no logo
+- mira: an original elemental sorceress with a flowing white and violet robe, a crystal staff crackling with lightning, long silver hair, calm piercing eyes, floating rune ornaments. [画風], full body, front view, standing in a T-pose with both arms straight out to the sides, feet apart, single character, plain pure white background, centered, no text, no logo
+
+※ [画風] には上の画風の文をそのまま入れる</pre></div></section><section id="survivor1"><div class="kicker">サバイバー風「月喰いの墓地」</div><h2>手順1　デザイン画を描く</h2><p class="desc">英語のプロンプトはそのまま使えます</p><div class="pbox"><button class="copy" type="button">コピー</button><pre>次のキャラクター・小物のデザイン画を、1体ずつ画像生成で描いてください。
+保存先は concept/&lt;名前&gt;.png。描けたら一覧で見せて、私が OK したものだけ次へ進みます。
+
+## 画風（全員共通）
+dark gothic horror game art, stylized 3D render, moody low-key lighting with a cold blue rim light and warm lantern glow, eerie and creepy, detailed textures, polished game asset
+
+## 1枚ごとのプロンプト（英語のまま使う）
+- ren: an original hooded monster hunter with a long weathered black coat, a glowing lantern at the belt, a chain whip, a wide-brimmed hat, pale determined face. [画風], full body, front view, standing in a T-pose with both arms straight out to the sides, feet apart, single character, plain pure white background, centered, no text, no logo
+- bat: an original demonic bat with torn leathery wings, glowing red eyes and small fangs, wings spread. [画風], full body, front view, single creature, plain pure white background, centered, no text, no logo
+- zombie: an original shambling graveyard zombie with ragged clothes, greenish grey skin, one glowing eye, stitched wounds, slightly comical but creepy. [画風], full body, front view, standing in a T-pose with both arms straight out to the sides, feet apart, single character, plain pure white background, centered, no text, no logo
+- skeleton: an original skeleton warrior with a rusty helmet, a cracked round shield and a notched sword, glowing blue eye sockets. [画風], full body, front view, standing in a T-pose with both arms straight out to the sides, feet apart, single character, plain pure white background, centered, no text, no logo
+- wraith: an original floating hooded wraith ghost with a tattered dark cloak, long bony fingers, a glowing pale face, wispy smoke tail. [画風], full body, front view, single creature, plain pure white background, centered, no text, no logo
+- reaper: an original giant grim reaper boss with a huge rusted scythe, a dark hooded robe, a skull face with burning red eyes, chains around the body. [画風], full body, front view, standing in a T-pose with both arms straight out to the sides, feet apart, single character, plain pure white background, centered, no text, no logo
+- grave: a set of three crooked old gravestones with moss and cracks, one with a small candle. [画風], single game prop object, three-quarter view, plain pure white background, centered, no text, no logo
+- deadtree: a twisted dead tree with gnarled bare branches and a hanging broken lantern. [画風], single game prop object, three-quarter view, plain pure white background, centered, no text, no logo
+- fence: a broken wrought iron cemetery fence section with spikes and ivy. [画風], single game prop object, three-quarter view, plain pure white background, centered, no text, no logo
+- crypt: a small gothic stone crypt mausoleum with an iron door and gargoyle ornaments. [画風], single game prop object, three-quarter view, plain pure white background, centered, no text, no logo
+- candles: a cluster of tall melting candles on a stone base with warm flickering flames. [画風], single game prop object, three-quarter view, plain pure white background, centered, no text, no logo
+- bones: a pile of skulls and bones with a rusty sword stuck in it. [画風], single game prop object, three-quarter view, plain pure white background, centered, no text, no logo
+
+※ [画風] には上の画風の文をそのまま入れる</pre></div></section><section id="action1"><div class="kicker">箱庭「青空の城と七つの丘」</div><h2>手順1　デザイン画を描く</h2><p class="desc">英語のプロンプトはそのまま使えます</p><div class="pbox"><button class="copy" type="button">コピー</button><pre>次のキャラクター・小物のデザイン画を、1体ずつ画像生成で描いてください。
+保存先は concept/&lt;名前&gt;.png。描けたら一覧で見せて、私が OK したものだけ次へ進みます。
+
+## 画風（全員共通）
+classic 1990s console 3D platformer inspired, bright saturated primary colors, simple bold shapes, chunky friendly proportions, clean polished modern 3D render, iconic mascot game look
+
+## 1枚ごとのプロンプト（英語のまま使う）
+- kit: an original cheerful young adventurer hero with a round orange explorer helmet with goggles, a green vest over a white shirt, brown shorts, white gloves, sturdy red boots, big friendly eyes and a wide smile. [画風], full body, front view, standing in a T-pose with both arms straight out to the sides, feet apart, single character, plain pure white background, centered, no text, no logo
+- boulder: an original grumpy walking round boulder creature with tiny stubby feet and thick eyebrows. [画風], full body, front view, standing in a T-pose with both arms straight out to the sides, feet apart, single character, plain pure white background, centered, no text, no logo
+- windup: an original wind-up toy soldier enemy with a brass key on its back, a tin drum and a tall red hat. [画風], full body, front view, standing in a T-pose with both arms straight out to the sides, feet apart, single character, plain pure white background, centered, no text, no logo
+- beetle: an original round flying propeller beetle enemy with shiny blue shell and a tiny propeller on top. [画風], full body, front view, single creature, plain pure white background, centered, no text, no logo
+- castle: an original grand cheerful storybook castle with cream stone walls, red cone roofs, a big wooden gate, flags and a round central tower, bright and inviting. [画風], single game prop object, three-quarter view, plain pure white background, centered, no text, no logo
+- cannon: a round black cartoon cannon on a small wooden wheeled base. [画風], single game prop object, three-quarter view, plain pure white background, centered, no text, no logo
+- sun_shard: a golden five-pointed collectible sun shard gem with a smiling face and soft glow, iconic video game collectible. [画風], single game prop object, three-quarter view, plain pure white background, centered, no text, no logo
+- coin: a shiny gold coin with a simple embossed sun emblem, thick rounded edge. [画風], single game prop object, three-quarter view, plain pure white background, centered, no text, no logo
+- sign: a wooden signpost with an arrow and a small leaf. [画風], single game prop object, three-quarter view, plain pure white background, centered, no text, no logo
+- bridge: a sturdy wooden plank bridge with rope railings, arched. [画風], single game prop object, three-quarter view, plain pure white background, centered, no text, no logo
+
+※ [画風] には上の画風の文をそのまま入れる</pre></div></section><section id="browser"><div class="kicker">手順2</div><h2>ブラウザで Tripo を操作して1体作る</h2><p class="desc">Codex アプリの対話画面で使います</p><div class="pbox"><button class="copy" type="button">コピー</button><pre>ブラウザを使って、3D生成AI「Tripo」のWeb版で、キャラクターの3Dモデルを1体作ってください。
+
+1. ブラウザで Tripo のWeb版を開く（ログイン画面が出たら止まって私に知らせる。ログインは私がやる）
+2. 画像から3Dを作る画面で、concept/&lt;名前&gt;.png をアップロードして生成する
+   - モデル／メッシュの設定に「Smart Mesh P2.0」があれば選ぶ
+3. できたら GLB でダウンロードし、このプロジェクトの assets/&lt;名前&gt;/model.glb に移す
+4. 止まって確認すること：ログイン、プランの購入やクレジットの追加、課金の確定の画面が出たとき
+
+※ Web版はプランのクレジットで動く。まとめて何体も作るなら、CLI（次の手順）のほうが速い</pre></div></section><section id="cli0"><div class="kicker">手順3</div><h2>tripo CLI を使えるようにする</h2><p class="desc">最初の1回だけ</p><div class="pbox"><button class="copy" type="button">コピー</button><pre>3D生成AI「Tripo」を、ターミナルから使えるようにしたいです。
+Tripo の公式CLI（tripo-cli）を使います。必要な準備を順番にやってください。
+
+1. Node.js のバージョンを確認する（20以上が必要。足りなければ私に知らせる）
+2. npm install -g tripo-cli で入れる
+3. tripo login を実行する
+   - 表示されたURLと確認コードを私に伝えて、私がブラウザで承認するまで待つ
+   - APIキーをチャットに貼らせない・表示しない
+4. tripo doctor と tripo balance で、接続とクレジット残高を確認する
+
+※ Web版とAPIはクレジットが別です。balance が 0 のときは、API用のクレジットを
+  Tripo の開発者向けページでチャージする必要があることを私に伝えてください。</pre></div></section><section id="smash3"><div class="kicker">大乱闘風「天空闘技場」</div><h2>手順3　CLI でまとめて3D化する</h2><div class="pbox"><button class="copy" type="button">コピー</button><pre>concept/ のデザイン画を tripo CLI で3Dモデルにして、ゲームで動かせる形にしてください（大乱闘風「天空闘技場」）。
+
+## 1体ごとの手順
+1. 生成：tripo make concept/&lt;名前&gt;.png --model tripo-p2 --json --yes
+   （Smart Mesh P2.0＝低ポリ。画像から作るとデザイン画どおりの見た目になる）
+2. 人型だけ骨を入れる：tripo anim rig &lt;生成のtask_id&gt; --rig-type biped -p model=v1.0-20240301 --out-format glb
+   ※ CLI 既定の骨（v2.5系）には人型のモーションが載らない。必ず v1.0
+3. モーションを1本ずつ付ける：tripo anim retarget &lt;骨入れのtask_id&gt; --animation preset:biped:&lt;動き&gt;
+   --out-format glb --animate-in-place -p export_with_geometry=false
+   ※ まとめて指定すると、課金は全本数・受け取りは最後の1本だけになる
+4. 腰の前進を取り除く（下の「前進を取り除くスクリプト」を anim_*.glb 全部にかける）
+   ※ --animate-in-place を指定しても、走り・歩きには腰の前進が残る（1周で1〜3）
+5. 保存：assets/&lt;名前&gt;/model.glb（骨入りの本体・小物は生成したもの）、assets/&lt;名前&gt;/anim_&lt;動き&gt;.glb
+
+## 人型（骨＋モーション）
+- valk: idle, run, jump, slash, front_kick_01, hit_to_body_01
+- riza: idle, run, jump, fire, front_kick_01, hit_to_body_01
+- garou: idle, run, jump, box_01, front_kick_02, hit_to_body_01
+- mira: idle, run, jump, cast_a_spell, fire, hit_to_body_01
+
+## 骨なし（生成だけ）
+- 
+
+## 進め方
+- 同時に3体まで並行でよい。失敗（終了コード6＝自動返金）は1回だけやり直す
+- 最後に、名前ごとの消費クレジット・所要時間・容量を表で報告する</pre></div></section><section id="survivor3"><div class="kicker">サバイバー風「月喰いの墓地」</div><h2>手順3　CLI でまとめて3D化する</h2><div class="pbox"><button class="copy" type="button">コピー</button><pre>concept/ のデザイン画を tripo CLI で3Dモデルにして、ゲームで動かせる形にしてください（サバイバー風「月喰いの墓地」）。
+
+## 1体ごとの手順
+1. 生成：tripo make concept/&lt;名前&gt;.png --model tripo-p2 --json --yes
+   （Smart Mesh P2.0＝低ポリ。画像から作るとデザイン画どおりの見た目になる）
+2. 人型だけ骨を入れる：tripo anim rig &lt;生成のtask_id&gt; --rig-type biped -p model=v1.0-20240301 --out-format glb
+   ※ CLI 既定の骨（v2.5系）には人型のモーションが載らない。必ず v1.0
+3. モーションを1本ずつ付ける：tripo anim retarget &lt;骨入れのtask_id&gt; --animation preset:biped:&lt;動き&gt;
+   --out-format glb --animate-in-place -p export_with_geometry=false
+   ※ まとめて指定すると、課金は全本数・受け取りは最後の1本だけになる
+4. 腰の前進を取り除く（下の「前進を取り除くスクリプト」を anim_*.glb 全部にかける）
+   ※ --animate-in-place を指定しても、走り・歩きには腰の前進が残る（1周で1〜3）
+5. 保存：assets/&lt;名前&gt;/model.glb（骨入りの本体・小物は生成したもの）、assets/&lt;名前&gt;/anim_&lt;動き&gt;.glb
+
+## 人型（骨＋モーション）
+- ren: idle, run, slash, hit_to_body_01
+- zombie: walk, hit_to_body_01
+- skeleton: walk, slash, hit_to_body_01
+- reaper: walk, slash, hit_to_body_01
+
+## 骨なし（生成だけ）
+- bat / wraith / grave / deadtree / fence / crypt / candles / bones
+
+## 進め方
+- 同時に3体まで並行でよい。失敗（終了コード6＝自動返金）は1回だけやり直す
+- 最後に、名前ごとの消費クレジット・所要時間・容量を表で報告する</pre></div></section><section id="action3"><div class="kicker">箱庭「青空の城と七つの丘」</div><h2>手順3　CLI でまとめて3D化する</h2><div class="pbox"><button class="copy" type="button">コピー</button><pre>concept/ のデザイン画を tripo CLI で3Dモデルにして、ゲームで動かせる形にしてください（箱庭「青空の城と七つの丘」）。
+
+## 1体ごとの手順
+1. 生成：tripo make concept/&lt;名前&gt;.png --model tripo-p2 --json --yes
+   （Smart Mesh P2.0＝低ポリ。画像から作るとデザイン画どおりの見た目になる）
+2. 人型だけ骨を入れる：tripo anim rig &lt;生成のtask_id&gt; --rig-type biped -p model=v1.0-20240301 --out-format glb
+   ※ CLI 既定の骨（v2.5系）には人型のモーションが載らない。必ず v1.0
+3. モーションを1本ずつ付ける：tripo anim retarget &lt;骨入れのtask_id&gt; --animation preset:biped:&lt;動き&gt;
+   --out-format glb --animate-in-place -p export_with_geometry=false
+   ※ まとめて指定すると、課金は全本数・受け取りは最後の1本だけになる
+4. 腰の前進を取り除く（下の「前進を取り除くスクリプト」を anim_*.glb 全部にかける）
+   ※ --animate-in-place を指定しても、走り・歩きには腰の前進が残る（1周で1〜3）
+5. 保存：assets/&lt;名前&gt;/model.glb（骨入りの本体・小物は生成したもの）、assets/&lt;名前&gt;/anim_&lt;動き&gt;.glb
+
+## 人型（骨＋モーション）
+- kit: idle, walk, run, jump, box_01, front_kick_01, hit_to_body_01
+- boulder: walk, hit_to_body_01
+- windup: walk, hit_to_body_01
+
+## 骨なし（生成だけ）
+- beetle / castle / cannon / sun_shard / coin / sign / bridge
+
+## 進め方
+- 同時に3体まで並行でよい。失敗（終了コード6＝自動返金）は1回だけやり直す
+- 最後に、名前ごとの消費クレジット・所要時間・容量を表で報告する</pre></div></section><section id="strip"><div class="kicker">手順3の道具</div><h2>腰の前進を取り除くスクリプト</h2><p class="desc">strip_root_motion.py として保存して使います</p><div class="pbox"><button class="copy" type="button">コピー</button><pre>#!/usr/bin/env python3
+&quot;&quot;&quot;Tripo のモーション glb から、腰（Hip）の「1周で進む分」を取り除く（その場で動く形式にする）。
+使い方: python3 strip_root_motion.py assets/*/anim_*.glb
+Tripo v1.0 の骨は Z が高さ。水平2軸だけを直し、上下の揺れは残す。&quot;&quot;&quot;
+import json, struct, sys, array
+for p in sys.argv[1:]:
+    b = bytearray(open(p, &#x27;rb&#x27;).read())
+    L = struct.unpack(&#x27;&lt;I&#x27;, b[12:16])[0]; j = json.loads(b[20:20 + L]); bo = 20 + L + 8
+    changed = False
+    for anim in j.get(&#x27;animations&#x27;, []):
+        for ch in anim[&#x27;channels&#x27;]:
+            node = (j[&#x27;nodes&#x27;][ch[&#x27;target&#x27;][&#x27;node&#x27;]].get(&#x27;name&#x27;) or &#x27;&#x27;).lower()
+            if ch[&#x27;target&#x27;][&#x27;path&#x27;] != &#x27;translation&#x27; or node not in (&#x27;hip&#x27;, &#x27;hips&#x27;, &#x27;pelvis&#x27;):
+                continue
+            a = j[&#x27;accessors&#x27;][anim[&#x27;samplers&#x27;][ch[&#x27;sampler&#x27;]][&#x27;output&#x27;]]
+            bv = j[&#x27;bufferViews&#x27;][a[&#x27;bufferView&#x27;]]
+            off = bo + bv.get(&#x27;byteOffset&#x27;, 0) + a.get(&#x27;byteOffset&#x27;, 0); n = a[&#x27;count&#x27;]
+            v = array.array(&#x27;f&#x27;); v.frombytes(bytes(b[off:off + n * 12]))
+            for k in (0, 1):  # 水平2軸
+                d = v[(n - 1) * 3 + k] - v[k]
+                for i in range(n):
+                    v[i * 3 + k] -= d * (i / (n - 1) if n &gt; 1 else 0)
+                vals = [v[i * 3 + k] for i in range(n)]; r = max(vals) - min(vals)
+                if r &gt; 0.35:  # 前へ流れ続ける分は平均へ寄せる
+                    m = sum(vals) / n
+                    for i in range(n):
+                        v[i * 3 + k] = m + (v[i * 3 + k] - m) * 0.35 / r
+            b[off:off + n * 12] = v.tobytes(); changed = True
+    if changed:
+        open(p, &#x27;wb&#x27;).write(bytes(b)); print(&#x27;fixed&#x27;, p)
+</pre></div></section><section id="smash4"><div class="kicker">大乱闘風「天空闘技場」</div><h2>手順4　ゲームを作る</h2><p class="desc">assets/ を置いたフォルダで使います</p><div class="pbox"><button class="copy" type="button">コピー</button><pre>Three.js で、4人対戦の格闘アクション「天空闘技場」を、対戦アクションの原作ジャンルらしさで作ってください。
+
+## キャスト（4〜5頭身のかっこいいヒーロー）
+- valk（蒼剣の騎士）：必殺＝剣から蒼い三日月の衝撃波
+- riza（空賊の二丁拳銃）：必殺＝連射と跳び退き射撃（射撃は fire のモーション）
+- garou（狼の拳闘士）：必殺＝突進アッパー（残像と地面の亀裂）
+- mira（雷と氷の魔導士）：必殺＝落雷の範囲と氷の柱
+- 無い動き（空中攻撃・ガード・崖つかまり）は、手持ちのクリップの切り出し・速度・体の傾きで
+
+## 原作らしさの芯
+- キャラ選択（大きな立ち絵と名前）→ 降り立つ登場演出 →「3・2・1・GO!」→ 試合 →「GAME SET」→ 勝利ポーズと順位
+- 弱（連打）・強（溜めで大きく吹っ飛ぶ）・空中攻撃・必殺・ガード・回避・崖つかまり。ダメージ％は大きく太い数字
+- 吹っ飛びは煙の軌跡、撃墜は画面端で光の柱と星。アイテムが空から落ちる
+- ステージ：古代の天空闘技場（彫刻の石に金の象嵌・側面は岩と光る結晶・両端に旗と炎）＋左右と上のすり抜け床
+- 背景：藍→紫→燃える橙の空、何層もの雲海が視差で流れる、遠くの城や塔のシルエット、浮かぶ岩のかけら
+- トレーニングモード（CPU が立ったまま・ダメージ％リセット）
+
+## 操作の手触り
+- 押した次のフレームで反応。地上の加速 0.08 秒で最高速、止まるのは 0.1 秒。空中の左右は地上の7割
+- 短押しで小ジャンプ・長押しで大ジャンプ。先行入力 0.1 秒、足場の端から 0.08 秒以内ならジャンプ可。重力は重め、空中ジャンプは1回
+- 攻撃は入力から 2〜4 フレームで発生。CPU は地上と足場での攻防を優先し、開始3秒以内に全員が戦い始める
+
+## カメラ
+- 横から見る型（見下ろし 10 度前後）。全員を常に画面に収めて上下左右にパン＆ズーム、同時にメインステージの上面は画面の下半分に残す
+- 全員が近いときはファイターが画面の高さの1/7〜1/6。画面外のファイターは縁に矢印と顔アイコン
+
+## 共通の前提
+- 世界観・遊び方・カメラ・色・ステージ構成・手触りは原作ジャンルに限界まで寄せる。キャラクター本人・名前・ロゴ・実在のステージ・固有の効果音やBGMはオリジナルにする
+- 素材：assets/&lt;名前&gt;/model.glb（人型は骨入り）と anim_&lt;動き&gt;.glb（モーションだけ・同じ骨名）。GLTFLoader で読み、AnimationMixer に model.glb のシーンを渡して anim の animations[0] を clipAction で再生。モーションはその場で動く形式なので、移動はゲーム側。再生速度は実際の移動速度に合わせる（足が滑らない）
+- 骨なしのものは揺れ・回転・浮遊をコードで。向き・大きさ・足元は境界箱で揃える。同じモデルは clone／InstancedMesh で使い回す
+- ファイルは分けてよい（index.html＋js/）。Three.js は CDN（importmap）。物理エンジンなし。http で開く（ローディング画面つき）。効果音・BGM は WebAudio で合成（ミュートボタン）
+- window.__GAME に state・ready・start()・fps・step(n)・camera の数値を出す（確認用）
+- 大きなファイルは一度に書かず、分けて少しずつ書き出す
+- 終わったら README.md に、作ったもの・操作・カメラの数値を書く</pre></div></section><section id="survivor4"><div class="kicker">サバイバー風「月喰いの墓地」</div><h2>手順4　ゲームを作る</h2><p class="desc">assets/ を置いたフォルダで使います</p><div class="pbox"><button class="copy" type="button">コピー</button><pre>Three.js で、見下ろし型サバイバル「月喰いの墓地」を、ゴシックホラーのサバイバルの原作ジャンルらしさで作ってください。
+
+## キャスト
+- ren（鎖鞭の狩人）：攻撃は自動。鞭を振るたびに slash を重ねる。腰のランタンが本物の点光源（暖色・半径8〜10）
+- bat（群れで速い・黒と暗い赤・赤い目）／zombie（遅く硬い・緑灰）／skeleton（剣を振る・骨の白・青い目）／wraith（浮遊・呪い弾・半透明の緑白）／reaper（ボス・大鎌の横薙ぎ・振りかぶりを 0.6 秒見せる）
+- 小物：grave / deadtree / fence / crypt / candles / bones（群生で置く。戦う場所の中央は空ける）
+
+## 原作らしさの芯
+- 暗い夜の墓地。画面は基本暗く、灯り（ランタン・ろうそく・武器の光・敵の目）だけが明るい。冷たい青の月明かりで形と質感は見える。地面を這う霧、画面の右上から赤い月の光がにじむ
+- 道はくすんだ灰茶の石畳、水たまりに赤い月と灯りがにじんで映る
+- 敵は画面の外から何百体も押し寄せる。倒すと経験値の宝石。レベルアップで武器カード（鞭・聖水・投げナイフ・十字架・炎の書・雷の指輪）。宝箱で武器進化。10分生存、最後に死神
+
+## 難易度と手応え
+- 初期体力 100・被弾後の無敵 0.5 秒。何も操作しないと 25〜40 秒で倒れる。上手に避けて武器を育てると 10 分に届く
+- 被弾で主人公が赤く点滅＋画面の縁が赤く脈打つ＋小さな揺れ＋ダメージ数字。体力 30％未満で心音
+- 武器のエフェクトは派手に、敵の倒れ方は種類ごとに（崩れ落ちる・骨が散る・赤い煙・光の粒）
+
+## カメラ
+- 大きく引いた見下ろし（55〜65 度）。主人公は画面の高さの1/9〜1/8、半径18以上の地面が見える。画面内に常に敵が20体以上
+
+## 共通の前提
+- 世界観・遊び方・カメラ・色・ステージ構成・手触りは原作ジャンルに限界まで寄せる。キャラクター本人・名前・ロゴ・実在のステージ・固有の効果音やBGMはオリジナルにする
+- 素材：assets/&lt;名前&gt;/model.glb（人型は骨入り）と anim_&lt;動き&gt;.glb（モーションだけ・同じ骨名）。GLTFLoader で読み、AnimationMixer に model.glb のシーンを渡して anim の animations[0] を clipAction で再生。モーションはその場で動く形式なので、移動はゲーム側。再生速度は実際の移動速度に合わせる（足が滑らない）
+- 骨なしのものは揺れ・回転・浮遊をコードで。向き・大きさ・足元は境界箱で揃える。同じモデルは clone／InstancedMesh で使い回す
+- ファイルは分けてよい（index.html＋js/）。Three.js は CDN（importmap）。物理エンジンなし。http で開く（ローディング画面つき）。効果音・BGM は WebAudio で合成（ミュートボタン）
+- window.__GAME に state・ready・start()・fps・step(n)・camera の数値を出す（確認用）
+- 大きなファイルは一度に書かず、分けて少しずつ書き出す
+- 終わったら README.md に、作ったもの・操作・カメラの数値を書く</pre></div></section><section id="action4"><div class="kicker">箱庭「青空の城と七つの丘」</div><h2>手順4　ゲームを作る</h2><p class="desc">assets/ を置いたフォルダで使います</p><div class="pbox"><button class="copy" type="button">コピー</button><pre>Three.js で、3Dアクション「青空の城と七つの丘」を、64世代の3Dアクションの原作ジャンルらしさで作ってください。
+
+## キャスト
+- kit（主人公）：idle / walk / run / jump / box_01 / front_kick_01 / hit_to_body_01
+  ★空中はすべて jump を使う（上昇中＝前半・頂点〜落下中＝後半の姿勢で止める）。着地は 0.1 秒で待機か走りへ
+- boulder（ゴロ岩・転がって追う）／windup（ゼンマイ兵・太鼓を鳴らして行進）／beetle（プロペラ甲虫・空を巡回して急降下）
+- 小物：castle / cannon / sun_shard（太陽のかけら・星形の収集物）/ coin / sign / bridge
+
+## 原作らしさの芯
+- 拠点＝城：堀・橋・芝生と木・丘。城の中のホール（チェッカー床・赤い絨毯・柱）の壁に額縁（コースの入口）。飛び込むとコースへ
+- コース1＝丘と山道（転がる岩・大砲で飛ぶ・頂上に太陽のかけら）、コース2＝浮き島とチェッカー模様の足場。コースごとに太陽のかけら3つ以上、取ると決めポーズとファンファーレ→拠点へ
+- HUD：左上に円形8分割の命のメーター、右上に太陽のかけら数とコイン数
+
+## 操作の手触り
+- アナログ的な加減速。キットの身長を 1 として、歩き＝毎秒 1.6、走り＝毎秒 3.2〜3.6（キーの押し時間で 0.35 秒かけて加速）
+- 3段ジャンプ（着地直後の連続入力）・幅跳び・壁キック（石や建物の壁だけ・連続3回まで・前回より高くは上がれない）・ヒップドロップ・パンチ→パンチ→キック
+- 島の縁と橋には低い柵。落ちたら 0.8 秒以内に最後の足場へ戻す（画面が 0.5 秒以上なにも映らない状態を作らない）
+
+## カメラ
+- 後方から引いた三人称：屋外は後ろ 9・高さ 4、屋内は後ろ 6〜8・高さ 3。主人公は画面の高さの1/10 以上
+- 見下ろし角は常に 15〜55 度、カメラの高さは足元＋8 まで。ジャンプ中は高さを追従させない。遮る物があればまず上へ逃げ、敵が遮るときは敵を半透明に
+- 確認用に window.__GAME.warp(&#x27;castle&#x27;|&#x27;hall&#x27;|&#x27;course1&#x27;|&#x27;course2&#x27;)
+
+## 共通の前提
+- 世界観・遊び方・カメラ・色・ステージ構成・手触りは原作ジャンルに限界まで寄せる。キャラクター本人・名前・ロゴ・実在のステージ・固有の効果音やBGMはオリジナルにする
+- 素材：assets/&lt;名前&gt;/model.glb（人型は骨入り）と anim_&lt;動き&gt;.glb（モーションだけ・同じ骨名）。GLTFLoader で読み、AnimationMixer に model.glb のシーンを渡して anim の animations[0] を clipAction で再生。モーションはその場で動く形式なので、移動はゲーム側。再生速度は実際の移動速度に合わせる（足が滑らない）
+- 骨なしのものは揺れ・回転・浮遊をコードで。向き・大きさ・足元は境界箱で揃える。同じモデルは clone／InstancedMesh で使い回す
+- ファイルは分けてよい（index.html＋js/）。Three.js は CDN（importmap）。物理エンジンなし。http で開く（ローディング画面つき）。効果音・BGM は WebAudio で合成（ミュートボタン）
+- window.__GAME に state・ready・start()・fps・step(n)・camera の数値を出す（確認用）
+- 大きなファイルは一度に書かず、分けて少しずつ書き出す
+- 終わったら README.md に、作ったもの・操作・カメラの数値を書く</pre></div></section><section id="review"><div class="kicker">手順5・6</div><h2>遊んで確かめて、直させる</h2><p class="desc">ゲームごとに、完成まで何周か回します</p><div class="pbox"><button class="copy" type="button">コピー</button><pre>できたゲームを、実際にブラウザで開いて遊び、次を確認して表で報告してください。問題があれば直してから、もう一度同じ確認をしてください。
+
+1. このフォルダで python3 serve.py 8000 を起動し、http://localhost:8000/ を開く（serve.py は下の「ローカル配信スクリプト」）
+2. コンソールのエラーが 0 件か。すべての3Dモデルが読み込まれたか（代わりの形に落ちていないか）
+3. 【引き戻し】1P を右へ3秒・左へ3秒押し続け、x 座標が逆方向へ戻るフレームが 0 か（トレーニングモードなど敵の攻撃がない状態で、実時間の requestAnimationFrame で測る）
+4. 【姿勢】ジャンプ・落下・攻撃・被弾で、キャラが倒れ込んだり、ねじれたりしていないか
+5. 【カメラ】設計のカメラの数値（画面上のキャラの大きさ・見下ろし角・高さ）を満たすか。画面が空だけ・真っ暗・物で埋まる瞬間がないか
+6. 【難易度】設計の数値どおりか（step(n) で測った値を README に書く）
+7. 画面を6場面撮って、原作ジャンルを遊んだ人が「あの雰囲気」と分かるか自己採点（原作らしさ／カメラ／キャラ／手触り／ステージと演出 各20点）</pre></div></section><section id="serve"><div class="kicker">手順5の道具</div><h2>ローカル配信スクリプト</h2><p class="desc">serve.py として保存して使います</p><div class="pbox"><button class="copy" type="button">コピー</button><pre>#!/usr/bin/env python3
+&quot;&quot;&quot;ゲーム確認用のローカル配信。標準の http.server は待ち行列が小さく、glb を並列に読むと接続を切ることがある。
+使い方: python3 serve.py [port]&quot;&quot;&quot;
+import sys, http.server, socketserver
+class S(socketserver.ThreadingMixIn, http.server.HTTPServer):
+    daemon_threads = True; request_queue_size = 256; allow_reuse_address = True
+class H(http.server.SimpleHTTPRequestHandler):
+    def end_headers(self):
+        self.send_header(&#x27;Cache-Control&#x27;, &#x27;no-store&#x27;); super().end_headers()
+S((&#x27;127.0.0.1&#x27;, int(sys.argv[1]) if len(sys.argv) &gt; 1 else 8000), H).serve_forever()
+</pre></div></section><section id="trap"><div class="kicker">つまずきやすい所</div><h2>実際にやって分かった落とし穴</h2><table>
+<thead><tr><th>症状</th><th>原因と対処</th></tr></thead><tbody>
+<tr><td>移動中にキャラが元の位置へ引き戻される／移動が速すぎる</td><td>--animate-in-place を指定しても、走り・歩きに腰の前進が残る（1周で1〜3）。手順3のスクリプトで取り除く</td></tr>
+<tr><td>空中でキャラが倒れ込む</td><td>プリセットの fall は「転んで倒れ込む」動き。空中は jump の後半を使う</td></tr>
+<tr><td>射撃で体が大きく倒れ込む</td><td>プリセットの shoot は伏せ撃ち。立ち撃ちは fire</td></tr>
+<tr><td>モーションを付けると失敗する</td><td>CLI 既定の骨（v2.5系）に人型モーションが載らない。骨入れで -p model=v1.0-20240301</td></tr>
+<tr><td>モーションを何本も頼んだのに1本しか入っていない</td><td>まとめて指定すると最後の1本だけ。1本ずつ付ける</td></tr>
+<tr><td>キャラが代わりの形で表示される</td><td>標準の http.server は同時接続に弱く、glb の読み込みを切る。手順5の serve.py を使う</td></tr>
+<tr><td>地面が描かれない（シェーダーのエラー）</td><td>シェーダーの自作関数名が three.js 内部の名前（reflectedLight など）と重なった。自作名には接頭辞を付ける</td></tr>
+<tr><td>カメラが近すぎる・見上げる・物で埋まる</td><td>「いい感じに」ではなく、画面上のキャラの大きさ・見下ろし角・高さの上限を数値で指定する</td></tr>
+</tbody></table></section><section id="data"><div class="kicker">実測</div><h2>Smart Mesh P2.0 を使うと何が変わるか</h2><p class="desc">同じキャラを P2.0 と通常の生成（v3.1）で作って比べました</p><table>
+<thead><tr><th></th><th class="r">Smart Mesh P2.0</th><th class="r">通常の生成（v3.1）</th></tr></thead><tbody>
+<tr><td>三角形の数</td><td class="r"><b>5,514</b></td><td class="r">1,417,412</td></tr>
+<tr><td>ファイル容量</td><td class="r"><b>6.7MB</b></td><td class="r">46.8MB</td></tr>
+<tr><td>同じキャラ100体を並べたときの FPS</td><td class="r"><b>634.7</b></td><td class="r">21.7</td></tr>
+</tbody></table>
+<p class="note">2026年9月24日に測定（Apple M3 Max・Chrome・1280×720・影あり・表示の上限なし）。クレジットは P2.0 のほうが多く使います（画像から1体 110、文章から 120、通常の生成は 30）。料金は変わることがあるので、使う前に Tripo の公式ページで確かめてください。</p></section>
+<footer>ルーティンラボ ／ 2026年9月時点の情報です</footer>
+</div><script>
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',async()=>{
+  const t=b.parentElement.querySelector('pre').innerText;
+  try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}
+  b.textContent='コピーしました';b.classList.add('done');setTimeout(()=>{b.textContent='コピー';b.classList.remove('done')},1600);
+}));
+</script></body></html>
