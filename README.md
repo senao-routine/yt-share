@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-09-26 | [Astra × Tripo ゲーム制作手順書](https://senao-routine.github.io/yt-share/20260926GPT6AstraGame.html) | https://senao-routine.github.io/yt-share/20260926GPT6AstraGame.html |
 | 2026-09-25 | [音声入力ツール選びチェックリスト](https://senao-routine.github.io/yt-share/voice-input-checklist.html) | https://senao-routine.github.io/yt-share/voice-input-checklist.html |
 | 2026-09-25 | [Gemini 3.8 Flash TTS で自分の声を作ってみた ｜Routine Labo](https://senao-routine.github.io/yt-share/20260925Gemini38FlashTTS.html) | https://senao-routine.github.io/yt-share/20260925Gemini38FlashTTS.html |
 | 2026-09-24 | [Jev AI とは何か｜文章を書かないAIは、どの作業に効くのか](https://senao-routine.github.io/yt-share/20260919JevAI-guide.html) | https://senao-routine.github.io/yt-share/20260919JevAI-guide.html |
