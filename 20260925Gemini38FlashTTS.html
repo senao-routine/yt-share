@@ -187,19 +187,19 @@ video{width:100%;border-radius:10px;border:1px solid var(--line,#e6dccf)}
   <table>
     <thead><tr><th>モデル</th><th class="num">最初の音まで</th><th>メモ</th></tr></thead>
     <tbody>
-      <tr><td>Fish Audio S2.1 Pro Free</td><td class="num win">0.50秒</td><td>一番速い。ニュースの日付は崩れた</td></tr>
-      <tr><td>GPT-4o mini TTS</td><td class="num">1.07秒</td><td>生成も速い</td></tr>
-      <tr><td>Gemini 3.8 Flash-Lite TTS</td><td class="num">1.23秒</td><td>Flash とほぼ同じ出来で速い</td></tr>
-      <tr><td>Gemini 3.1 Flash TTS（旧世代）</td><td class="num">1.63秒</td><td>長文を途中で打ち切った</td></tr>
-      <tr><td>Gemini 3.8 Flash TTS</td><td class="num">1.66秒</td><td>長文も最後まで読み切る</td></tr>
+      <tr><td>Fish Audio S2.1 Pro Free</td><td class="num win">0.47秒</td><td>一番速い</td></tr>
+      <tr><td>GPT-4o mini TTS</td><td class="num">1.10秒</td><td>生成も速い</td></tr>
+      <tr><td>Gemini 3.8 Flash-Lite TTS</td><td class="num">1.14秒</td><td>Flash とほぼ同じ出来で速い</td></tr>
+      <tr><td>Gemini 3.1 Flash TTS（旧世代）</td><td class="num">1.41秒</td><td>長文を途中で打ち切った（3回とも）</td></tr>
+      <tr><td>Gemini 3.8 Flash TTS</td><td class="num">1.60秒</td><td>長文も最後まで読み切る（4回とも）</td></tr>
     </tbody>
   </table>
-  <p>数字は同じ台本6本での中央値（2026年9月27日・自作ダッシュボードで計測）。どれが一番自然かは、ぜひ自分の耳で選んでください。</p>
+  <p>数字は同じ台本6本×2回＝各12回の中央値（2026年9月29日・自作ダッシュボードで計測）。どれが一番自然かは、ぜひ自分の耳で選んでください。</p>
 
   <h2>前の世代から何が変わったか</h2>
 
-  <p>約300字の同じ台本を読ませると、<strong>旧世代の Gemini 3.1 は17.6秒で打ち切り</strong>、本文の3分の1ほどで止まりました。
-    <strong>3.8 は54〜56秒で最後まで読み切り</strong>ました（2回とも）。感情の台本でも、3.1 は1回、途中のセリフが抜けました。
+  <p>約300字の同じ台本を読ませると、<strong>旧世代の Gemini 3.1 は17秒前後で打ち切り</strong>、本文の3分の1ほどで止まりました。日を変えて測り直しても<strong>3回とも</strong>同じところで止まります。
+    <strong>3.8 は54〜56秒で最後まで読み切り</strong>ました（4回とも）。感情の台本でも、3.1 は4回中2回、セリフが抜けました。同じ旧世代でも 2.5 は最後まで読むので、止まるのは 3.1 だけです。
     Google が「長文が大きく改善した」と書いているとおりの結果です。</p>
   <p>人が聞き比べて順位を付ける Voice Arena の日本語ランキングでは、Gemini 3.8 Flash TTS が <strong>1位</strong>（2026年9月25日時点）。
     同じ声をクローンさせて比べる Artificial Analysis の板でも、日本語は <strong>2位</strong>（1位は廉価版の Flash-Lite）です。一方で英語のクローン比較では11位と中位でした。</p>
@@ -430,7 +430,7 @@ video{width:100%;border-radius:10px;border:1px solid var(--line,#e6dccf)}
     <li>読み間違いは<strong>カタカナ・ひらがなに書き換え</strong>て直す</li>
   </ul>
 
-  <footer>Routine Labo<br>料金・順位は 2026年9月25日時点、聞き比べの数字は 2026年9月27日に自作ダッシュボードで計測。音声はすべて AI で生成したものです。</footer>
+  <footer>Routine Labo<br>料金・順位は 2026年9月25日時点、聞き比べの数字は 2026年9月29日に自作ダッシュボードで計測。音声はすべて AI で生成したものです。</footer>
 
 </div>
 <script>
