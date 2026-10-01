@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-10-01 | [OpenAI DevDay 2026 まとめ ｜Routine Labo](https://senao-routine.github.io/yt-share/20261001OpenAIDevDay2026.html) | https://senao-routine.github.io/yt-share/20261001OpenAIDevDay2026.html |
 | 2026-10-01 | [ChatGPT Dotsの使い方 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261001ChatGPTDots.html) | https://senao-routine.github.io/yt-share/20261001ChatGPTDots.html |
 | 2026-10-01 | [Anijamの使い方 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261001Anijam.html) | https://senao-routine.github.io/yt-share/20261001Anijam.html |
 | 2026-09-30 | [ElevenLabs v4の使い方 ｜Routine Labo](https://senao-routine.github.io/yt-share/20260930ElevenLabsV4.html) | https://senao-routine.github.io/yt-share/20260930ElevenLabsV4.html |
