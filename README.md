@@ -9,6 +9,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 | 公開日 | タイトル | URL |
 |---|---|---|
 | 2026-10-01 | [ChatGPT Dotsの使い方 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261001ChatGPTDots.html) | https://senao-routine.github.io/yt-share/20261001ChatGPTDots.html |
+| 2026-10-01 | [Anijamの使い方 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261001Anijam.html) | https://senao-routine.github.io/yt-share/20261001Anijam.html |
 | 2026-09-30 | [ElevenLabs v4の使い方 ｜Routine Labo](https://senao-routine.github.io/yt-share/20260930ElevenLabsV4.html) | https://senao-routine.github.io/yt-share/20260930ElevenLabsV4.html |
 | 2026-09-29 | [Claude Sonnet 5.5 の effort はどこまで上げるか](https://senao-routine.github.io/yt-share/20260929ClaudeSonnet55.html) | https://senao-routine.github.io/yt-share/20260929ClaudeSonnet55.html |
 | 2026-09-26 | [Astra × Tripo ゲーム制作手順書](https://senao-routine.github.io/yt-share/20260926GPT6AstraGame.html) | https://senao-routine.github.io/yt-share/20260926GPT6AstraGame.html |
