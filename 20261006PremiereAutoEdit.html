@@ -94,8 +94,10 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);
 </ol>
 <p>本命は<strong>3と4の組み合わせ</strong>です。画面操作は最後の手段にします。</p>
 <div class="note">
-  <p><strong>Premiere 本体だけでもできること</strong>：テキストベース編集で文字起こしをして、言葉に詰まった無音や「あの」「えーと」のような言葉を見つけて、まとめて削除できます。キャプション（字幕）も作れます。一方で、<strong>言い直しの判断・つなぎ目の検査・自分のルールの持ち込み</strong>は、公式の機能紹介では確認できませんでした（2026年10月時点）。今回はそこを AI とプログラムで埋めます。</p>
-  <p style="margin:0;font-size:12.5px">出典：言葉に詰まった無音部分を簡単に削除しよう（2026-10-06 取得）<br><a href="https://www.adobe.com/jp/learn/premiere-pro/web/jp-1min-feature-transcribe">adobe.com</a>／Premiere Pro「あの」「えーと」を検出して一括削除する新機能（2026-10-06 取得）<br><a href="https://av.watch.impress.co.jp/docs/news/1530852.html">av.watch.impress.co.jp</a></p>
+  <p><strong>Premiere 本体だけでもできること</strong>：テキストベース編集で文字起こし（日本語対応）をして、間（無音）や「えーと」のようなつなぎ言葉を見つけて、まとめて削除できます。自動字幕も作れます。一方で、<strong>言い直しの判断・つなぎ目の検査・自分のルールの持ち込み</strong>は、公式資料に記載がありません（2026年10月時点）。今回はそこを AI とプログラムで埋めます。</p>
+  <p><strong>Adobe 側の AI</strong>：Premiere の中にも AI アシスタントが入り始めました（2026年6月から公開ベータ）。ただし今できるのは素材の整理・文字起こし・粗い組み立てまでで、英語向けに最適化されています。Adobe の ChatGPT 連携も、アップロードした動画のクイックカットやリサイズが中心で、開いている Premiere のプロジェクトを直接編集するとは書かれていません（現状は英語のみ）。</p>
+  <p style="font-size:12.5px">※ 2026年1月から製品の正式名は「Adobe Premiere」です。この資料では、検索で使われることの多い「Premiere Pro」の表記も使っています。</p>
+  <p style="margin:0;font-size:12.5px">出典：Overview of Text-Based editing（2026-10-06 取得）<br><a href="https://helpx.adobe.com/premiere/desktop/edit-projects/edit-video-using-text-based-editing/overview-of-text-based-editing.html">helpx.adobe.com</a>／Detect and delete pauses in transcripts（2026-10-06 取得）<br><a href="https://helpx.adobe.com/premiere/desktop/edit-projects/edit-video-using-text-based-editing/detect-and-delete-pauses-in-transcripts.html">helpx.adobe.com</a>／Premiere AI Assistant (beta) overview（2026-10-06 取得）<br><a href="https://helpx.adobe.com/premiere/desktop/premiere-ai-assistant/overview.html">helpx.adobe.com</a>／Adobe for ChatGPT overview（2026-10-06 取得）<br><a href="https://helpx.adobe.com/creative-cloud/apps/integration-with-other-apps/adobe-connectors/adobe-for-chatgpt.html">helpx.adobe.com</a>／What's new in Adobe Premiere on desktop（2026-10-06 取得）<br><a href="https://helpx.adobe.com/premiere/desktop/whats-new/whats-new.html">helpx.adobe.com</a></p>
 </div>
 
 <h2>実験①：一言で頼んでみる</h2>
@@ -172,7 +174,7 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);
 <h2>実験③：Premiere で開く</h2>
 <ol>
   <li>Premiere Pro で「ファイル → 読み込み」を選び、書き出された Premiere 用のファイル（<code>…_編集済み_Premiere用.xml</code>）を開きます。</li>
-  <li>できたシーケンスを開くと、カット済みのタイムラインになっています。元の動画を参照するので画質は落ちません。</li>
+  <li>できたシーケンスを開くと、カット済みのタイムラインになっています。元の動画を参照するので画質は落ちません。元の動画を別の場所へ動かしていると「メディアをリンク」の画面が出るので、動画のあるフォルダを指定します。</li>
   <li>テロップは字幕ファイル（<code>telop.srt</code>）を「読み込み」して、キャプションのトラックへ置きます。</li>
 </ol>
 <p>AI に開かせる場合は、次のように頼みます。</p>
