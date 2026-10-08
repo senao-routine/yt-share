@@ -11,7 +11,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 | 2026-10-08 | [Nano Banana 2.1の使い方【先生向け】 ― Pro・2との違いと、授業の図・掲示物・学級のキャラの作り方](https://senao-routine.github.io/yt-share/20261008NanoBanana21Edu.html) | https://senao-routine.github.io/yt-share/20261008NanoBanana21Edu.html |
 | 2026-10-07 | [Nano Banana 2.1を実測 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261007NanoBanana21.html) | https://senao-routine.github.io/yt-share/20261007NanoBanana21.html |
 | 2026-10-07 | [Gemini スキルの使い方【先生向け】 ― 学級通信・確認テスト・保護者向けお知らせを「/」1行で下書き](https://senao-routine.github.io/yt-share/20261007GeminiSkillsEdu.html) | https://senao-routine.github.io/yt-share/20261007GeminiSkillsEdu.html |
-| 2026-10-07 | [Gemini スキルの使い方 ― Gem 廃止で何が変わる？会議メモと客先メールを「/」1行で終わらせる](https://senao-routine.github.io/yt-share/20261007GeminiSkills.html) | https://senao-routine.github.io/yt-share/20261007GeminiSkills.html |
+| 2026-10-07 | [Gemini スキルの使い方 ― Gem 廃止で何が変わる？収録した動画のまとめと、声だけのスライド作りを「/」1行で](https://senao-routine.github.io/yt-share/20261007GeminiSkills.html) | https://senao-routine.github.io/yt-share/20261007GeminiSkills.html |
 | 2026-10-07 | [AZ8の使い方 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261007AZ8.html) | https://senao-routine.github.io/yt-share/20261007AZ8.html |
 | 2026-10-06 | [Premiere Pro 自動編集 ― AI エージェントに「動画編集して」は通らなかった。先に渡す3つのファイル](https://senao-routine.github.io/yt-share/20261006PremiereAutoEdit.html) | https://senao-routine.github.io/yt-share/20261006PremiereAutoEdit.html |
 | 2026-10-02 | [GPT-6.1 Sol を Opus 5.5 と同じ11課題で比べる — Routine Labo](https://senao-routine.github.io/yt-share/20261001GPT61Sol.html) | https://senao-routine.github.io/yt-share/20261001GPT61Sol.html |
