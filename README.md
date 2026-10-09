@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-10-09 | [Claude Haiku 5.5 の料金10分の1は本当か](https://senao-routine.github.io/yt-share/20261009ClaudeHaiku55.html) | https://senao-routine.github.io/yt-share/20261009ClaudeHaiku55.html |
 | 2026-10-08 | [Nano Banana 2.1の使い方【先生向け】 ― Pro・2との違いと、授業の図・掲示物・学級のキャラの作り方](https://senao-routine.github.io/yt-share/20261008NanoBanana21Edu.html) | https://senao-routine.github.io/yt-share/20261008NanoBanana21Edu.html |
 | 2026-10-07 | [Nano Banana 2.1を実測 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261007NanoBanana21.html) | https://senao-routine.github.io/yt-share/20261007NanoBanana21.html |
 | 2026-10-07 | [Gemini スキルの使い方【先生向け】 ― 学級通信・確認テスト・音声メモから授業スライドを「/」1行で](https://senao-routine.github.io/yt-share/20261007GeminiSkillsEdu.html) | https://senao-routine.github.io/yt-share/20261007GeminiSkillsEdu.html |
