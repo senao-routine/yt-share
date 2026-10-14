@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-10-14 | [Hi3D Agent の使い方 ― 話しかけるだけで「動く3Dキャラ」と「机の上のスマホスタンド」ができた](https://senao-routine.github.io/yt-share/20261014Hi3DAgent.html) | https://senao-routine.github.io/yt-share/20261014Hi3DAgent.html |
 | 2026-10-14 | [Gemini 4 Argon は Claude Opus 5.5 を超えたのか](https://senao-routine.github.io/yt-share/20261014Gemini4Argon.html) | https://senao-routine.github.io/yt-share/20261014Gemini4Argon.html |
 | 2026-10-13 | [Claude Code mods の作り方 ― 頼むだけで「自分専用の機能」が3つできた](https://senao-routine.github.io/yt-share/20261013ClaudeCodeMods.html) | https://senao-routine.github.io/yt-share/20261013ClaudeCodeMods.html |
 | 2026-10-09 | [Claude Haiku 5.5 の料金10分の1は本当か](https://senao-routine.github.io/yt-share/20261009ClaudeHaiku55.html) | https://senao-routine.github.io/yt-share/20261009ClaudeHaiku55.html |
