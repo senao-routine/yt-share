@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-10-18 | [DeepSeek V4.1 Flash 1017 の使い方｜前の版で動かなかった3Dゲームの答え合わせ](https://senao-routine.github.io/yt-share/20261018DeepSeekV41Flash.html) | https://senao-routine.github.io/yt-share/20261018DeepSeekV41Flash.html |
 | 2026-10-14 | [Hi3D Agent の使い方 ― 話しかけるだけで「動く3Dキャラ」と「机の上のスマホスタンド」ができた](https://senao-routine.github.io/yt-share/20261014Hi3DAgent.html) | https://senao-routine.github.io/yt-share/20261014Hi3DAgent.html |
 | 2026-10-14 | [Gemini 4 Argon は Claude Opus 5.5 を超えたのか](https://senao-routine.github.io/yt-share/20261014Gemini4Argon.html) | https://senao-routine.github.io/yt-share/20261014Gemini4Argon.html |
 | 2026-10-13 | [Claude Code mods の作り方 ― 頼むだけで「自分専用の機能」が3つできた](https://senao-routine.github.io/yt-share/20261013ClaudeCodeMods.html) | https://senao-routine.github.io/yt-share/20261013ClaudeCodeMods.html |
