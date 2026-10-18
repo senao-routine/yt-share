@@ -283,20 +283,16 @@ table.cmp th:first-child,table.cmp td:first-child{width:24%}
 （テストが通ったと表示されてから）ジャーヴィス、テストは通った？
 ジャーヴィス、終了して。</pre></div>
 
-<h3>API のお金がかからない声の無料版</h3>
-<p>今回の声モードは声の窓口に音声会話の API を使うので、少しだけ利用料がかかります。そこで、<strong>API のお金がかからない声の無料版（jarvis-lite）</strong>も作りました。聞き取り（whisper.cpp）も読み上げ（macOS の say）も Mac の中で動き、考えるのはいつもの Claude Code です。「ジャーヴィス、〜して」と話しかければ、同じように頼めます。司令席と一緒に読み込めば、同じ顔が反応します。</p>
+<h3>司令席と声のジャーヴィスは、メンバー限定のキットで</h3>
+<p>今回の司令席と声のジャーヴィスは、キットにまとめて、メンバーシップ（スタンダード AI プラン以上）の方に Discord で配ります。最初に設定の画面が開き、つなぐもの（Claude・Codex・Gemini）と声を選べます。<strong>Claude Code だけ契約している方でも使えます。</strong>Mac 用です。</p>
 <table class="cmp">
-  <tr><th></th><th>今回の声モード</th><th>声の無料版（jarvis-lite）</th></tr>
+  <tr><th></th><th>API の声</th><th>API を使わない声</th></tr>
   <tr><td>考えるもの</td><td>Claude Code</td><td>Claude Code</td></tr>
-  <tr><td>聞き取り</td><td>音声会話の API（GPT・Gemini）</td><td>whisper.cpp（Mac の中）</td></tr>
-  <tr><td>読み上げ</td><td>音声会話の API の声</td><td>macOS の say（機械っぽい声）</td></tr>
-  <tr><td>話し方</td><td>同時に話せる・途中で割り込める</td><td>交互に話す（話している間は聞かない＝割り込めない）</td></tr>
-  <tr><td>呼びかけ</td><td>要らない</td><td>「ジャーヴィス、〜」と呼んだ言葉を渡す（返事のあと8秒は呼びかけなしで続けられる）</td></tr>
-  <tr><td>司令席の吹き出し</td><td>字幕は出ない</td><td>返事が字幕で出る</td></tr>
+  <tr><td>聞き取り</td><td>音声会話の API（GPT・Gemini）</td><td>Whisper（Mac の中）</td></tr>
+  <tr><td>読み上げ</td><td>音声会話の API の声</td><td>Mac の読み上げ（機械っぽい声）</td></tr>
+  <tr><td>話し方</td><td>同時に話せる・途中で割り込める</td><td>交互に話す（話している間は聞かない）</td></tr>
   <tr><td>費用</td><td>音声の API の利用料</td><td>かからない（Claude のプランの範囲）</td></tr>
-  <tr><td>必要なもの</td><td>API キー</td><td>Mac・Homebrew・聞き取りのモデル（約570MB）</td></tr>
 </table>
-<p>声の無料版はネットの呼び出しを持ちません（<code>claude plugin validate</code> の calls: に <code>$.http</code>・<code>$.model</code> が出ない）。起動するのは python3・ffmpeg・whisper-cli・say・afplay です。声で頼んだ内容は、キーボードで打ったときと同じく、いつもの Claude Code のプロンプトとして送られます。</p>
 
 <h2>まとめ</h2>
 <ul>
