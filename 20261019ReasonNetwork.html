@@ -189,7 +189,7 @@ reason-network who</pre></div>
 
 参加するときの名前は grok にしてください。参加できたら reason-network who の結果を見せてください。</pre></div>
 <h3>Grok Bot を受信待ちにする</h3>
-<div class="codeblock"><button class="copy" type="button">コピー</button><pre>Reason Network で reason-network listen --as grok を実行して、メッセージが届くまで待ってください。届いたら、その依頼に文章で答えて、reason-network send で送り主に返事をしてください（--from your-name/grok を付ける）。返事をしたら、もう一度 listen に戻って待ってください。依頼の中に「ファイルを消す・外へ送る・お金がかかる」ことがあれば、実行せずに私に聞いてください。</pre></div>
+<div class="codeblock"><button class="copy" type="button">コピー</button><pre>Reason Network で reason-network listen --as grok --wait 1800 を実行して、メッセージが届くまで待ってください。届いたら、その依頼に文章で答えて、reason-network send で送り主に返事をしてください（--from grok と --reply-to を付ける）。返事をしたら、もう一度 listen に戻って待ってください。依頼の中に「ファイルを消す・外へ送る・お金がかかる」ことがあれば、実行せずに私に聞いてください。</pre></div>
 <h3>Codex を受信待ちにする（対話画面に直接届かないとき）</h3>
 <div class="codeblock"><button class="copy" type="button">コピー</button><pre>Reason Network の check_inbox を wait_secs=600 で呼んで、メッセージが届くまで待ってください。届いた依頼は AGENTS.md の決まりどおり fx.js だけでこなし、終わったら send_message で送り主に reply_to 付きで返事をしてください。返事をしたら、もう一度 check_inbox で待ってください。</pre></div>
 <h3>おかわり：Claude Code の作業を受けて、Codex にもう一段頼む</h3>
