@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-10-23 | [PHP脆弱性 先生がやること](https://senao-routine.github.io/yt-share/20261022SecurityUpdateEdu.html) | https://senao-routine.github.io/yt-share/20261022SecurityUpdateEdu.html |
 | 2026-10-22 | [PHP脆弱性 立場別にやること](https://senao-routine.github.io/yt-share/20261022SecurityUpdate.html) | https://senao-routine.github.io/yt-share/20261022SecurityUpdate.html |
 | 2026-10-22 | [AIセキュリティ点検プロンプト集](https://senao-routine.github.io/yt-share/20261022-ai-security-prompts.html) | https://senao-routine.github.io/yt-share/20261022-ai-security-prompts.html |
 | 2026-10-21 | [Muse Wonder は Claude Opus 5.5 を超えたのか](https://senao-routine.github.io/yt-share/20261019MuseWonder.html) | https://senao-routine.github.io/yt-share/20261019MuseWonder.html |
