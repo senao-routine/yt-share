@@ -42,7 +42,7 @@ footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);color:v
 </style></head>
 <body><div class="wrap">
 <header><div class="kicker">ROUTINE LABO ／ 2026年10月22日版</div><h1>AIにそのまま貼るセキュリティ点検プロンプト集</h1>
-<ul class="toc"><li><a href="#A1"><b>A1</b>自分の環境に合わせた「今週やること」を作る</a></li><li><a href="#A2"><b>A2</b>毎朝のセキュリティ係（Grok・ChatGPT の定期タスクに登録）</a></li><li><a href="#A3"><b>A3</b>学校や会社のサイトを管理している人へ、確認の連絡を書く</a></li><li><a href="#B1"><b>B1</b>パソコンの点検（Node.js・Chrome・OS・PHP）</a></li><li><a href="#B2"><b>B2</b>AI エージェント自身の安全設定の点検</a></li><li><a href="#C1"><b>C1</b>外からの点検（ログイン不要）</a></li><li><a href="#C2"><b>C2</b>中の点検（アプリケーションパスワードで読むだけ）</a></li><li><a href="#C3"><b>C3</b>痕跡のチェック（ログとファイル）</a></li><li><a href="#C4"><b>C4</b>毎日の自動点検にする（慣れてきたら）</a></li></ul></header>
+<ul class="toc"><li><a href="#A1"><b>A1</b>自分の環境に合わせた「今週やること」を作る</a></li><li><a href="#A2"><b>A2</b>毎朝のセキュリティ係（Grok・ChatGPT の定期タスクに登録）</a></li><li><a href="#A3"><b>A3</b>学校や会社のサイトを管理している人へ、確認の連絡を書く</a></li><li><a href="#A4"><b>A4</b>2段階認証を入れる場所を棚卸しする</a></li><li><a href="#B1"><b>B1</b>パソコンの点検（Node.js・Chrome・OS・PHP）</a></li><li><a href="#B2"><b>B2</b>AI エージェント自身の安全設定の点検</a></li><li><a href="#C1"><b>C1</b>外からの点検（ログイン不要）</a></li><li><a href="#C2"><b>C2</b>中の点検（アプリケーションパスワードで読むだけ）</a></li><li><a href="#C3"><b>C3</b>痕跡のチェック（ログとファイル）</a></li><li><a href="#C4"><b>C4</b>毎日の自動点検にする（慣れてきたら）</a></li></ul></header>
 <p>2026年10月20〜21日に、PHP・Node.js・Chrome の重大な更新が同時に出ました。PHP の穴は AI を使った研究で見つかり、Chrome と Node.js の修正にも AI を使った報告が並んでいます。AI の開発会社の OpenAI は「同じような発見はこれから急に増える」と書いています。</p>
 <p>僕はこの2日間、自分のブログ2サイトとパソコンを AI に点検させました。そのとき実際に投げた指示を、誰でも使える形に直したのがこのプロンプト集です。番号の参考値は 2026年10月22日時点のものです。使うときは、AI に公式ページで最新の番号を確かめさせてください。</p>
 <section id="s2"><h2>使う前の5つの約束</h2>
@@ -111,11 +111,30 @@ footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);color:v
 - JPCERT/CC の注意喚起（https://www.jpcert.or.jp/at/2026/at260033.html）を参考として1行添える
 - 件名も付ける</pre></div>
 </article>
+<article class="card" id="A4"><h3><span class="no">A4</span>2段階認証を入れる場所を棚卸しする</h3>
+<p>漏れたパスワードは、AI を使って自動で試されます。そこで効くのが2段階認証です。僕は自分の環境で、次の8か所に入れる計画を立てました。Google（パスキーも追加）、Apple、GitHub、レンタルサーバー（管理パネルと契約側の2か所）、Cloudflare、X、Discord、WordPress の管理画面です。順番は、ほかのアカウントの復旧にも使うもの（メール・Apple）と、コード・サイト・お金に触れるものから決めました。回復コードはパスワード管理アプリに保存しています。</p>
+<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p4">コピー</button></div><pre id="p4">あなたは私のアカウントの守りを見直す係です。私が使っているサービスのうち、どこに2段階認証（またはパスキー）を入れるべきかを、優先順に表にしてください。
+
+私が使っているサービス（ここを書き換えて使う）:
+- （例）Google、Apple、Microsoft、LINE、X、Instagram、Amazon、楽天、銀行・証券、レンタルサーバー（会社名: ）、WordPress の管理画面、GitHub、仕事や学校のアカウント
+
+守ること:
+- 私のパスワードや確認コードは聞かない・書かせない
+- 設定画面のたどり方は、各サービスの公式ヘルプで確かめてから書く。確かめられないときは「公式ヘルプで確認」と書く
+- リンクは出さない。公式サイトでのたどり方を書く（偽のログインページへの誘導を避けるため）
+- 仕事や学校のアカウントは、管理者の方針が優先されると添える
+
+出力:
+1. 表（サービス｜優先度: 高／中／低｜理由: 乗っ取られたら何が起きるか｜おすすめの方式: パスキー／認証アプリ／SMS｜設定画面のたどり方）
+   優先度の考え方: ほかのアカウントの復旧に使われるもの（メール・Apple・Google）＞ お金・サイト・コードに触れるもの ＞ それ以外
+2. 回復コード（バックアップコード）の保管のしかた
+3. 設定した後に確かめること（ログイン中の端末の一覧、連携しているアプリの見直し）</pre></div>
+</article>
 </section>
-<section id="s25"><h2>B. パソコンを操作する AI（Claude Code・Codex）</h2>
+<section id="s29"><h2>B. パソコンを操作する AI（Claude Code・Codex）</h2>
 <article class="card" id="B1"><h3><span class="no">B1</span>パソコンの点検（Node.js・Chrome・OS・PHP）</h3>
 <p>僕の Mac では、Node.js が古い版（24.2.0）のままでした。点検のあと 26.12.1 に上げています。</p>
-<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p4">コピー</button></div><pre id="p4">あなたは私のパソコンのセキュリティ点検係です。2026年10月20〜21日に出た更新（Node.js・Chrome・PHP）を受けて、このパソコンが最新になっているかを調べてください。
+<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p5">コピー</button></div><pre id="p5">あなたは私のパソコンのセキュリティ点検係です。2026年10月20〜21日に出た更新（Node.js・Chrome・PHP・証明書の件の pip と uv）を受けて、このパソコンが最新になっているかを調べてください。
 
 守ること:
 - 読むだけにする。インストール・更新・設定変更・削除はしない。必要なことは「提案」として書き、私の OK を待つ
@@ -132,8 +151,13 @@ footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);color:v
    参考: 156.0.8078.47 以上（https://chromereleases.googleblog.com/）
 4. PHP が入っていれば php -v
    参考: 8.2.35／8.3.36／8.4.27／8.5.12 以上。8.1 以下は修正が出ない（https://www.php.net/）
-5. Homebrew を使っていれば brew outdated のうち、セキュリティに関わるもの（node、openssl、curl、git など）
-6. npm で全体に入れたツール（npm ls -g --depth=0）と、AI のコマンドラインツール（Claude Code、Codex、Gemini CLI など）の版と、それぞれの更新のしかた
+5. Homebrew を使っていれば brew outdated のうち、セキュリティに関わるもの（node、openssl、curl、git、ca-certificates など）
+6. Python と uv を使っていれば、証明書の件（2026-10-20 公表の eMudhra の中間証明書の鍵の問題）への対応：
+   - 各 venv の pip の版（python -m pip --version）と certifi の版（参考: pip 26.2.2 以上・certifi 2026.10.18 以上。pip 26.2.2 は Python 3.10 以上が必要）
+   - uv の版（uv --version。参考: 0.13.5 以上）と、uv が管理する Python の版
+   - Docker を使っていれば、ベースイメージを最後に取り直した日
+   公式: https://pip.pypa.io/en/stable/news/ ・ https://github.com/astral-sh/uv/releases
+7. npm で全体に入れたツール（npm ls -g --depth=0）と、AI のコマンドラインツール（Claude Code、Codex、Gemini CLI など）の版と、それぞれの更新のしかた
 
 出力:
 - 表（項目｜今の版｜安全な版｜判定: OK／要更新／不明｜根拠の URL）
@@ -142,7 +166,7 @@ footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);color:v
 </article>
 <article class="card" id="B2"><h3><span class="no">B2</span>AI エージェント自身の安全設定の点検</h3>
 <p>AI にパソコンを操作させるなら、AI が秘密を読んだり、外へ送ったり、取り返しのつかない操作をしたりできない設定にしておきます。僕は Claude Code に「禁止（deny）」を35行入れました。そのうえで、確認を飛ばすモードで起動しても .env の読み取りや環境変数の表示が止まることを、実際に試して確かめています。</p>
-<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p5">コピー</button></div><pre id="p5">あなたは私の AI エージェント（Claude Code／Codex）の安全設定を点検する係です。AI が秘密を読んだり、外へ送ったり、取り返しのつかない操作をしたりしない設定になっているかを確かめてください。
+<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p6">コピー</button></div><pre id="p6">あなたは私の AI エージェント（Claude Code／Codex）の安全設定を点検する係です。AI が秘密を読んだり、外へ送ったり、取り返しのつかない操作をしたりしない設定になっているかを確かめてください。
 
 守ること:
 - 読むだけにする。設定ファイルは書き換えない。直す案は差分として見せ、私の OK を待つ
@@ -165,7 +189,7 @@ footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);color:v
 - deny に足すとよい行の案（JSON の断片）。書き換えは私が OK してから
 - 最後に3行でまとめる</pre></div>
 <p>僕が入れた deny の一部です（Claude Code の settings.json の permissions に入れます。自分の環境に合わせて調整してください）。</p>
-<div class="prompt json"><div class="bar"><span>設定の例（JSON）</span><button type="button" data-target="p6">コピー</button></div><pre id="p6">{
+<div class="prompt json"><div class="bar"><span>設定の例（JSON）</span><button type="button" data-target="p7">コピー</button></div><pre id="p7">{
   &quot;permissions&quot;: {
     &quot;deny&quot;: [
       &quot;Read(**/.env)&quot;,
@@ -200,10 +224,10 @@ footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);color:v
 }</pre></div>
 </article>
 </section>
-<section id="s37"><h2>C. サイトを運営している人（WordPress）</h2>
+<section id="s41"><h2>C. サイトを運営している人（WordPress）</h2>
 <article class="card" id="C1"><h3><span class="no">C1</span>外からの点検（ログイン不要）</h3>
 <p>僕のサイトでは、AIの教科書のほうで readme.html と xmlrpc.php が外から見えていました。セキュリティ用のヘッダも、2サイトとも入っていませんでした。どちらも点検のあとで塞いでいます。</p>
-<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p7">コピー</button></div><pre id="p7">あなたは私が管理している WordPress サイトの点検係です。ログインせずに、外から誰でも見える範囲だけを調べてください。対象は私のサイトだけです: https://example.com
+<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p8">コピー</button></div><pre id="p8">あなたは私が管理している WordPress サイトの点検係です。ログインせずに、外から誰でも見える範囲だけを調べてください。対象は私のサイトだけです: https://example.com
 
 守ること:
 - 対象は上の URL だけ。ほかのサイトには一切アクセスしない
@@ -232,10 +256,10 @@ footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);color:v
 <li>パスワードはチャットに貼らない。ターミナルで環境変数に入れてから AI を起動する</li>
 <li>点検が終わったら、そのアプリケーションパスワードを削除する</li>
 </ol>
-<div class="prompt bash"><div class="bar"><span>ターミナルで打つ</span><button type="button" data-target="p8">コピー</button></div><pre id="p8">export WP_URL=&quot;https://example.com&quot;
+<div class="prompt bash"><div class="bar"><span>ターミナルで打つ</span><button type="button" data-target="p9">コピー</button></div><pre id="p9">export WP_URL=&quot;https://example.com&quot;
 export WP_USER=&quot;ログイン名&quot;
 export WP_APP_PASSWORD=&quot;作ったアプリケーションパスワード&quot;</pre></div>
-<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p9">コピー</button></div><pre id="p9">あなたは私の WordPress サイトの点検係です。中に怪しいものが入り込んでいないかを、読むだけで調べてください。接続先とログイン情報は環境変数 WP_URL・WP_USER・WP_APP_PASSWORD に入っています。
+<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p10">コピー</button></div><pre id="p10">あなたは私の WordPress サイトの点検係です。中に怪しいものが入り込んでいないかを、読むだけで調べてください。接続先とログイン情報は環境変数 WP_URL・WP_USER・WP_APP_PASSWORD に入っています。
 
 守ること:
 - REST API の GET だけを使う。作成・更新・削除・設定変更・プラグインの有効化や停止はしない
@@ -259,7 +283,7 @@ export WP_APP_PASSWORD=&quot;作ったアプリケーションパスワード&qu
 </article>
 <article class="card" id="C3"><h3><span class="no">C3</span>痕跡のチェック（ログとファイル）</h3>
 <p>PHP の件は、修正版が出る4日前から攻撃の試みが観測されていました。修正を当てたあとでも、「その前に入られていないか」は別に確かめる必要があります。僕はファイルの検査（スキャナーと、WordPress 本体の原本との照合）をして、改ざんは0でした。</p>
-<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p10">コピー</button></div><pre id="p10">あなたは私のサイトに攻撃の痕跡が無いかを調べる点検係です。PHP の緊急の脆弱性（PHP2Shell、CVE-2026-109618／CVE-2026-109619）を受けて調べたいです。
+<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p11">コピー</button></div><pre id="p11">あなたは私のサイトに攻撃の痕跡が無いかを調べる点検係です。PHP の緊急の脆弱性（PHP2Shell、CVE-2026-109618／CVE-2026-109619）を受けて調べたいです。
 
 守ること:
 - 読むだけにする。ファイルの削除・書き換え・権限の変更はしない
@@ -287,7 +311,7 @@ export WP_APP_PASSWORD=&quot;作ったアプリケーションパスワード&qu
 </article>
 <article class="card" id="C4"><h3><span class="no">C4</span>毎日の自動点検にする（慣れてきたら）</h3>
 <p>僕は B1・B2・C1・C2 と、C3 のうちファイルの照合を、毎日夕方に自動で回しています。結果は4行にまとめて Discord に送らせ、前の日と変わったところを先頭に出しています。これは「設計を見せて」と頼むところから始めるのがおすすめです。</p>
-<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p11">コピー</button></div><pre id="p11">これまでの点検（パソコンの更新、AI の安全設定、WordPress の外と中、痕跡のチェック）を、毎日決まった時刻に自動で回す仕組みを作りたいです。まず設計を見せてください。私が OK してから作ってください。
+<div class="prompt text"><div class="bar"><span>プロンプト</span><button type="button" data-target="p12">コピー</button></div><pre id="p12">これまでの点検（パソコンの更新、AI の安全設定、WordPress の外と中、痕跡のチェック）を、毎日決まった時刻に自動で回す仕組みを作りたいです。まず設計を見せてください。私が OK してから作ってください。
 
 条件:
 - 点検は読むだけにする。自動で直す処理は入れない（直すかどうかは私が報告を見て決める）
@@ -299,7 +323,7 @@ export WP_APP_PASSWORD=&quot;作ったアプリケーションパスワード&qu
 設計で見せてほしいこと: 何を調べるか／いつ動くか／結果をどこに書くか／どうやって止めるか／壊れたときにどう気づくか</pre></div>
 </article>
 </section>
-<section id="s62"><h2>参考にした公式の情報（2026-10-22 時点）</h2>
+<section id="s66"><h2>参考にした公式の情報（2026-10-22 時点）</h2>
 <ul>
 <li>PHP の告知と修正版: <a href="https://www.php.net/archive/2026.php#2026-10-21-5" target="_blank" rel="noopener">https://www.php.net/archive/2026.php#2026-10-21-5</a></li>
 <li>JPCERT/CC の注意喚起: <a href="https://www.jpcert.or.jp/at/2026/at260033.html" target="_blank" rel="noopener">https://www.jpcert.or.jp/at/2026/at260033.html</a></li>
