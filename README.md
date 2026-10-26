@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-10-26 | [Fish Audio Drama 3の使い方 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261026FishAudioDrama3.html) | https://senao-routine.github.io/yt-share/20261026FishAudioDrama3.html |
 | 2026-10-24 | [iPhone Duo レビュー](https://senao-routine.github.io/yt-share/20261023iPhoneDuo.html) | https://senao-routine.github.io/yt-share/20261023iPhoneDuo.html |
 | 2026-10-24 | [iPhone Duo 早見表](https://senao-routine.github.io/yt-share/20261023-iphone-duo-kit.html) | https://senao-routine.github.io/yt-share/20261023-iphone-duo-kit.html |
 | 2026-10-23 | [PHP脆弱性 先生がやること](https://senao-routine.github.io/yt-share/20261022SecurityUpdateEdu.html) | https://senao-routine.github.io/yt-share/20261022SecurityUpdateEdu.html |
