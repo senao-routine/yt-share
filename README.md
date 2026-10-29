@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-10-29 | [Grok Botの使い方 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261029GrokVoice30.html) | https://senao-routine.github.io/yt-share/20261029GrokVoice30.html |
 | 2026-10-27 | [Kimi K3.1 Pro は Claude Opus 5.5 に並んだのか](https://senao-routine.github.io/yt-share/20261026KimiK31Pro.html) | https://senao-routine.github.io/yt-share/20261026KimiK31Pro.html |
 | 2026-10-26 | [Fish Audio Drama 3の使い方 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261026FishAudioDrama3.html) | https://senao-routine.github.io/yt-share/20261026FishAudioDrama3.html |
 | 2026-10-24 | [iPhone Duo レビュー](https://senao-routine.github.io/yt-share/20261023iPhoneDuo.html) | https://senao-routine.github.io/yt-share/20261023iPhoneDuo.html |
