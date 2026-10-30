@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-10-30 | [iPhone Duo 早見表](https://senao-routine.github.io/yt-share/20261023-iphone-duo-hayami.html) | https://senao-routine.github.io/yt-share/20261023-iphone-duo-hayami.html |
 | 2026-10-29 | [Grok Botの使い方 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261029GrokVoice30.html) | https://senao-routine.github.io/yt-share/20261029GrokVoice30.html |
 | 2026-10-29 | [GPT-6.1 Terra は Sol の半額で足りる？](https://senao-routine.github.io/yt-share/20261029GPT61Terra.html) | https://senao-routine.github.io/yt-share/20261029GPT61Terra.html |
 | 2026-10-27 | [Kimi K3.1 Pro は Claude Opus 5.5 に並んだのか](https://senao-routine.github.io/yt-share/20261026KimiK31Pro.html) | https://senao-routine.github.io/yt-share/20261026KimiK31Pro.html |
