@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-11-05 | [GPT Image 2.6 で GIF を作る方法](https://senao-routine.github.io/yt-share/20261105GPTImage26.html) | https://senao-routine.github.io/yt-share/20261105GPTImage26.html |
 | 2026-11-03 | [DomoAIのリップシンクで猫がしゃべる ｜Routine Labo](https://senao-routine.github.io/yt-share/20261029DomoAI%E5%A4%89%E8%BA%AB%E3%82%A2%E3%83%90%E3%82%BF%E3%83%BC.html) | https://senao-routine.github.io/yt-share/20261029DomoAI%E5%A4%89%E8%BA%AB%E3%82%A2%E3%83%90%E3%82%BF%E3%83%BC.html |
 | 2026-11-03 | [DomoAIの使い方 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261029DomoAI.html) | https://senao-routine.github.io/yt-share/20261029DomoAI.html |
 | 2026-10-30 | [iPhone Duo 早見表](https://senao-routine.github.io/yt-share/20261023-iphone-duo-hayami.html) | https://senao-routine.github.io/yt-share/20261023-iphone-duo-hayami.html |
