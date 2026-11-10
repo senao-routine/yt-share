@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-11-10 | [Fable 5.2 使い分けキット（Claude Code 用）](https://senao-routine.github.io/yt-share/20261110Fable52_gift.html) | https://senao-routine.github.io/yt-share/20261110Fable52_gift.html |
 | 2026-11-10 | [Claude Fable 5.2 は Opus 5.5 の2倍の価値があるか](https://senao-routine.github.io/yt-share/20261110Fable52.html) | https://senao-routine.github.io/yt-share/20261110Fable52.html |
 | 2026-11-05 | [Grok Botの活用 ｜Routine Labo](https://senao-routine.github.io/yt-share/20261105GrokBotRoutines.html) | https://senao-routine.github.io/yt-share/20261105GrokBotRoutines.html |
 | 2026-11-05 | [GPT Image 2.6 で GIF を作る方法](https://senao-routine.github.io/yt-share/20261105GPTImage26.html) | https://senao-routine.github.io/yt-share/20261105GPTImage26.html |
