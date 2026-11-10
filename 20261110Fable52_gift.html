@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Fable 5.2 使い分けキット（Claude Code 用）</title>
+<style>
+:root{--bg:#f6f2e9;--surface:#fffdf8;--surface-2:#f0ead9;--ink:#241f18;--ink-soft:#5c5346;--ink-faint:#8a7f6d;
+--line:#e2d9c6;--accent:#b9791a;--accent-ink:#8a5a10;--accent-bg:#f6e7cd;--code-bg:#26221b;--code-ink:#ece3d2;
+--font-jp:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+--font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-jp);line-height:1.8}
+.wrap{max-width:760px;margin:0 auto;padding:32px 16px 64px}
+.kicker{font-size:13px;color:var(--ink-faint);letter-spacing:.06em}
+h1{font-size:26px;line-height:1.4;margin:6px 0 12px}h2{font-size:20px;margin:36px 0 10px;padding-top:12px;border-top:1px solid var(--line)}
+h3{font-size:17px;margin:24px 0 8px}h4{font-size:15px;margin:18px 0 6px}
+.lead{color:var(--ink-soft)}.who{display:inline-block;background:var(--accent-bg);color:var(--accent-ink);border-radius:999px;
+padding:2px 12px;font-size:13px;margin:4px 0 16px}
+.dl{display:block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:18px;
+padding:16px;border-radius:14px;margin:20px 0 6px}.dl:hover{background:var(--accent-ink)}
+.dlnote{font-size:13px;color:var(--ink-faint);text-align:center;margin:0 0 8px}
+code{font-family:var(--font-mono);font-size:.92em;background:var(--surface-2);padding:1px 5px;border-radius:5px}
+.code{position:relative;margin:12px 0}.code pre{background:var(--code-bg);color:var(--code-ink);border-radius:12px;padding:16px;
+overflow-x:auto;font-family:var(--font-mono);font-size:13px;line-height:1.6;margin:0;white-space:pre-wrap;word-break:break-all}
+.copy{position:absolute;top:8px;right:8px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;
+font-size:12px;padding:4px 10px;cursor:pointer}.copy.done{background:var(--accent-bg)}
+.tbl{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--surface-2)}
+.file{margin:18px 0}.file h4{font-family:var(--font-mono);font-size:14px;margin:0 0 6px}
+footer{margin-top:48px;font-size:13px;color:var(--ink-faint);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="kicker">Routine Labo ／ LINE の贈り物</div>
+<h1>Fable 5.2 使い分けキット（Claude Code 用）</h1>
+<p class="lead">毎回 <code>/model</code> を切り替えて、気づくと Fable で全部回して週の枠が溶ける → <code>/fable-plan &lt;作りたいもの&gt;</code> の一言で、設計だけ Fable・作るのは Opus 5.5・探すのは Sonnet 5.5 に自動で分かれる（試験では Fable が書いた量が約5分の1・時間は半分以下・費用の目安は約3分の1）</p>
+<div class="who">非エンジニアの業務・開発者 向け</div>
+<a class="dl" download="Fable52使い分けキット.zip" href="data:application/zip;base64,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">Fable52使い分けキット.zip をダウンロード</a>
+<p class="dlnote">9 ファイル・7 KB。スマホで開いたときは、パソコンで開き直してからダウンロードしてください。</p>
+<p>Claude Fable 5.2 は賢いけれど、単価は Opus 5.5 の2倍で、アプリでは週の利用枠の半分までしか使えません。 このキットを入れると、<strong><code>/fable-plan &lt;作りたいもの&gt;</code> の一言で「設計だけ Fable 5.2・作るのは Opus 5.5・探すのは Sonnet 5.5」に自動で分かれます</strong>。 Fable の枠を、いちばん効く「設計」の分だけに使えます。</p>
+<h3>何が楽になるか</h3>
+<div class="tbl"><table><tr><th>使う前</th><th>使った後</th></tr><tr><th>大きな仕事のたびに <code>/model</code> を切り替える。気づくと Fable で全部回して、週の枠がすぐ減る</th><td><code>/fable-plan</code> と打つだけ。設計書は Fable、実装と確認は Opus が受け持つ</td></tr></table></div>
+<p>試した結果（2026-11-10・議事録3本から週報を作る自動化を、同じ頼み方で作らせた）は「測った結果」の節にあります。</p>
+<h3>中身</h3>
+<div class="code"><button class="copy" type="button">コピー</button><pre>Fable52使い分けキット/
+├── .claude/agents/fable-planner.md   設計の係（Fable 5.2・考える深さ high）。plan.md を120行以内で書くだけ・コードは書かない
+├── .claude/agents/sonnet-scout.md    調べ物の係（Sonnet 5.5）。読むだけ・書き換えない
+├── .claude/commands/fable-plan.md    /fable-plan の手順（Fable に設計 → 自分で実装 → 完成条件で確かめる）
+├── CLAUDE.md の追記.md               自分の CLAUDE.md に貼る2つの節（使い分けの表・Fable への3つの決まり）
+├── install.sh                        入れる道具（既にある同じ名前のファイルは上書きしない）
+└── サンプル/minutes/                 試し用の架空の議事録3本</pre></div>
+<h3>入れ方（3手）</h3>
+<ol><li>入れる: <code>bash install.sh ~/自分のフォルダ</code></li><li>「CLAUDE.md の追記.md」の中身を、そのフォルダの <code>CLAUDE.md</code> の末尾に貼る（無ければ新しく作る）</li><li>そのフォルダで <code>claude</code> を起動 → <code>/model opus</code> → <code>/fable-plan &lt;作りたいもの&gt;</code></li></ol>
+<p>必要なもの: Claude Code v2.1.321 以降（Fable 5.2 が使える版）と、Fable が使えるプラン（Max・Ultra・Team のプレミアム席、または usage credits）。</p>
+<h3>試し方（5分）</h3>
+<div class="code"><button class="copy" type="button">コピー</button><pre>cp -R サンプル/minutes ~/自分のフォルダ/
+cd ~/自分のフォルダ &amp;&amp; claude
+/model opus
+/fable-plan minutes フォルダにある議事録（.md）から、やること・担当・期限を全部抜き出して、担当ごとにまとめた週報 weekly.html を作る Python スクリプト make_weekly.py を作って。標準ライブラリだけで。期限が近い順に並べ、期限切れは赤で。担当や期限が無い物も落とさない。</pre></div>
+<h3>測った結果</h3>
+<p>2026-11-10 に、同じ頼み（議事録3本から週報を作る <code>make_weekly.py</code>）を Claude Code で2通りに作らせて測りました（Claude Code 2.1.321・1回ずつ）。</p>
+<div class="tbl"><table><tr><th></th><th>全部 Fable 5.2（xhigh）</th><th>キットあり（設計だけ Fable 5.2 を high で・実装は Opus 5.5）</th></tr><tr><th>かかった時間</th><td>14分40秒</td><td>6分57秒</td></tr><tr><th>Fable 5.2 が書いた量（出力トークン）</th><td>89,322</td><td>17,896（約5分の1）</td></tr><tr><th>費用の目安（API の単価に直した値）</th><td>$5.68</td><td>$1.90（約3分の1）</td></tr><tr><th>出来</th><td>9件とも正しい・期限切れ2件が赤</td><td>9件とも正しい・期限切れ2件が赤・試験13件が合格</td></tr></table></div>
+<ul><li>差には「仕事を分けたこと」と「設計係の考える深さを high にしたこと」の両方が効いています。</li><li>最初の版（設計係が xhigh・設計書の長さの上限なし）は、設計だけで13分・30KB を書き、Fable の量は17%しか減りませんでした。設計係を high にして設計書を120行以内にしたのが今の版です。</li><li>サブスクの枠の減り方は公開されていません。上の費用は「API で払ったらいくらか」の目安で、枠の減り方もおおむねこの比で変わると考えています（実測ではありません）。</li></ul>
+<h3>気をつけること</h3>
+<ul><li>Fable 5.2 は長い作業の途中で「続けますか」と止まることがあります。<code>CLAUDE.md の追記.md</code> の決まり（完成条件が通るまで続ける）で減らせます。</li><li>短い質問・文の手直しは Opus 5.5 か Sonnet 5.5 で十分です（Fable は考えすぎて遅く高くなります）。</li><li>サブエージェントの <code>model:</code> は Claude Code の版によって書き方が変わることがあります。動かないときは <code>claude update</code> してください。</li></ul>
+<h2>中のファイル</h2>
+<div class="file"><h4>.claude/agents/fable-planner.md</h4><div class="code"><button class="copy" type="button">コピー</button><pre>---
+name: fable-planner
+description: 設計だけを Claude Fable 5.2 に任せる係。新しい機能・大きな直し・自動化の仕組みを作る前に呼ぶ。コードは書かず、設計書 plan.md を1枚書いて返す。
+model: claude-fable-5-2
+effort: high
+tools: Read, Grep, Glob, Write
+---
+
+あなたは設計の担当です。実装は別の担当（メインのモデル）がします。あなたの仕事は、頼まれたことを実装できる設計書を1枚書くことだけです。
+
+## 書くもの
+
+作業フォルダの直下に `plan.md` を1つ書きます。**長さは 120 行以内**（実装する担当が5分で読める量）。中身は次の5つです。
+
+1. **ゴール**: 何ができたら終わりか（1〜2文）
+2. **完成条件**: 終わったことを確かめるコマンドや手順（実際に走らせて確かめられる形）
+3. **作る物の一覧**: ファイル名と役割
+4. **手順**: 1手順＝1ファイルくらいの大きさで、上から順に実装すれば終わる並び
+5. **気をつけること**: 失敗しやすい所・入力の例外・やらないこと
+
+## 進め方
+
+- このフォルダのコードと資料は依頼者の持ち物です。設計に必要なら、今の構造を直す前提で書いてかまいません。
+- 必要なファイルは自分で読んで確かめてから書きます。分からない値は「要確認」と書き、勝手に決めません。
+- 設計書は最後まで書き切ってから返します。途中で「続けますか」と聞いて止まりません。
+- コードは書きません（`plan.md` 以外のファイルを作らない）。
+- 返事は「plan.md を書いた」と、手順の数と一番の注意点を3行以内で。
+</pre></div></div>
+<div class="file"><h4>.claude/agents/sonnet-scout.md</h4><div class="code"><button class="copy" type="button">コピー</button><pre>---
+name: sonnet-scout
+description: ファイル探し・既存コードの読み取り・どこに何があるかの調べ物だけを Sonnet 5.5 で軽く済ませる係。書き換えはしない。
+model: sonnet
+tools: Read, Grep, Glob
+---
+
+あなたは調べ物の担当です。頼まれたことを、フォルダの中から探して答えます。
+
+- ファイルは読むだけで、書き換えません。
+- 答えは結論から。根拠のファイル名と行番号を添えます。
+- 見つからなかったら「見つからなかった」と書き、推測で埋めません。
+- 返事は10行以内。
+</pre></div></div>
+<div class="file"><h4>.claude/commands/fable-plan.md</h4><div class="code"><button class="copy" type="button">コピー</button><pre>---
+description: 設計は Fable 5.2、作るのは今のモデル（Opus 5.5 推奨）。Fable の枠を「設計の分」だけに抑えて大きな仕事を進める。
+argument-hint: &lt;作りたいもの・直したいこと&gt;
+---
+
+# /fable-plan — 設計は Fable 5.2、実装は今のモデル
+
+頼まれたこと: $ARGUMENTS
+
+次の順に進めてください。
+
+1. **設計を Fable に頼む**: `fable-planner` サブエージェントに、上の頼まれたことの設計を頼み、`plan.md` を書かせる。
+   既存のファイルを探す必要があれば、先に `sonnet-scout` サブエージェントで調べてから渡す。
+2. **自分で実装する**: `plan.md` を読み、手順の上から順に、あなた（メインのモデル）が実装する。
+   実装を Fable に頼まない（Fable の枠は設計の分だけにする）。
+3. **確かめる**: `plan.md` の「完成条件」を実際に走らせ、結果をそのまま報告する。通らなければ直してからもう一度。
+4. **報告**: できた物・確かめた結果・残った課題を5行以内で。途中で「続けますか」と聞いて止まらず、完成条件が通るまで進める。
+</pre></div></div>
+<div class="file"><h4>CLAUDE.md の追記.md</h4><div class="code"><button class="copy" type="button">コピー</button><pre># CLAUDE.md に足す 2 つの節（コピーして自分の CLAUDE.md の末尾に貼る）
+
+---
+
+## モデルの使い分け
+
+| 役割 | モデル | 呼び方 |
+|---|---|---|
+| ふだんの作業・実装 | Claude Opus 5.5 | 起動したら `/model opus` |
+| 設計（新しい機能・大きな直し・自動化の仕組み） | Claude Fable 5.2 | `/fable-plan &lt;作りたいもの&gt;`（設計だけ Fable が書く） |
+| 探す・読むだけ | Claude Sonnet 5.5 | `sonnet-scout` サブエージェント |
+
+- Fable 5.2 は週の利用枠のうち使える量に上限がある。実装まで Fable で回さず、設計だけに使う。
+
+## Fable 5.2 に頼むときの3つの決まり
+
+- このフォルダのコードと資料は私の持ち物。必要なら今の構造を直してよい。
+- 頼んだ作業は、完成条件が通るまで続ける。途中で「続けますか」と聞いて止まらない。
+- 長い作業の途中は、何をしているかを短く知らせる。
+</pre></div></div>
+<div class="file"><h4>README.md</h4><p class="lead">（ダウンロードの zip に入っています）</p></div>
+<div class="file"><h4>install.sh</h4><div class="code"><button class="copy" type="button">コピー</button><pre>#!/bin/bash
+# Fable 5.2 使い分けキット — 入れる先のフォルダへ .claude/agents と .claude/commands を写す。
+# 使い方: bash install.sh &lt;入れる先のフォルダ&gt;
+# 同じ名前のファイルが既にあるときは上書きせずに知らせる。
+set -eu
+here=&quot;$(cd &quot;$(dirname &quot;$0&quot;)&quot; &amp;&amp; pwd)&quot;
+dest=&quot;${1:-}&quot;
+if [ -z &quot;$dest&quot; ] || [ ! -d &quot;$dest&quot; ]; then
+  echo &quot;使い方: bash install.sh &lt;入れる先のフォルダ&gt;（フォルダが見つかりません: ${dest:-未指定}）&quot; &gt;&amp;2
+  exit 1
+fi
+mkdir -p &quot;$dest/.claude/agents&quot; &quot;$dest/.claude/commands&quot;
+for f in agents/fable-planner.md agents/sonnet-scout.md commands/fable-plan.md; do
+  if [ -e &quot;$dest/.claude/$f&quot; ]; then
+    echo &quot;そのまま: .claude/$f は既にあります（上書きしていません）&quot;
+  else
+    cp &quot;$here/.claude/$f&quot; &quot;$dest/.claude/$f&quot;
+    echo &quot;入れた:   .claude/$f&quot;
+  fi
+done
+echo
+echo &quot;あと1手: 「CLAUDE.md の追記.md」の中身を、$dest/CLAUDE.md の末尾に貼ってください。&quot;
+echo &quot;使い方: そのフォルダで claude を起動 → /model opus → /fable-plan &lt;作りたいもの&gt;&quot;
+</pre></div></div>
+<div class="file"><h4>サンプル/minutes/2026-11-04_定例.md</h4><div class="code"><button class="copy" type="button">コピー</button><pre># 週次定例 2026-11-04
+参加: 山田、中村、小林
+
+## 決まったこと
+- 新しい問い合わせフォームは来週公開する
+
+## やること
+- [ ] 問い合わせフォームの文言を直す（担当: 中村・期限: 11/7）
+- [ ] 公開前のテストを 3 端末でする（担当: 小林・期限: 11/10）
+- [ ] お客様向けのお知らせ文を書く（担当: 山田・期限: 11/12）
+</pre></div></div>
+<div class="file"><h4>サンプル/minutes/2026-11-06_営業.md</h4><div class="code"><button class="copy" type="button">コピー</button><pre># 営業ミーティング 2026-11-06
+参加: 山田、小林
+
+- A 社の見積もりは山田さんが 11/8 までに出す
+- B 社への提案資料のたたき台 → 小林、期限 11/14
+- 展示会の申し込み（担当 山田 / 〆切 11/20）
+</pre></div></div>
+<div class="file"><h4>サンプル/minutes/2026-11-08_振り返り.md</h4><div class="code"><button class="copy" type="button">コピー</button><pre># 月次振り返り 2026-11-08
+参加: 中村、小林、山田
+
+## 宿題
+1. 先月の問い合わせ件数を集計する … 中村（11/11 まで）
+2. 失注した 3 件の理由をまとめる … 小林（11/13 まで）
+3. 来月の目標を 1 枚にする … 担当未定（期限なし）
+</pre></div></div>
+<footer>Routine Labo</footer>
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+const t=b.parentElement.querySelector('pre').innerText;navigator.clipboard.writeText(t).then(()=>{
+b.textContent='コピーしました';b.classList.add('done');setTimeout(()=>{b.textContent='コピー';b.classList.remove('done')},1600)});}));
+</script>
+</body>
+</html>
