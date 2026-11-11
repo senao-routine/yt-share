@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-11-11 | [Gemini 4 Carbon を実機検証｜料金は Fable 5.2 の4分の1・Ultra なしで使う方法](https://senao-routine.github.io/yt-share/20261111Gemini4Carbon.html) | https://senao-routine.github.io/yt-share/20261111Gemini4Carbon.html |
 | 2026-11-10 | [領収書仕分けキット（GPT-6.1 Terra × Codex CLI）](https://senao-routine.github.io/yt-share/20261110GPT61Terra%E9%A0%98%E5%8F%8E%E6%9B%B8_gift.html) | https://senao-routine.github.io/yt-share/20261110GPT61Terra%E9%A0%98%E5%8F%8E%E6%9B%B8_gift.html |
 | 2026-11-10 | [領収書自動化の作り方｜写真を入れて1行で仕分け、GPT-6.1 Terraで経費一覧まで](https://senao-routine.github.io/yt-share/20261110GPT61Terra%E9%A0%98%E5%8F%8E%E6%9B%B8.html) | https://senao-routine.github.io/yt-share/20261110GPT61Terra%E9%A0%98%E5%8F%8E%E6%9B%B8.html |
 | 2026-11-10 | [毎朝レポートキット（Claude Code 用）](https://senao-routine.github.io/yt-share/20261110Fable52%E6%9C%9D%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88_gift.html) | https://senao-routine.github.io/yt-share/20261110Fable52%E6%9C%9D%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88_gift.html |
