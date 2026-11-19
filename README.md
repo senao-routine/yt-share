@@ -8,6 +8,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-11-20 | [ゲームの注文書キット](https://senao-routine.github.io/yt-share/20261118GPT62AstraSol_gift.html) | https://senao-routine.github.io/yt-share/20261118GPT62AstraSol_gift.html |
 | 2026-11-20 | [【13課題で検証】GPT-6.2 Astra は Claude Fable 5.2 を超えたのか｜Sol との違いと料金](https://senao-routine.github.io/yt-share/20261118GPT62AstraSol.html) | https://senao-routine.github.io/yt-share/20261118GPT62AstraSol.html |
 | 2026-11-17 | [AI検証ダッシュボード（同じお題を最大 4 つの AI に同時に出し、時間・トークン・費用を並べ、結果を自分の記録表にためていく道具）](https://senao-routine.github.io/yt-share/20261117Qwen4Max_gift.html) | https://senao-routine.github.io/yt-share/20261117Qwen4Max_gift.html |
 | 2026-11-17 | [【13課題で検証】Qwen4 Max は Claude Fable 5.2 に迫れるのか｜料金と使い方](https://senao-routine.github.io/yt-share/20261117Qwen4Max.html) | https://senao-routine.github.io/yt-share/20261117Qwen4Max.html |
