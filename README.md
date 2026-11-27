@@ -8,6 +8,8 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 
 | 公開日 | タイトル | URL |
 |---|---|---|
+| 2026-11-28 | [Claude Duet 使い方｜朝の仕事を1つ任せて、Grok Bot・Dotsと同じ指示で採点した](https://senao-routine.github.io/yt-share/20261128ClaudeDuet.html) | https://senao-routine.github.io/yt-share/20261128ClaudeDuet.html |
+| 2026-11-28 | [Claude アプリ 作り方｜配る前の許可 3 段](https://senao-routine.github.io/yt-share/20261128ClaudeApps.html) | https://senao-routine.github.io/yt-share/20261128ClaudeApps.html |
 | 2026-11-27 | [未入金の朝まとめキット](https://senao-routine.github.io/yt-share/20261127PayPal%E6%9C%AA%E5%85%A5%E9%87%91_gift.html) | https://senao-routine.github.io/yt-share/20261127PayPal%E6%9C%AA%E5%85%A5%E9%87%91_gift.html |
 | 2026-11-27 | [請求書の自動化｜PayPal の未入金を AI が毎朝まとめる](https://senao-routine.github.io/yt-share/20261127PayPal%E6%9C%AA%E5%85%A5%E9%87%91.html) | https://senao-routine.github.io/yt-share/20261127PayPal%E6%9C%AA%E5%85%A5%E9%87%91.html |
 | 2026-11-27 | [LINE 返信 AI｜下書きまで AI、送るのは自分](https://senao-routine.github.io/yt-share/20261127LINE%E8%BF%94%E4%BF%A1%E4%B8%8B%E6%9B%B8%E3%81%8D.html) | https://senao-routine.github.io/yt-share/20261127LINE%E8%BF%94%E4%BF%A1%E4%B8%8B%E6%9B%B8%E3%81%8D.html |
