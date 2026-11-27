@@ -9,6 +9,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 | 公開日 | タイトル | URL |
 |---|---|---|
 | 2026-11-27 | [請求書の自動化｜PayPal の未入金を AI が毎朝まとめる](https://senao-routine.github.io/yt-share/20261127PayPal%E6%9C%AA%E5%85%A5%E9%87%91.html) | https://senao-routine.github.io/yt-share/20261127PayPal%E6%9C%AA%E5%85%A5%E9%87%91.html |
+| 2026-11-27 | [LINE 返信 AI｜下書きまで AI、送るのは自分](https://senao-routine.github.io/yt-share/20261127LINE%E8%BF%94%E4%BF%A1%E4%B8%8B%E6%9B%B8%E3%81%8D.html) | https://senao-routine.github.io/yt-share/20261127LINE%E8%BF%94%E4%BF%A1%E4%B8%8B%E6%9B%B8%E3%81%8D.html |
 | 2026-11-20 | [係を足すキット（AI オフィス 3.0 用）](https://senao-routine.github.io/yt-share/20261120AI%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E4%BF%82_gift.html) | https://senao-routine.github.io/yt-share/20261120AI%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E4%BF%82_gift.html |
 | 2026-11-20 | [AIオフィスに新しい係を足す｜Grok Botと声の係をドット絵の机に座らせた](https://senao-routine.github.io/yt-share/20261120AI%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E4%BF%82.html) | https://senao-routine.github.io/yt-share/20261120AI%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E4%BF%82.html |
 | 2026-11-20 | [ゲームの注文書キット](https://senao-routine.github.io/yt-share/20261118GPT62AstraSol_gift.html) | https://senao-routine.github.io/yt-share/20261118GPT62AstraSol_gift.html |
