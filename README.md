@@ -10,6 +10,7 @@ YouTube視聴者向けの配布ページ置き場。URLは動画・概要欄・L
 |---|---|---|
 | 2026-11-27 | [請求書の自動化｜PayPal の未入金を AI が毎朝まとめる](https://senao-routine.github.io/yt-share/20261127PayPal%E6%9C%AA%E5%85%A5%E9%87%91.html) | https://senao-routine.github.io/yt-share/20261127PayPal%E6%9C%AA%E5%85%A5%E9%87%91.html |
 | 2026-11-27 | [LINE 返信 AI｜下書きまで AI、送るのは自分](https://senao-routine.github.io/yt-share/20261127LINE%E8%BF%94%E4%BF%A1%E4%B8%8B%E6%9B%B8%E3%81%8D.html) | https://senao-routine.github.io/yt-share/20261127LINE%E8%BF%94%E4%BF%A1%E4%B8%8B%E6%9B%B8%E3%81%8D.html |
+| 2026-11-27 | [Gemini タスク 学校アカウントで出ない時｜先生が今できる2つの道と国のルールをやさしく解説](https://senao-routine.github.io/yt-share/20261127GeminiTasks%E5%85%88%E7%94%9F.html) | https://senao-routine.github.io/yt-share/20261127GeminiTasks%E5%85%88%E7%94%9F.html |
 | 2026-11-27 | [Claude Code 使用量を毎朝 1 通で見張る](https://senao-routine.github.io/yt-share/20261127AI%E4%BD%BF%E7%94%A8%E9%87%8F.html) | https://senao-routine.github.io/yt-share/20261127AI%E4%BD%BF%E7%94%A8%E9%87%8F.html |
 | 2026-11-20 | [係を足すキット（AI オフィス 3.0 用）](https://senao-routine.github.io/yt-share/20261120AI%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E4%BF%82_gift.html) | https://senao-routine.github.io/yt-share/20261120AI%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E4%BF%82_gift.html |
 | 2026-11-20 | [AIオフィスに新しい係を足す｜Grok Botと声の係をドット絵の机に座らせた](https://senao-routine.github.io/yt-share/20261120AI%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E4%BF%82.html) | https://senao-routine.github.io/yt-share/20261120AI%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E4%BF%82.html |
